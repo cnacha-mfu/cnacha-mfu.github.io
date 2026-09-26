@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verification · MFU Curriculum Landscape</title>
+<meta name="description" content="Seven verification queues with bulk accept, progress, kept failures and next page.">
+<meta name="theme-color" content="#f4f5f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1311" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='13' fill='none' stroke='%23d6d9ce' stroke-width='3'/%3E%3Cpath d='M15 2a13 13 0 0 1 12.2 17.4' fill='none' stroke='%234a3db0' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%2315171a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-cockpit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></symbol><symbol id="i-verify" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.8 1 2.8-2.4 1.8-.9 2.9-3-.2L12 21l-2.4-1.8-3 .2-.9-2.9-2.4-1.8 1-2.8-1-2.8 2.4-1.8.9-2.9 3 .2z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></symbol><symbol id="i-review" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-council" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20.5h18M4.5 17.5h15M6 17.5v-7M10 17.5v-7M14 17.5v-7M18 17.5v-7M3.5 10.5L12 4l8.5 6.5z"/></symbol><symbol id="i-admin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol><symbol id="i-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></symbol><symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol><symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-trace" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v.01M11 11.5h1v4.5h1"/></symbol><symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5M4.5 15v3.5a2 2 0 002 2h11a2 2 0 002-2V15"/></symbol><symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M4.5 15v3.5a2 2 0 002 2h11a2 2 0 002-2V15"/></symbol><symbol id="i-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 101.7-5.1M3.5 4v3.5H7"/><path d="M12 7.5V12l3 2"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 01-14.3 4.9M4 12a8 8 0 0114.3-4.9M18.5 3v4.2h-4.2M5.5 21v-4.2h4.2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></symbol><symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 5.2a3.5 3.5 0 010 6.6M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></symbol><symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></symbol><symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8zM18.5 16l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8z"/><path d="M3.5 12.5l8.5 4.5 8.5-4.5M3.5 16.5l8.5 4.5 8.5-4.5"/></symbol><symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c1.5 1.4 3.4 2 5.5 2s4-.6 5.5-2V11M21.5 9v5"/></symbol><symbol id="i-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 3v5.2c0 4.2-2.9 7.6-7 8.8-4.1-1.2-7-4.6-7-8.8V6.5z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></symbol><symbol id="i-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="8" width="15" height="11" rx="3"/><path d="M12 8V4.5M9 13v1M15 13v1M2.5 12.5v3M21.5 12.5v3"/></symbol><symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4.2-1L19 8.2 15.8 5 5 15.8zM13.8 7l3.2 3.2"/></symbol><symbol id="i-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4.5 4.5v12.5H6z"/><path d="M14 3.5V8h4.5M9 13h6M9 16.5h4"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 3v5.2c0 4.2-2.9 7.6-7 8.8-4.1-1.2-7-4.6-7-8.8V6.5z"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.5v.01"/></symbol><symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 016 3.5h13.5v14H6a2 2 0 00-2 2zM4 19.5a2 2 0 002 2h13.5v-4"/></symbol><symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17l6-6 4 4 7-7.5M15 7.5h5.5V13"/></symbol><symbol id="i-sunset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17.5h16M7 17.5a5 5 0 0110 0M12 5v3M5.6 9.6l1.8 1.5M18.4 9.6l-1.8 1.5M12 20.5v-.01"/></symbol><symbol id="i-stable" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12h17"/><circle cx="12" cy="12" r="2.2"/></symbol><symbol id="i-rising" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19l6.5-6.5 3.5 3.5L20 10M14.5 10H20v5.5"/></symbol><symbol id="i-frontier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 4.5c4-2 6.5 2 11 0V12c-4.5 2-7-2-11 0"/></symbol><symbol id="i-withheld" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12h7"/></symbol>
+<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--track)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--line-strong)" stroke-width="1.6"/></pattern></defs></svg>
+<a class="sr" href="#main">Skip to content</a>
+<header class="top"><div class="top-in">
+  <a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="none" stroke="var(--track)" stroke-width="2.4"/><path d="M15 2a13 13 0 0 1 12.2 17.4" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/><circle cx="15" cy="15" r="8" fill="none" stroke="var(--track)" stroke-width="2.4"/><path d="M15 7a8 8 0 0 1 3.5 15.2" fill="none" stroke="var(--text)" stroke-width="2.4" stroke-linecap="round"/><circle cx="15" cy="15" r="2.4" fill="var(--text)"/></svg><span><b>Curriculum Landscape</b><span>Mae Fah Luang University</span></span></a>
+  <nav aria-label="Main"><ul class="tabs"><li><a href="cockpit.html"><span data-th="ภาพรวม">Cockpit</span><span class="th" data-th="Cockpit">ภาพรวม</span></a></li><li><a href="programmes.html"><span data-th="หลักสูตร">Programmes</span><span class="th" data-th="Programmes">หลักสูตร</span></a></li><li><a href="verify.html" aria-current="page"><span data-th="ตรวจยืนยัน">Verify</span><span class="th" data-th="Verify">ตรวจยืนยัน</span></a></li><li><a href="review.html"><span data-th="ทบทวนผล AI">Review</span><span class="th" data-th="Review">ทบทวนผล AI</span></a></li><li><a href="council.html"><span data-th="เอกสารสภา">Council pack</span><span class="th" data-th="Council pack">เอกสารสภา</span></a></li><li><a href="admin-programmes.html"><span data-th="ผู้ดูแลระบบ">Admin</span><span class="th" data-th="Admin">ผู้ดูแลระบบ</span></a></li></ul></nav>
+  <div class="top-tools">
+    <div class="lang" role="group" aria-label="Interface language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="th" aria-pressed="false" lang="th">ไทย</button></div>
+    <span class="who hint" tabindex="0" data-tip="Signed in · ANALYST (mock)" title="Signed in · ANALYST (mock)">AN</span>
+  </div>
+</div></header>
+<nav class="scope" aria-label="Scope"><a href="cockpit.html">MFU</a><span class="sep">/</span><span class="here">Verification</span><span class="faint">· ANALYST</span></nav>
+<main id="main">
+
+  <div class="page-head">
+    <div><h1><span data-th="ตรวจยืนยัน">Verification</span></h1><p>Everything the pipeline is waiting on a person for. A decision here is an API call, and the API records who made it.</p></div>
+    <p class="row"><span class="count-big num" data-pending-total>184</span><span class="sm muted">pending across<br>seven queues</span></p>
+  </div>
+  <div class="verify-grid">
+    <nav class="qindex" aria-label="Queues"><div role="tablist" aria-orientation="vertical" aria-label="Queues"><button role="tab" id="tab-program-map" aria-controls="p-program-map" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-badge"/></svg><span class="qi-name"><span data-th="จับคู่หลักสูตร TCAS">Programme map</span><small class="th" data-th="Programme map">จับคู่หลักสูตร TCAS</small></span><span class="qi-n num">6</span><span class="qi-bar" aria-hidden="true"><span style="width:8.333333333333332%"></span></span></button><button role="tab" id="tab-faculty" aria-controls="p-faculty" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-users"/></svg><span class="qi-name"><span data-th="จับคู่ผู้แต่ง OpenAlex">Faculty authors</span><small class="th" data-th="Faculty authors">จับคู่ผู้แต่ง OpenAlex</small></span><span class="qi-n num">14</span><span class="qi-bar" aria-hidden="true"><span style="width:19.444444444444446%"></span></span></button><button role="tab" id="tab-occupations" aria-controls="p-occupations" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-cap"/></svg><span class="qi-name"><span data-th="อาชีพของหลักสูตร">Programme occupations</span><small class="th" data-th="Programme occupations">อาชีพของหลักสูตร</small></span><span class="qi-n num">23</span><span class="qi-bar" aria-hidden="true"><span style="width:31.944444444444443%"></span></span></button><button role="tab" id="tab-crosswalk" aria-controls="p-crosswalk" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-link"/></svg><span class="qi-name"><span data-th="เทียบรหัสอาชีพ">Occupation crosswalk</span><small class="th" data-th="Occupation crosswalk">เทียบรหัสอาชีพ</small></span><span class="qi-n num">41</span><span class="qi-bar" aria-hidden="true"><span style="width:56.94444444444444%"></span></span></button><button role="tab" id="tab-skills" aria-controls="p-skills" aria-selected="true" ><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-spark"/></svg><span class="qi-name"><span data-th="ทักษะที่เสนอใหม่">Proposed skills</span><small class="th" data-th="Proposed skills">ทักษะที่เสนอใหม่</small></span><span class="qi-n num">72</span><span class="qi-bar" aria-hidden="true"><span style="width:100%"></span></span></button><button role="tab" id="tab-intl" aria-controls="p-intl" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-globe"/></svg><span class="qi-name"><span data-th="โปรไฟล์นานาชาติ">International profile</span><small class="th" data-th="International profile">โปรไฟล์นานาชาติ</small></span><span class="qi-n num">9</span><span class="qi-bar" aria-hidden="true"><span style="width:12.5%"></span></span></button><button role="tab" id="tab-families" aria-controls="p-families" aria-selected="false" tabindex="-1"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-layers"/></svg><span class="qi-name"><span data-th="กลุ่มทักษะ">Skill families</span><small class="th" data-th="Skill families">กลุ่มทักษะ</small></span><span class="qi-n num">19</span><span class="qi-bar" aria-hidden="true"><span style="width:26.38888888888889%"></span></span></button></div></nav>
+    <label class="field qselect"><span class="xs faint">Queue</span><select data-queue-select aria-label="Queue"><option value="program-map">Programme map · 6</option><option value="faculty">Faculty authors · 14</option><option value="occupations">Programme occupations · 23</option><option value="crosswalk">Occupation crosswalk · 41</option><option value="skills" selected>Proposed skills · 72</option><option value="intl">International profile · 9</option><option value="families">Skill families · 19</option></select></label>
+    <div class="qpanels"><section role="tabpanel" id="p-skills" aria-labelledby="tab-skills" class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-spark"/></svg><span data-th="ทักษะที่เสนอใหม่">Proposed skills</span></h2><p class="muted sm">Names the four-rung cascade could not place. Oldest first, because the nightly triage takes the newest.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-skills"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-skills" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>Names the four-rung cascade could not place. Oldest first, because the nightly triage takes the newest.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">72</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">43</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 8 shown of 72</span>
+  </div>
+  <div class="row" style="margin-bottom:var(--s3)"><label class="field"><span class="xs faint">Source</span><select aria-label="Source"><option>both</option><option>TQF2 · digest</option><option>TQF2 · skills extraction</option><option>Job advert</option></select></label>
+    <span class="counts"><span><b class="num">72</b> <span class="th " lang="th">รอตัดสิน</span> pending</span><span><b class="num">1,208</b> <span class="th " lang="th">ยอมรับแล้ว</span> accepted</span><span><b class="num">341</b> <span class="th " lang="th">ปฏิเสธแล้ว</span> rejected</span></span></div>
+  <div class="bulk" data-bulk data-selection data-pending="72">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>72</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul><button class="btn sm primary" type="button" data-next-page>Next page <svg class="" width="24" height="24" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Skill</th><th class="hide-sm">Source</th><th class="hide-sm">Nearest</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="Infrastructure as code">
+    <td class="cb"><input type="checkbox" aria-label="Select Infrastructure as code"></td>
+    <td><span class=""  style="font-weight:550">Infrastructure as code</span><small class="sub num">MFU-IT-0142</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Distinct, widely demanded DevOps skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · skills extraction</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Infrastructure as code"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Infrastructure as code"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การบริหารคลังสินค้าแบบลีน">
+    <td class="cb"><input type="checkbox" aria-label="Select การบริหารคลังสินค้าแบบลีน"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การบริหารคลังสินค้าแบบลีน</span><small class="sub num">MFU-MG-0114</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (90%) — Same concept as an existing skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · digest</span></td>
+    <td class="hide-sm num">Looks like Lean warehousing · 0.91</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: การบริหารคลังสินค้าแบบลีน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การบริหารคลังสินค้าแบบลีน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="ทักษะที่ 4" data-fail="Rejected by rule: placeholder names must be rejected, not accepted">
+    <td class="cb"><input type="checkbox" aria-label="Select ทักษะที่ 4"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ทักษะที่ 4</span><small class="sub num">MFU-LA-0101</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-crit th" lang="th">น่าจะผิด</b> (88%) — Placeholder name, not a skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · skills extraction</span></td>
+    <td class="hide-sm num">placeholder</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: ทักษะที่ 4"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject ทักษะที่ 4"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Prompt engineering">
+    <td class="cb"><input type="checkbox" aria-label="Select Prompt engineering"></td>
+    <td><span class=""  style="font-weight:550">Prompt engineering</span><small class="sub num">job advert</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (88%) — Appears in 38 northern postings.</span></span></td>
+    <td class="hide-sm"><span class="">Job advert</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Prompt engineering"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Prompt engineering"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การออกแบบประสบการณ์ผู้ใช้">
+    <td class="cb"><input type="checkbox" aria-label="Select การออกแบบประสบการณ์ผู้ใช้"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การออกแบบประสบการณ์ผู้ใช้</span><small class="sub num">MFU-IT-0163</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (87%) — Thai name of an existing skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · digest</span></td>
+    <td class="hide-sm num">Looks like UX design · 0.94</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: การออกแบบประสบการณ์ผู้ใช้"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การออกแบบประสบการณ์ผู้ใช้"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Halal cosmetic formulation">
+    <td class="cb"><input type="checkbox" aria-label="Select Halal cosmetic formulation"></td>
+    <td><span class=""  style="font-weight:550">Halal cosmetic formulation</span><small class="sub num">MFU-CO-0101</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Niche; check family.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · skills extraction</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Halal cosmetic formulation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Halal cosmetic formulation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Customer journey mapping">
+    <td class="cb"><input type="checkbox" aria-label="Select Customer journey mapping"></td>
+    <td><span class=""  style="font-weight:550">Customer journey mapping</span><small class="sub num">job advert</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (85%) — Frequent in tourism adverts.</span></span></td>
+    <td class="hide-sm"><span class="">Job advert</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Customer journey mapping"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Customer journey mapping"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การแปลเอกสารราชการ">
+    <td class="cb"><input type="checkbox" aria-label="Select การแปลเอกสารราชการ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การแปลเอกสารราชการ</span><small class="sub num">MFU-LA-0108</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (84%) — Close to an existing skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · digest</span></td>
+    <td class="hide-sm num">Looks like Legal translation · 0.87</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: การแปลเอกสารราชการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การแปลเอกสารราชการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    <template data-next><tr data-name="Cold-chain monitoring">
+    <td class="cb"><input type="checkbox" aria-label="Select Cold-chain monitoring"></td>
+    <td><span class=""  style="font-weight:550">Cold-chain monitoring</span><small class="sub num">MFU-MG-0114</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (81%) — Distinct logistics skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · digest</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Cold-chain monitoring"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Cold-chain monitoring"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การชงกาแฟพิเศษ">
+    <td class="cb"><input type="checkbox" aria-label="Select การชงกาแฟพิเศษ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การชงกาแฟพิเศษ</span><small class="sub num">MFU-AG-0112</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (80%) — Same skill.</span></span></td>
+    <td class="hide-sm"><span class="">TQF2 · skills extraction</span></td>
+    <td class="hide-sm num">Looks like Specialty coffee brewing · 0.96</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: การชงกาแฟพิเศษ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การชงกาแฟพิเศษ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Kubernetes">
+    <td class="cb"><input type="checkbox" aria-label="Select Kubernetes"></td>
+    <td><span class=""  style="font-weight:550">Kubernetes</span><small class="sub num">job advert</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (79%) — Frequent in IT adverts.</span></span></td>
+    <td class="hide-sm"><span class="">Job advert</span></td>
+    <td class="hide-sm num">new</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Accept skill: Kubernetes"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Kubernetes"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></template>
+  </div>
+  </section><section role="tabpanel" id="p-program-map" aria-labelledby="tab-program-map" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-badge"/></svg><span data-th="จับคู่หลักสูตร TCAS">Programme map</span></h2><p class="muted sm">Fuzzy matches between a register programme and its TCAS entry. Unsigned matches still score, flagged PROGRAM_MAP_UNVERIFIED.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-program-map"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-program-map" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>Fuzzy matches between a register programme and its TCAS entry. Unsigned matches still score, flagged PROGRAM_MAP_UNVERIFIED.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">6</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">4</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 6 shown of 6</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="6">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>6</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Programme</th><th class="hide-sm">TCAS</th><th class="hide-sm">Score</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="วิศวกรรมซอฟต์แวร์">
+    <td class="cb"><input type="checkbox" aria-label="Select วิศวกรรมซอฟต์แวร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิศวกรรมซอฟต์แวร์</span><small class="sub num">MFU-IT-0142</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Names and degree match exactly.</span></span></td>
+    <td class="hide-sm"><span class="th">วศ.บ. วิศวกรรมซอฟต์แวร์ · 10020112</span></td>
+    <td class="hide-sm num">0.97</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr><tr data-name="เทคโนโลยีชาและกาแฟ">
+    <td class="cb"><input type="checkbox" aria-label="Select เทคโนโลยีชาและกาแฟ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">เทคโนโลยีชาและกาแฟ</span><small class="sub num">MFU-AG-0112</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Programme renamed in 2566 BE; TCAS keeps the old name.</span></span></td>
+    <td class="hide-sm"><span class="th">วท.บ. เทคโนโลยีการผลิตชา · 10020471</span></td>
+    <td class="hide-sm num">0.71</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: เทคโนโลยีชาและกาแฟ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr><tr data-name="การจัดการธุรกิจการบิน">
+    <td class="cb"><input type="checkbox" aria-label="Select การจัดการธุรกิจการบิน"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การจัดการธุรกิจการบิน</span><small class="sub num">MFU-MG-0140</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Exact name; code prefix matches the school.</span></span></td>
+    <td class="hide-sm"><span class="th">บธ.บ. การจัดการธุรกิจการบิน · 10020388</span></td>
+    <td class="hide-sm num">0.93</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: การจัดการธุรกิจการบิน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr><tr data-name="ภาษาอังกฤษ" data-fail="TCAS code already claimed by another programme">
+    <td class="cb"><input type="checkbox" aria-label="Select ภาษาอังกฤษ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ภาษาอังกฤษ</span><small class="sub num">MFU-LA-0101</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (88%) — Exact match.</span></span></td>
+    <td class="hide-sm"><span class="th">ศศ.บ. ภาษาอังกฤษ · 10020205</span></td>
+    <td class="hide-sm num">0.95</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: ภาษาอังกฤษ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr><tr data-name="วิทยาศาสตร์เครื่องสำอาง">
+    <td class="cb"><input type="checkbox" aria-label="Select วิทยาศาสตร์เครื่องสำอาง"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิทยาศาสตร์เครื่องสำอาง</span><small class="sub num">MFU-CO-0101</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (87%) — Exact match.</span></span></td>
+    <td class="hide-sm"><span class="th">วท.บ. วิทยาศาสตร์เครื่องสำอาง · 10020301</span></td>
+    <td class="hide-sm num">0.96</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิทยาศาสตร์เครื่องสำอาง"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr><tr data-name="เศรษฐศาสตร์">
+    <td class="cb"><input type="checkbox" aria-label="Select เศรษฐศาสตร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">เศรษฐศาสตร์</span><small class="sub num">MFU-MG-0131</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (86%) — Exact name, degree abbreviation differs.</span></span></td>
+    <td class="hide-sm"><span class="th">ศ.บ. เศรษฐศาสตร์ · 10020360</span></td>
+    <td class="hide-sm num">0.89</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: เศรษฐศาสตร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm" type="button" aria-label="Correct the code" data-fake="Correct the code: TCAS code input + Save the correction (prototype)."><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-pencil"/></svg></button></td>
+  </tr></tbody></table></div>
+    
+  </div>
+  </section><section role="tabpanel" id="p-faculty" aria-labelledby="tab-faculty" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-users"/></svg><span data-th="จับคู่ผู้แต่ง OpenAlex">Faculty authors</span></h2><p class="muted sm">An unconfirmed OpenAlex match never counts towards Capability. A scraped roster is weaker than HR data and is flagged LOWER_THAN_HR either way.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-faculty"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-faculty" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>An unconfirmed OpenAlex match never counts towards Capability. A scraped roster is weaker than HR data and is flagged LOWER_THAN_HR either way.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">14</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">8</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 4 shown of 14</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="14">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>14</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Lecturer</th><th class="hide-sm">OpenAlex candidate</th><th class="hide-sm">Works</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="อาจารย์ L-07 (นามแฝง)">
+    <td class="cb"><input type="checkbox" aria-label="Select อาจารย์ L-07 (นามแฝง)"></td>
+    <td><span class="th" lang="th" style="font-weight:550">อาจารย์ L-07 (นามแฝง)</span><small class="sub num">วิศวกรรมซอฟต์แวร์</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Affiliation and topic agree.</span></span></td>
+    <td class="hide-sm"><span class="">A50231… · Chiang Rai, software testing</span></td>
+    <td class="hide-sm num">23</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: อาจารย์ L-07 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject อาจารย์ L-07 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="อาจารย์ L-11 (นามแฝง)">
+    <td class="cb"><input type="checkbox" aria-label="Select อาจารย์ L-11 (นามแฝง)"></td>
+    <td><span class="th" lang="th" style="font-weight:550">อาจารย์ L-11 (นามแฝง)</span><small class="sub num">วิศวกรรมซอฟต์แวร์</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-crit th" lang="th">น่าจะผิด</b> (88%) — Affiliation is another university since 2019.</span></span></td>
+    <td class="hide-sm"><span class="">A50877… · Bangkok, databases</span></td>
+    <td class="hide-sm num">41</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: อาจารย์ L-11 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject อาจารย์ L-11 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="อาจารย์ L-02 (นามแฝง)">
+    <td class="cb"><input type="checkbox" aria-label="Select อาจารย์ L-02 (นามแฝง)"></td>
+    <td><span class="th" lang="th" style="font-weight:550">อาจารย์ L-02 (นามแฝง)</span><small class="sub num">วิทยาการคอมพิวเตอร์</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Affiliation matches; Thai NLP topics.</span></span></td>
+    <td class="hide-sm"><span class="">A50112… · Chiang Rai, NLP</span></td>
+    <td class="hide-sm num">17</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: อาจารย์ L-02 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject อาจารย์ L-02 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="อาจารย์ L-19 (นามแฝง)" data-fail="OpenAlex timed out — try again">
+    <td class="cb"><input type="checkbox" aria-label="Select อาจารย์ L-19 (นามแฝง)"></td>
+    <td><span class="th" lang="th" style="font-weight:550">อาจารย์ L-19 (นามแฝง)</span><small class="sub num">วิศวกรรมคอมพิวเตอร์</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Name is common; affiliation ambiguous.</span></span></td>
+    <td class="hide-sm"><span class="">A50460… · Chiang Mai, IoT</span></td>
+    <td class="hide-sm num">9</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: อาจารย์ L-19 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject อาจารย์ L-19 (นามแฝง)"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    
+  </div>
+  </section><section role="tabpanel" id="p-occupations" aria-labelledby="tab-occupations" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-cap"/></svg><span data-th="อาชีพของหลักสูตร">Programme occupations</span></h2><p class="muted sm">Below the 0.85 gate a mapped occupation is stored and shown but builds no demanded set until an analyst clears it.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-occupations"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-occupations" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>Below the 0.85 gate a mapped occupation is stored and shown but builds no demanded set until an analyst clears it.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">23</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">14</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 8 shown of 23</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="23">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>23</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul><button class="btn sm primary" type="button" data-next-page>Next page <svg class="" width="24" height="24" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Programme</th><th class="hide-sm">Occupation (ISCO-08)</th><th class="hide-sm">Conf.</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="วิศวกรรมซอฟต์แวร์">
+    <td class="cb"><input type="checkbox" aria-label="Select วิศวกรรมซอฟต์แวร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิศวกรรมซอฟต์แวร์</span><small class="sub num">MFU-IT-0142</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Core outcome of the programme.</span></span></td>
+    <td class="hide-sm"><span class="">2512 Software developers</span></td>
+    <td class="hide-sm num">0.83</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="วิศวกรรมซอฟต์แวร์">
+    <td class="cb"><input type="checkbox" aria-label="Select วิศวกรรมซอฟต์แวร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิศวกรรมซอฟต์แวร์</span><small class="sub num">MFU-IT-0142</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (90%) — Testing is a compulsory course sequence.</span></span></td>
+    <td class="hide-sm"><span class="">2519 Software &amp; applications n.e.c. — testers</span></td>
+    <td class="hide-sm num">0.78</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การจัดการโลจิสติกส์และโซ่อุปทาน">
+    <td class="cb"><input type="checkbox" aria-label="Select การจัดการโลจิสติกส์และโซ่อุปทาน"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การจัดการโลจิสติกส์และโซ่อุปทาน</span><small class="sub num">MFU-MG-0114</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Named in programme outcomes.</span></span></td>
+    <td class="hide-sm"><span class="">1324 Supply, distribution managers</span></td>
+    <td class="hide-sm num">0.81</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: การจัดการโลจิสติกส์และโซ่อุปทาน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การจัดการโลจิสติกส์และโซ่อุปทาน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การจัดการโลจิสติกส์และโซ่อุปทาน">
+    <td class="cb"><input type="checkbox" aria-label="Select การจัดการโลจิสติกส์และโซ่อุปทาน"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การจัดการโลจิสติกส์และโซ่อุปทาน</span><small class="sub num">MFU-MG-0114</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-crit th" lang="th">น่าจะผิด</b> (88%) — Clerical level is below the degree outcome.</span></span></td>
+    <td class="hide-sm"><span class="">4321 Stock clerks</span></td>
+    <td class="hide-sm num">0.62</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: การจัดการโลจิสติกส์และโซ่อุปทาน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การจัดการโลจิสติกส์และโซ่อุปทาน"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ">
+    <td class="cb"><input type="checkbox" aria-label="Select ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ</span><small class="sub num">MFU-LA-0108</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (87%) — Translation courses are compulsory.</span></span></td>
+    <td class="hide-sm"><span class="">2643 Translators, interpreters</span></td>
+    <td class="hide-sm num">0.79</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ" data-fail="Occupation code retired in crosswalk v3">
+    <td class="cb"><input type="checkbox" aria-label="Select ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ</span><small class="sub num">MFU-LA-0108</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Plausible, but only one elective supports it.</span></span></td>
+    <td class="hide-sm"><span class="">5113 Travel guides</span></td>
+    <td class="hide-sm num">0.66</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="วิทยาศาสตร์เครื่องสำอาง">
+    <td class="cb"><input type="checkbox" aria-label="Select วิทยาศาสตร์เครื่องสำอาง"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิทยาศาสตร์เครื่องสำอาง</span><small class="sub num">MFU-CO-0101</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (85%) — Formulation chemistry is central.</span></span></td>
+    <td class="hide-sm"><span class="">2113 Chemists</span></td>
+    <td class="hide-sm num">0.80</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิทยาศาสตร์เครื่องสำอาง"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject วิทยาศาสตร์เครื่องสำอาง"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การจัดการการท่องเที่ยวและการบริการ">
+    <td class="cb"><input type="checkbox" aria-label="Select การจัดการการท่องเที่ยวและการบริการ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การจัดการการท่องเที่ยวและการบริการ</span><small class="sub num">MFU-MG-0120</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (84%) — Named outcome.</span></span></td>
+    <td class="hide-sm"><span class="">1411 Hotel managers</span></td>
+    <td class="hide-sm num">0.84</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: การจัดการการท่องเที่ยวและการบริการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การจัดการการท่องเที่ยวและการบริการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    <template data-next><tr data-name="เศรษฐศาสตร์">
+    <td class="cb"><input type="checkbox" aria-label="Select เศรษฐศาสตร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">เศรษฐศาสตร์</span><small class="sub num">MFU-MG-0131</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (81%) — Named outcome.</span></span></td>
+    <td class="hide-sm"><span class="">2631 Economists</span></td>
+    <td class="hide-sm num">0.82</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: เศรษฐศาสตร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject เศรษฐศาสตร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="บัญชีบัณฑิต">
+    <td class="cb"><input type="checkbox" aria-label="Select บัญชีบัณฑิต"></td>
+    <td><span class="th" lang="th" style="font-weight:550">บัญชีบัณฑิต</span><small class="sub num">MFU-MG-0102</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (80%) — Licensure track.</span></span></td>
+    <td class="hide-sm"><span class="">2411 Accountants</span></td>
+    <td class="hide-sm num">0.84</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: บัญชีบัณฑิต"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject บัญชีบัณฑิต"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="วิทยาการคอมพิวเตอร์">
+    <td class="cb"><input type="checkbox" aria-label="Select วิทยาการคอมพิวเตอร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิทยาการคอมพิวเตอร์</span><small class="sub num">MFU-IT-0138</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Elective-heavy support.</span></span></td>
+    <td class="hide-sm"><span class="">2521 Database designers</span></td>
+    <td class="hide-sm num">0.74</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิทยาการคอมพิวเตอร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject วิทยาการคอมพิวเตอร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></template>
+  </div>
+  </section><section role="tabpanel" id="p-crosswalk" aria-labelledby="tab-crosswalk" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-link"/></svg><span data-th="เทียบรหัสอาชีพ">Occupation crosswalk</span></h2><p class="muted sm">DOE job titles mapped to ISCO-08 by model votes. Rows touching an MFU programme show first; the rest sit behind the toggle.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-crosswalk"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-crosswalk" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>DOE job titles mapped to ISCO-08 by model votes. Rows touching an MFU programme show first; the rest sit behind the toggle.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">41</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">25</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 4 shown of 41</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="41">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>41</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>DOE position</th><th class="hide-sm">ISCO-08 · votes</th><th class="hide-sm">Relevant</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="นักพัฒนาโปรแกรม">
+    <td class="cb"><input type="checkbox" aria-label="Select นักพัฒนาโปรแกรม"></td>
+    <td><span class="th" lang="th" style="font-weight:550">นักพัฒนาโปรแกรม</span><small class="sub num">DOE-44120</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Unanimous.</span></span></td>
+    <td class="hide-sm"><span class="">2512 · 3 of 3 votes</span></td>
+    <td class="hide-sm num">yes</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: นักพัฒนาโปรแกรม"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject นักพัฒนาโปรแกรม"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="เจ้าหน้าที่คลังสินค้า">
+    <td class="cb"><input type="checkbox" aria-label="Select เจ้าหน้าที่คลังสินค้า"></td>
+    <td><span class="th" lang="th" style="font-weight:550">เจ้าหน้าที่คลังสินค้า</span><small class="sub num">DOE-51877</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — One vote for 9333.</span></span></td>
+    <td class="hide-sm"><span class="">4321 · 2 of 3 votes</span></td>
+    <td class="hide-sm num">yes</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: เจ้าหน้าที่คลังสินค้า"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject เจ้าหน้าที่คลังสินค้า"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="พนักงานต้อนรับโรงแรม">
+    <td class="cb"><input type="checkbox" aria-label="Select พนักงานต้อนรับโรงแรม"></td>
+    <td><span class="th" lang="th" style="font-weight:550">พนักงานต้อนรับโรงแรม</span><small class="sub num">DOE-60213</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Unanimous.</span></span></td>
+    <td class="hide-sm"><span class="">4224 · 3 of 3 votes</span></td>
+    <td class="hide-sm num">yes</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: พนักงานต้อนรับโรงแรม"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject พนักงานต้อนรับโรงแรม"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="ผู้ช่วยนักเคมี">
+    <td class="cb"><input type="checkbox" aria-label="Select ผู้ช่วยนักเคมี"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ผู้ช่วยนักเคมี</span><small class="sub num">DOE-30911</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (88%) — Technician level agrees.</span></span></td>
+    <td class="hide-sm"><span class="">3111 · 2 of 3 votes</span></td>
+    <td class="hide-sm num">yes</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: ผู้ช่วยนักเคมี"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject ผู้ช่วยนักเคมี"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    
+  </div>
+  </section><section role="tabpanel" id="p-intl" aria-labelledby="tab-intl" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-globe"/></svg><span data-th="โปรไฟล์นานาชาติ">International profile</span></h2><p class="muted sm">Medium of instruction and partnerships extracted from the มคอ.2. Confirmed values feed Internationalisation.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-intl"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-intl" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>Medium of instruction and partnerships extracted from the มคอ.2. Confirmed values feed Internationalisation.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">9</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">5</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 3 shown of 9</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="9">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>9</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Programme</th><th class="hide-sm">Extracted</th><th class="hide-sm">Conf.</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ">
+    <td class="cb"><input type="checkbox" aria-label="Select ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ</span><small class="sub num">MFU-LA-0108</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Stated in หมวด 1.</span></span></td>
+    <td class="hide-sm"><span class="">Medium: Thai + English · 3 partner universities</span></td>
+    <td class="hide-sm num">0.82</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject ภาษาและวัฒนธรรมไทยสำหรับชาวต่างประเทศ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="การจัดการการท่องเที่ยวและการบริการ">
+    <td class="cb"><input type="checkbox" aria-label="Select การจัดการการท่องเที่ยวและการบริการ"></td>
+    <td><span class="th" lang="th" style="font-weight:550">การจัดการการท่องเที่ยวและการบริการ</span><small class="sub num">MFU-MG-0120</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Partnerships listed without dates.</span></span></td>
+    <td class="hide-sm"><span class="">Medium: English · 2 partnerships</span></td>
+    <td class="hide-sm num">0.77</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: การจัดการการท่องเที่ยวและการบริการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject การจัดการการท่องเที่ยวและการบริการ"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="วิศวกรรมซอฟต์แวร์">
+    <td class="cb"><input type="checkbox" aria-label="Select วิศวกรรมซอฟต์แวร์"></td>
+    <td><span class="th" lang="th" style="font-weight:550">วิศวกรรมซอฟต์แวร์</span><small class="sub num">MFU-IT-0142</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Document does not state it.</span></span></td>
+    <td class="hide-sm"><span class="">Medium: not stated</span></td>
+    <td class="hide-sm num">0.88</td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Verify match: วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Accept</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject วิศวกรรมซอฟต์แวร์"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    
+  </div>
+  </section><section role="tabpanel" id="p-families" aria-labelledby="tab-families" hidden class="qpanel">
+  <header class="qhead">
+    <div><h2><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-layers"/></svg><span data-th="กลุ่มทักษะ">Skill families</span></h2><p class="muted sm">Every accepted skill joins one family so demand can roll up when a skill is too thin to score alone.</p></div>
+    <button class="btn quiet sm" type="button" data-reveal aria-expanded="false" aria-controls="how-families"><span data-open-label="Hide how this queue works">How this queue works</span></button>
+  </header>
+  <dl class="how" id="how-families" hidden>
+    <div><dt><span class="th " lang="th">อะไรอยู่ในคิวนี้</span> · What is in this queue</dt><dd>Every accepted skill joins one family so demand can roll up when a skill is too thin to score alone.</dd></div>
+    <div><dt><span class="th " lang="th">กดยอมรับแล้วเกิดอะไร</span> · What Accept does</dt><dd>Writes the decision through the API under your name; the next nightly scoring pass reads it.</dd></div>
+    <div><dt><span class="th " lang="th">ถ้าไม่ทำอะไร</span> · What happens if you do nothing</dt><dd>The item stays shown but unsigned; it never silently becomes a score input.</dd></div>
+  </dl>
+  <div class="row between qmeta">
+    <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Needs a human <span class="num">19</span></button><button type="button" aria-pressed="false" data-fake="Decided by AI: each row shows the AI's reason and an Undo (prototype).">Decided by AI <span class="num">11</span></button></div>
+    <span class="xs faint">auto-verify v2 · gate 0.90 · <span data-page-note>Page 1 · oldest first</span> · 4 shown of 19</span>
+  </div>
+  
+  <div class="bulk" data-bulk data-selection data-pending="19">
+    <div class="bulk-actions row">
+      <label class="row sm" style="gap:8px;min-height:42px"><input type="checkbox" data-select-all aria-label="Select all shown"> <span data-selected-label>None selected</span></label>
+      <span class="grow"></span>
+      <button class="btn primary sm" type="button" data-accept-selected data-needs-selection disabled><span><span class="th" lang="th">ยอมรับที่เลือก</span> · Accept selected (<span data-selected-count>0</span>)</span></button>
+      <button class="btn sm" type="button" data-accept-all><span>Accept all pending (<span data-pending-count>19</span>)</span></button>
+    </div>
+    <div class="confirm" data-confirm hidden role="alertdialog" aria-label="Confirm bulk accept"><p data-confirm-text></p><div class="row"><button class="btn primary sm" type="button" data-confirm-go>Confirm</button><button class="btn sm" type="button" data-confirm-cancel>Cancel</button></div></div>
+    <div class="running" data-running hidden><div class="row between"><span class="sm" data-bulk-status aria-live="polite">Starting…</span><button class="btn sm" type="button" data-stop>Stop</button></div><div class="progress" data-progress><span></span></div></div>
+    <div class="done" data-done hidden><p class="sm" data-done-text></p><ul class="fails" data-bulk-fails></ul></div>
+    <div class="tbl-wrap"><table class="tbl qtbl"><thead><tr><th class="cb"><span class="sr">Select</span></th><th>Skill</th><th class="hide-sm">Source</th><th class="hide-sm">Family</th><th class="dec">Decision</th></tr></thead>
+    <tbody><tr data-name="Infrastructure as code">
+    <td class="cb"><input type="checkbox" aria-label="Select Infrastructure as code"></td>
+    <td><span class=""  style="font-weight:550">Infrastructure as code</span><small class="sub num">skills.v4</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (91%) — Clear fit.</span></span></td>
+    <td class="hide-sm"><span class="">DevOps &amp; cloud</span></td>
+    <td class="hide-sm num"><select class="field sm-select" aria-label="Family for Infrastructure as code"><option>DevOps &amp; cloud</option><option>Other…</option></select></td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Set family: Infrastructure as code"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Set</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Infrastructure as code"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Lean warehousing">
+    <td class="cb"><input type="checkbox" aria-label="Select Lean warehousing"></td>
+    <td><span class=""  style="font-weight:550">Lean warehousing</span><small class="sub num">skills.v4</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (90%) — Clear fit.</span></span></td>
+    <td class="hide-sm"><span class="">Operations</span></td>
+    <td class="hide-sm num"><select class="field sm-select" aria-label="Family for Lean warehousing"><option>Operations</option><option>Other…</option></select></td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Set family: Lean warehousing"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Set</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Lean warehousing"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Legal translation">
+    <td class="cb"><input type="checkbox" aria-label="Select Legal translation"></td>
+    <td><span class=""  style="font-weight:550">Legal translation</span><small class="sub num">skills.v4</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-good th" lang="th">น่าจะถูก</b> (89%) — Clear fit.</span></span></td>
+    <td class="hide-sm"><span class="">Language services</span></td>
+    <td class="hide-sm num"><select class="field sm-select" aria-label="Family for Legal translation"><option>Language services</option><option>Other…</option></select></td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Set family: Legal translation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Set</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Legal translation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr><tr data-name="Halal cosmetic formulation">
+    <td class="cb"><input type="checkbox" aria-label="Select Halal cosmetic formulation"></td>
+    <td><span class=""  style="font-weight:550">Halal cosmetic formulation</span><small class="sub num">skills.v4</small>
+      <span class="ainote"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-bot"/></svg><span>AI: <b class="band-warn th" lang="th">ไม่แน่ใจ</b> (64%) — Could also sit in Regulatory.</span></span></td>
+    <td class="hide-sm"><span class="">Formulation science</span></td>
+    <td class="hide-sm num"><select class="field sm-select" aria-label="Family for Halal cosmetic formulation"><option>Formulation science</option><option>Other…</option></select></td>
+    <td data-decision class="dec"><button class="btn sm" type="button" data-one="accept" aria-label="Set family: Halal cosmetic formulation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg><span class="hide-sm">Set</span></button><button class="btn sm danger" type="button" data-one="reject" aria-label="Reject Halal cosmetic formulation"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-x"/></svg></button></td>
+  </tr></tbody></table></div>
+    
+  </div>
+  </section></div>
+  </div>
+</main>
+<nav class="dock" aria-label="Main"><a href="cockpit.html"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-cockpit"/></svg><span data-th="ภาพรวม">Cockpit</span></a><a href="programmes.html"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-list"/></svg><span data-th="หลักสูตร">Programmes</span></a><a href="verify.html" aria-current="page"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-verify"/></svg><span data-th="ตรวจยืนยัน">Verify</span><span class="badge num" data-pending-count>184</span></a><a href="review.html"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-review"/></svg><span data-th="ทบทวนผล AI">Review</span><span class="badge num" data-review-left>12</span></a><button type="button" data-more><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-more"/></svg><span data-th="เพิ่มเติม">More</span></button></nav>
+<div class="more-sheet" id="more-sheet" role="dialog" aria-label="More" hidden>
+  <a href="council.html"><span data-th="เอกสารสภา">Council pack</span><span class="th">เอกสารสภามหาวิทยาลัย</span></a>
+  <a href="admin-programmes.html"><span data-th="ทะเบียนหลักสูตร">Programme register</span><span class="th">ทะเบียนหลักสูตร</span></a>
+  <a href="admin-users.html"><span data-th="ผู้ใช้และบทบาท">Users &amp; roles</span><span class="th">ผู้ใช้และบทบาท</span></a>
+  <a href="admin-ai.html"><span data-th="ผู้ให้บริการ AI">AI providers</span><span class="th">ผู้ให้บริการ AI</span></a>
+  <a href="index.html"><span data-th="สารบัญต้นแบบ">Prototype index</span><span class="th">สารบัญต้นแบบ</span></a>
+</div>
+<aside class="prov" id="prov" role="dialog" aria-modal="true" aria-labelledby="prov-title" hidden>
+  <div class="prov-head"><h2 id="prov-title">Provenance</h2><div class="sub" id="prov-sub"></div><button class="prov-close" type="button" aria-label="Close provenance"><svg class="" width="24" height="24" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="prov-body" id="prov-body"></div>
+</aside>
+<script type="application/json" id="prov-data">{}</script>
+<script src="app.js" defer></script>
+</body>
+</html>
