@@ -49,6 +49,52 @@ a developer runs it by hand, and it takes about a minute per page. Running it on
 | CURA AI | Ollama; bge-m3 retrieval runs on the services server CPU | Works as-is |
 | Mali | Ollama, faster-whisper, Thai TTS | **Needs a custom speech-recogniser build** (§9) |
 
+### 1.1 System architecture
+
+Everything that touches patient data sits inside the hospital network. The options differ only in the AI box.
+
+```mermaid
+flowchart LR
+  subgraph work["Where people work"]
+    nurse["Ward nurse PC<br/>iMed + CareMind extension"]
+    booth["Mali booth (OPD)<br/>kiosk, mic, speaker, printer, QR<br/>BP cuff · thermometer · oximeter"]
+    counter["OPD nurse counter PC<br/>Mali review portal"]
+    coder["Coder workstation<br/>CURA AI dashboard"]
+  end
+  subgraph hosp["Hospital server room · hospital VLAN (patient data stays here)"]
+    svc["Services server (1U x86, Proxmox)<br/>CareMind app · CURA AI · Mali backend · edge Caddy<br/>+ staging VMs"]
+    subgraph optA["Option A"]
+      s1["Spark unit 1<br/>Ollama · EIRAI-8B<br/>CareMind"]
+      s2["Spark unit 2<br/>Typhoon-8B + whisper + Thai TTS (Mali)<br/>EIRAI-8B (CURA AI)"]
+    end
+    subgraph optB["Option B"]
+      gpu["GPU server: 2U x86 + RTX PRO 5000 48 GB<br/>all three prototypes<br/>slots: CareMind 4 · Mali 2 · CURA AI 2"]
+    end
+    nas["Backup NAS + UPS"]
+    his["Hospital HIS (iMed) · existing"]
+  end
+  subgraph out["Outside the hospital · no patient data"]
+    lab["CareMind lab GPU<br/>dev + test, synthetic data"]
+    dev["Developer laptops<br/>Claude Code (Claude Max ×3)"]
+  end
+  nurse -->|"1 · selected record sections"| svc
+  svc -->|"2 · draft note request (TLS + token)"| s1
+  svc --> s2
+  svc -.->|"Option B"| gpu
+  svc -->|"3 · approved note · 6 · approved codes"| his
+  his -->|"6 · visits to code"| svc
+  booth -->|"4 · voice over WebSocket"| svc
+  svc -->|"5 · triage result"| counter
+  coder --> svc
+  svc --> nas
+```
+
+Data flow: (1) the nurse's selected record sections go to the CareMind app; (2) it asks the AI box for a draft
+note; (3) the nurse approves and the note is written back to iMed; (4) the booth streams the patient's speech, the
+AI extracts symptoms and a fixed nurse-approved rule set decides urgency and clinic; (5) the result goes to the
+OPD nurse portal and the HIS; (6) CURA AI pulls visits from iMed, suggests codes, and writes back only what a coder
+approves. No patient data goes to any cloud AI service.
+
 ---
 
 ## 2. AI compute options
