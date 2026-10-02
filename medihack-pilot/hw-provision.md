@@ -1,7 +1,7 @@
 # Pilot Testing for HealthTech — AI hardware for the MediHack prototypes
 
 **Prepared** 25 September 2026 · **revised** 2 October 2026 · draft for review, not a purchase request
-**Web version** https://cnacha-mfu.github.io/medihack/
+**Web version** https://cnacha-mfu.github.io/medihack-pilot/
 **Covers** CURA AI (medical-coding audit), CareMind (nurse handover notes), Mali OPD pre-screening booth
 **Sources** `CuraAI/HARDWARE_SPEC.md`, `CareMind/HARDWARE_SPEC.md`, `Mali Prescreening/HARDWARE_SPEC.md`, and the
 published benchmarks and prices listed at the end
