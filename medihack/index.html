@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pilot Testing for HealthTech · MediHack</title>
+<meta name="description" content="AI hardware options for the MediHack HealthTech pilot at MFU Medical Center: two DGX Sparks vs one GPU server, with a scale-up plan, budget and Thai vendors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one reading column (max 980px). Pilot scope and decision first, then the two options side by side,
+   then the evidence (charts on one linear scale each), then prices, Thai vendors and open decisions. */
+:root {
+  --bg: #f4f7f7;
+  --surface: #ffffff;
+  --ink: #122120;
+  --muted: #566a68;
+  --line: #d6e0df;
+  --accent: #0d6e66;
+  --accent-soft: #dcefec;
+  --opt-a: #5b5f86;
+  --opt-a-soft: #e7e8f2;
+  --good: #1d7448;
+  --good-soft: #def0e5;
+  --warn: #a5501a;
+  --band: rgba(29, 116, 72, 0.12);
+  --demand: rgba(165, 80, 26, 0.22);
+  --track: #e8eeed;
+  --read: #8fb7b2;
+  --font: "Sarabun", "TH Sarabun New", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1716; --surface: #142120; --ink: #e4eeed; --muted: #9ab0ad; --line: #26383a;
+    --accent: #4cc9b8; --accent-soft: #123430; --opt-a: #a7abd0; --opt-a-soft: #23253a;
+    --good: #63d19c; --good-soft: #143326; --warn: #f0a466; --band: rgba(99, 209, 156, 0.14);
+    --demand: rgba(240, 164, 102, 0.28); --track: #1c2c2b; --read: #3f6e68;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1716; --surface: #142120; --ink: #e4eeed; --muted: #9ab0ad; --line: #26383a;
+  --accent: #4cc9b8; --accent-soft: #123430; --opt-a: #a7abd0; --opt-a-soft: #23253a;
+  --good: #63d19c; --good-soft: #143326; --warn: #f0a466; --band: rgba(99, 209, 156, 0.14);
+  --demand: rgba(240, 164, 102, 0.28); --track: #1c2c2b; --read: #3f6e68;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 18px; line-height: 1.75; }
+.page { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px; display: grid; gap: 56px; }
+@media (max-width: 520px) { .page { padding-inline: 16px; padding-block: 28px 48px; gap: 44px; } body { font-size: 17px; } }
+
+h1, h2, h3 { line-height: 1.3; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.7rem); font-weight: 800; }
+h2 { font-size: 1.55rem; font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.num { font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
+.lede { font-size: 1.12rem; color: var(--muted); }
+section { display: grid; gap: 18px; }
+.section-head { display: grid; gap: 6px; }
+.note { font-size: 0.93rem; color: var(--muted); }
+
+header { display: grid; gap: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.92rem; color: var(--muted); }
+
+/* Pilot scope strip */
+.scope { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 700px) { .scope { grid-template-columns: 1fr; } }
+.scope div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 2px; min-width: 0; }
+.scope b { font-size: 1.35rem; font-weight: 800; line-height: 1.3; }
+.scope span { font-size: 0.92rem; color: var(--muted); }
+
+/* Verdict */
+.verdict { background: var(--accent-soft); border-radius: 14px; padding: 22px 24px; display: grid; gap: 10px; }
+.verdict strong { color: var(--accent); }
+.verdict p { max-width: none; }
+
+/* Option cards */
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 760px) { .options { grid-template-columns: 1fr; } }
+.opt { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.opt.rec { border: 2px solid var(--accent); }
+.opt-top { display: grid; gap: 4px; }
+.tag { justify-self: start; font-size: 0.85rem; font-weight: 700; padding: 2px 12px; border-radius: 99px; }
+.tag.a { background: var(--opt-a-soft); color: var(--opt-a); }
+.tag.b { background: var(--track); color: var(--muted); }
+.tag.reco { background: var(--accent); color: var(--surface); }
+.opt .what { color: var(--muted); font-size: 0.97rem; }
+.price { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
+.price small { display: block; font-size: 0.88rem; font-weight: 500; color: var(--muted); margin-top: 4px; }
+.facts { display: grid; margin: 0; }
+.facts div { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: 0.96rem; }
+.facts dd { margin: 0; font-weight: 600; text-align: right; }
+.ok { color: var(--good); }
+.no { color: var(--warn); }
+.pc { display: grid; gap: 6px; padding: 0; margin: 0; list-style: none; font-size: 0.96rem; }
+.pc li { padding-left: 1.4em; position: relative; }
+.pc li::before { position: absolute; left: 0; font-weight: 700; }
+.pc .plus::before { content: "+"; color: var(--good); }
+.pc .minus::before { content: "–"; color: var(--warn); }
+
+/* Charts: CSS bars, one linear scale per chart */
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px 16px; display: grid; gap: 14px; }
+.chart-title { display: grid; gap: 2px; }
+.bars { display: grid; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 12.5rem 1fr 5.4rem; gap: 12px; align-items: center; }
+.bar-label { font-size: 0.95rem; line-height: 1.35; min-width: 0; }
+.bar-label span { display: block; font-size: 0.82rem; color: var(--muted); }
+.track { position: relative; height: 26px; background: var(--track); border-radius: 5px; overflow: hidden; }
+.seg { position: absolute; top: 0; bottom: 0; }
+.band { position: absolute; top: 0; bottom: 0; background: var(--band); border-left: 1px dashed var(--good); border-right: 1px dashed var(--good); }
+.demand { position: absolute; top: 0; bottom: 0; background: var(--demand); border-left: 2px solid var(--warn); border-right: 2px solid var(--warn); z-index: 1; }
+.line-mark { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 2px dashed var(--warn); }
+.bar-value { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.axis { display: grid; grid-template-columns: 12.5rem 1fr 5.4rem; gap: 12px; }
+.ticks { position: relative; height: 20px; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.88rem; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.c-read { background: var(--read); }
+.c-a { background: var(--opt-a); }
+.c-b { background: var(--accent); }
+.c-lab { background: var(--muted); }
+.c-rej { background: var(--line); border: 1px solid var(--muted); }
+.c-band { background: var(--band); border: 1px dashed var(--good); }
+.c-demand { background: var(--demand); border: 2px solid var(--warn); }
+@media (max-width: 620px) {
+  .bar-row { grid-template-columns: 1fr 5rem; grid-template-areas: "label label" "track value"; row-gap: 4px; }
+  .bar-label { grid-area: label; }
+  .track { grid-area: track; }
+  .bar-value { grid-area: value; }
+  .axis { grid-template-columns: 1fr 5rem; }
+  .axis > :first-child { display: none; }
+}
+
+/* CareMind answer cards */
+.caremind { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 760px) { .caremind { grid-template-columns: 1fr; } }
+.answer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.answer .big { font-size: 1.35rem; font-weight: 800; line-height: 1.35; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.96rem; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.86rem; font-weight: 700; color: var(--muted); background: var(--bg); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.total td { font-weight: 700; background: var(--bg); }
+td .sub { display: block; font-size: 0.86rem; color: var(--muted); }
+.th-a { color: var(--opt-a); }
+.th-b { color: var(--accent); }
+
+/* Decisions */
+.qs { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+.qs li { display: grid; grid-template-columns: 5.6rem 1fr; gap: 12px; align-items: start; }
+.qs b { font-size: 0.85rem; font-weight: 700; border-radius: 6px; text-align: center; padding: 2px 4px; line-height: 1.6; }
+.qs b.open { color: var(--accent); background: var(--accent-soft); }
+.qs b.done { color: var(--good); background: var(--good-soft); }
+
+details { border-top: 1px solid var(--line); padding-top: 14px; }
+summary { cursor: pointer; font-weight: 600; }
+.sources { display: grid; gap: 6px; padding-left: 1.2em; margin: 12px 0 0; font-size: 0.93rem; }
+.sources li { overflow-wrap: anywhere; }
+footer { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; }
+
+/* Scale-up ladder: one lane per option, three stage cards per lane */
+.lane { display: grid; gap: 10px; }
+.lane-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.lane-head h3 { font-size: 1.1rem; }
+.lane-a .lane-head h3 { color: var(--opt-a); }
+.lane-b .lane-head h3 { color: var(--accent); }
+.stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 820px) { .stages { grid-template-columns: 1fr; } }
+.stage { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; min-width: 0; position: relative; }
+.stage-name { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+.stage-name b { color: var(--ink); }
+.meter { display: grid; gap: 3px; }
+.meter-track { position: relative; height: 10px; background: var(--track); border-radius: 99px; overflow: hidden; }
+.meter-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; }
+.meter-fill.a { background: var(--opt-a); }
+.meter-fill.b { background: var(--accent); }
+.meter-fill.hot { background: var(--warn); }
+.meter-label { display: flex; justify-content: space-between; gap: 8px; font-size: 0.85rem; color: var(--muted); }
+.meter-label strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.stage .time { font-weight: 600; font-size: 0.97rem; }
+.stage .hw { font-size: 0.92rem; color: var(--muted); }
+.stage .cost { font-weight: 800; font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); padding-top: 8px; }
+.stage .cost span { display: block; font-weight: 500; font-size: 0.85rem; color: var(--muted); }
+.stage.alert { border-color: var(--warn); }
+.common { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 12px 16px; font-size: 0.95rem; }
+.takeaway { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 700px) { .takeaway { grid-template-columns: 1fr; } }
+.takeaway div { border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.takeaway .ta { background: var(--opt-a-soft); }
+.takeaway .tb { background: var(--accent-soft); }
+.takeaway b { font-size: 1.05rem; }
+.bar-row.wide, .axis.wide { grid-template-columns: 12.5rem 1fr 8rem; }
+@media (max-width: 620px) {
+  .bar-row.wide { grid-template-columns: 1fr 7.5rem; }
+  .axis.wide { grid-template-columns: 1fr 7.5rem; }
+}
+.seg.range { border-radius: 4px; }
+code { font-size: 0.88em; overflow-wrap: anywhere; }
+</style>
+<style>
+:root { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<style>
+/* English text runs tighter than Thai */
+body { font-size: 17px; line-height: 1.6; }
+@media (max-width: 520px) { body { font-size: 16px; } }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; }
+th { text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8rem; }
+.units { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 520px) { .units { grid-template-columns: 1fr; } }
+.unit { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; font-size: 0.93rem; min-width: 0; }
+.unit b { font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--opt-a); }
+.route { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 8px; font-size: 0.92rem; }
+.route div { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.route .pick { font-weight: 700; }
+</style>
+
+<main class="page">
+
+  <header>
+    <span class="eyebrow">MediHack · extension phase · capital request (ครุภัณฑ์)</span>
+    <h1>Pilot Testing for HealthTech</h1>
+    <p class="lede">Which AI hardware should the hospital buy? The three prototypes (CareMind, Mali and CURA AI) need AI hardware inside the MFU Medical Center, so patient data never leaves the hospital network (PDPA). There are two realistic ways to do it.</p>
+    <div class="meta"><span>Revised 2 October 2026</span><span>Draft for review, not a purchase request</span><span>Prices include 7% VAT</span></div>
+  </header>
+
+  <section aria-labelledby="scope">
+    <div class="section-head">
+      <span class="eyebrow">Confirmed scope</span>
+      <h2 id="scope">The pilot</h2>
+    </div>
+    <div class="scope">
+      <div><b>2–3 wards</b><span>CareMind drafts nurse handover notes</span></div>
+      <div><b>1 booth</b><span>Mali pre-screens outpatients by voice</span></div>
+      <div><b>No spare server</b><span>MFU IT and the hospital have none to share, so a services server is in every option</span></div>
+    </div>
+  </section>
+
+  <div class="verdict">
+    <span class="eyebrow">Recommendation</span>
+    <p><strong>For the pilot, buy Option A: two DGX Sparks, both running production at the same time.</strong> Unit 1 runs CareMind and unit 2 runs the Mali booth and CURA AI, so the booth never waits behind a handover note. CareMind uses only 25–40% of its unit at shift change, and most notes take 6–11 seconds, within the 5–10 second target. It is the cheaper option at Thai retail prices.</p>
+    <p><strong>Option B, one GPU server, is the better buy only if a hospital-wide rollout is likely within 3 years.</strong> Option A would then have to buy a GPU server (or four more Sparks) anyway, so B ends up cheaper. See the scale-up plan below.</p>
+  </div>
+
+  <section aria-labelledby="opts">
+    <div class="section-head">
+      <span class="eyebrow">The two options</span>
+      <h2 id="opts">What each option buys</h2>
+    </div>
+    <div class="options">
+      <article class="opt rec">
+        <div class="opt-top">
+          <span class="tag reco">Option A · recommended for the pilot</span>
+          <h3>Two DGX Sparks, both in production</h3>
+          <p class="what">Two small AI computers, split by prototype. Either one can carry the whole pilot if the other fails.</p>
+        </div>
+        <div class="units">
+          <div class="unit"><b>Unit 1</b>CareMind handover notes</div>
+          <div class="unit"><b>Unit 2</b>Mali booth and CURA AI coding</div>
+        </div>
+        <div class="price num">฿292,000–506,000<small>AI hardware · all equipment ฿604,000–943,000 · with 6 months' operating costs ≈฿1.10–1.44 million</small></div>
+        <dl class="facts">
+          <div><dt>CareMind load at shift change</dt><dd class="num">25–40% of unit 1</dd></div>
+          <div><dt>One handover note</dt><dd class="num">~6–11 s <span class="ok">✓</span></dd></div>
+          <div><dt>Booth voice turn</dt><dd class="num">≤5 s, never delayed <span class="ok">✓</span></dd></div>
+          <div><dt>Room to grow</dt><dd class="num">~7–10 wards · 2 booths</dd></div>
+          <div><dt>Memory</dt><dd class="num">128 GB per unit</dd></div>
+        </dl>
+        <ul class="pc">
+          <li class="plus">Enough for the pilot, and cheaper at Thai retail prices</li>
+          <li class="plus">Both units serve patients: twice the capacity of one</li>
+          <li class="plus">CareMind's software runs on it unchanged</li>
+          <li class="plus">Scales out: add a Spark to add capacity</li>
+          <li class="minus">No idle test machine: test on CareMind's lab GPU, then a final check on unit 2 at night when the OPD is closed</li>
+          <li class="minus">Slowest text generation of the options</li>
+          <li class="minus">Mali's speech recogniser needs a custom build for the Arm processor: 2–3 days of testing on a loaner before acceptance</li>
+        </ul>
+      </article>
+
+      <article class="opt">
+        <div class="opt-top">
+          <span class="tag b">Option B · if hospital-wide is likely</span>
+          <h3>One GPU server</h3>
+          <p class="what">A standard rack server with one 48 GB professional graphics card (RTX PRO 5000 class).</p>
+        </div>
+        <div class="units">
+          <div class="unit" style="grid-column:1/-1"><b style="color:var(--accent)">One server</b>CareMind, Mali and CURA AI together</div>
+        </div>
+        <div class="price num">฿380,000–510,000<small>AI hardware · all equipment ฿692,000–947,000 · with 6 months' operating costs ≈฿1.19–1.44 million</small></div>
+        <dl class="facts">
+          <div><dt>CareMind load at shift change</dt><dd class="num">under 15%</dd></div>
+          <div><dt>One handover note</dt><dd class="num">~3–5 s <span class="ok">✓</span></dd></div>
+          <div><dt>Four notes at once</dt><dd class="num">≤8 s each <span class="ok">✓</span></dd></div>
+          <div><dt>Room to grow</dt><dd class="num">~25 wards · 3+ booths</dd></div>
+          <div><dt>Memory</dt><dd class="num">48 GB</dd></div>
+        </dl>
+        <ul class="pc">
+          <li class="plus">3–4× faster: within the target even at peaks</li>
+          <li class="plus">Standard x86 server: every prototype installs as-is</li>
+          <li class="plus">Covers the whole hospital without another purchase</li>
+          <li class="minus">Most of its capacity sits idle during the pilot</li>
+          <li class="minus">One main GPU: the spare is CareMind's lab machine, or +฿120,000–140,000 for a second card</li>
+          <li class="minus">No room for a much larger AI model beside the three</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="chart">
+      <div class="chart-title">
+        <h3>Pilot demand at shift change against capacity</h3>
+        <span class="note">Handover notes per minute. The orange band is what the 2–3 ward pilot needs: 2.5–3.75 notes a minute (25 beds per ward, notes written in the 20 minutes before shift change).</span>
+      </div>
+      <div class="legend"><span><i class="c-demand"></i>Pilot demand</span></div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bar-label">Spark unit 1 <span>Option A · CareMind's unit</span></div>
+          <div class="track"><div class="seg c-a" style="left:0;width:27.14%"></div><div class="demand" style="left:7.14%;width:3.57%"></div></div>
+          <div class="bar-value">~9–10</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Both Sparks <span>Option A · if CareMind grows</span></div>
+          <div class="track"><div class="seg c-a" style="left:0;width:54.29%"></div><div class="demand" style="left:7.14%;width:3.57%"></div></div>
+          <div class="bar-value">~19</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">RTX PRO 5000 <span>Option B</span></div>
+          <div class="track"><div class="seg c-b" style="left:0;width:94.29%"></div><div class="demand" style="left:7.14%;width:3.57%"></div></div>
+          <div class="bar-value">≥33</div>
+        </div>
+      </div>
+      <div class="axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:14.29%">5</span><span style="left:28.57%">10</span><span style="left:42.86%">15</span><span style="left:57.14%">20</span><span style="left:71.43%">25</span><span style="left:85.71%">30</span><span style="left:100%">35/min</span></div><span></span></div>
+    </div>
+    <p class="note">Speeds for the new hardware are estimates from published benchmarks and CareMind's own measurements. The delivery acceptance test measures the real numbers on every unit before anyone signs.</p>
+  </section>
+
+  <section aria-labelledby="scale">
+    <div class="section-head">
+      <span class="eyebrow">Scale-up plan</span>
+      <h2 id="scale">If the pilot succeeds, how each option grows</h2>
+      <p>Three likely stages: the 2–3 ward pilot, about 7 wards, then the whole hospital at about 15 wards. CareMind sets the hardware size at every stage: 1.25 notes a minute per ward at shift change. Each bar shows how busy the production hardware is at that peak.</p>
+    </div>
+
+    <div class="lane lane-a">
+      <div class="lane-head"><h3>Option A · DGX Sparks</h3><span class="note">Cheaper at first; hospital-wide needs another purchase</span></div>
+      <div class="stages">
+        <div class="stage">
+          <span class="stage-name"><b>1 · Pilot</b> · 2–3 wards · 1 booth</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill a" style="width:40%"></div></div><div class="meter-label"><span>Unit 1 (CareMind)</span><strong>25–40%</strong></div></div>
+          <span class="time">Notes ~6–11 s <span class="ok">✓</span> · booth ≤5 s <span class="ok">✓</span></span>
+          <span class="hw">Unit 1: CareMind. Unit 2: Mali and CURA AI.</span>
+          <span class="cost num">฿292,000–506,000<span>Buy 2 Sparks</span></span>
+        </div>
+        <div class="stage">
+          <span class="stage-name"><b>2 · Expand</b> · ~7 wards · 2 booths</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill a" style="width:45%"></div></div><div class="meter-label"><span>Both units, combined</span><strong>~45%</strong></div></div>
+          <span class="time">Notes mostly ~6–11 s <span class="ok">✓</span></span>
+          <span class="hw">CareMind spreads over both units through its Caddy proxy. Give Mali priority on unit 2. A third Spark (+฿146,000–253,000) adds headroom up to ~10 wards.</span>
+          <span class="cost num">+฿0<span>No new AI hardware needed</span></span>
+        </div>
+        <div class="stage">
+          <span class="stage-name"><b>3 · Hospital-wide</b> · ~15 wards · 3 booths</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill hot" style="width:100%"></div></div><div class="meter-label"><span>2 Sparks would be at</span><strong>~100%</strong></div></div>
+          <span class="time">Notes ~24 s at peak <span class="no">✗</span> unless you add hardware</span>
+          <div class="route">
+            <div class="pick"><span>Add the GPU server</span><span class="num">+฿380,000–510,000</span></div>
+            <div><span>Or add 4 more Sparks</span><span class="num">+฿584,000–1,012,000</span></div>
+          </div>
+          <span class="hw">With the GPU server, CareMind and Mali move to it; CURA AI stays on one Spark and the other becomes the test machine.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lane lane-b">
+      <div class="lane-head"><h3>Option B · one GPU server</h3><span class="note">Larger first purchase; covers the whole hospital</span></div>
+      <div class="stages">
+        <div class="stage">
+          <span class="stage-name"><b>1 · Pilot</b> · 2–3 wards · 1 booth</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill b" style="width:11%"></div></div><div class="meter-label"><span>Server load</span><strong>8–11%</strong></div></div>
+          <span class="time">Notes ~3–5 s <span class="ok">✓</span></span>
+          <span class="hw">The spare is CareMind's lab machine.</span>
+          <span class="cost num">฿380,000–510,000<span>Buy the GPU server</span></span>
+        </div>
+        <div class="stage">
+          <span class="stage-name"><b>2 · Expand</b> · ~7 wards · 2 booths</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill b" style="width:27%"></div></div><div class="meter-label"><span>Server load</span><strong>~27%</strong></div></div>
+          <span class="time">Notes ≤8 s at peak <span class="ok">✓</span></span>
+          <span class="hw">Nothing to change.</span>
+          <span class="cost num">+฿0<span>No new AI hardware needed</span></span>
+        </div>
+        <div class="stage">
+          <span class="stage-name"><b>3 · Hospital-wide</b> · ~15 wards · 3 booths</span>
+          <div class="meter"><div class="meter-track"><div class="meter-fill b" style="width:58%"></div></div><div class="meter-label"><span>Server load</span><strong>~58%</strong></div></div>
+          <span class="time">Notes ≤8 s at peak <span class="ok">✓</span></span>
+          <span class="hw">Add an in-hospital spare card, because hospital-wide use needs a spare that can serve patients.</span>
+          <span class="cost num">+฿120,000–140,000<span>Buy an RTX PRO 4000 spare card</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="common">Both options also need one more Mali booth at stage 2 and another at stage 3: ฿94,700–114,700 each, including the vital-sign devices.</div>
+
+    <div class="chart">
+      <div class="chart-title">
+        <h3>AI hardware spent by the end of each stage</h3>
+        <span class="note">Millions of baht; each bar runs from the low to the high price estimate. Stage 2 needs no new AI hardware, so it equals stage 1.</span>
+      </div>
+      <div class="bars">
+        <div class="bar-row wide">
+          <div class="bar-label">Option A <span>stages 1–2</span></div>
+          <div class="track"><div class="seg c-a range" style="left:18.25%;width:13.38%"></div></div>
+          <div class="bar-value">0.29–0.51 M</div>
+        </div>
+        <div class="bar-row wide">
+          <div class="bar-label">Option A + GPU server <span>stage 3</span></div>
+          <div class="track"><div class="seg c-a range" style="left:42%;width:21.5%"></div></div>
+          <div class="bar-value">0.67–1.02 M</div>
+        </div>
+        <div class="bar-row wide">
+          <div class="bar-label">Option A + 4 Sparks <span>stage 3</span></div>
+          <div class="track"><div class="seg c-a range" style="left:54.75%;width:40.13%"></div></div>
+          <div class="bar-value">0.88–1.52 M</div>
+        </div>
+        <div class="bar-row wide">
+          <div class="bar-label">Option B <span>stages 1–2</span></div>
+          <div class="track"><div class="seg c-b range" style="left:23.75%;width:8.13%"></div></div>
+          <div class="bar-value">0.38–0.51 M</div>
+        </div>
+        <div class="bar-row wide">
+          <div class="bar-label">Option B <span>stage 3</span></div>
+          <div class="track"><div class="seg c-b range" style="left:31.25%;width:9.38%"></div></div>
+          <div class="bar-value">0.50–0.65 M</div>
+        </div>
+      </div>
+      <div class="axis wide" aria-hidden="true"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:25%">0.4</span><span style="left:50%">0.8</span><span style="left:75%">1.2</span><span style="left:100%">1.6 M</span></div><span></span></div>
+    </div>
+
+    <div class="takeaway">
+      <div class="ta"><b>Stop at stage 1 or 2: Option A is cheaper</b><span>Less money up front. Both Sparks keep serving patients, and a third Spark stretches it to about 10 wards.</span></div>
+      <div class="tb"><b>Go hospital-wide: Option B is cheaper by ฿170,000–370,000</b><span>Option A has to buy a GPU server at stage 3 anyway. If a hospital-wide rollout is likely within the 3-year warranty, buy B from the start.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="more">
+    <div class="section-head">
+      <span class="eyebrow">Scaling Option A</span>
+      <h2 id="more">Can we scale by adding more DGX Sparks?</h2>
+      <p><strong>Yes.</strong> Each extra Spark adds about 9–10 notes a minute, and CareMind's proxy spreads notes across all units behind one address. More units don't make a single note faster: one note on a Spark always takes about 6–11 seconds. They stop notes from queuing, which is what pushes peak times to ~24 seconds.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>To reach stage 3 from Option A</th><th class="r">Added cost (THB)</th><th class="r">AI hardware total</th><th>Note at peak</th><th class="r">Boxes</th></tr></thead>
+        <tbody>
+          <tr><td>Add 4 Sparks: 4 for CareMind, 2 for Mali and CURA AI, 6 in total<span class="sub">Each CareMind unit kept near half load so notes rarely queue</span></td><td class="r">584,000–1,012,000</td><td class="r">876,000–1,518,000</td><td>~6–11 s, at the edge of the target</td><td class="r">6</td></tr>
+          <tr><td>Add the Option B GPU server</td><td class="r">380,000–510,000</td><td class="r">672,000–1,016,000</td><td>≤8 s <span class="ok">✓</span></td><td class="r">3</td></tr>
+          <tr><td><em>Option B from the start</em></td><td class="r"><em>120,000–140,000</em></td><td class="r"><em>500,000–650,000</em></td><td><em>≤8 s</em> <span class="ok">✓</span></td><td class="r"><em>1–2</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Adding Sparks is the right move for a small step, such as a third unit for about 10 wards. For the whole hospital it is the most expensive route, gives slower notes, and leaves six boxes to power (~1.5 kW), patch and monitor. The Spark's 200 Gb port can join two units to run one very large model; that is for model size, and does not make the 8B models used here faster.</p>
+  </section>
+
+  <section aria-labelledby="why">
+    <div class="section-head">
+      <span class="eyebrow">Why speed differs</span>
+      <h2 id="why">Speed comes from memory bandwidth, not memory size</h2>
+      <p>To write each word, an AI model reads all of its weights from memory, so how fast the memory can be read sets how fast text appears. All three prototypes together need only about 38 GB, which any 48 GB card holds. The Spark's 128 GB does not make it faster.</p>
+    </div>
+    <div class="chart">
+      <div class="chart-title">
+        <h3>Memory bandwidth</h3>
+        <span class="note">GB per second, higher is faster. Dashed line: CareMind's own requirement for hospital-wide use (≥850 GB/s).</span>
+      </div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bar-label">CareMind lab GPU <span>used today</span></div>
+          <div class="track"><div class="seg c-lab" style="left:0;width:20%"></div><div class="line-mark" style="left:60.71%"></div></div>
+          <div class="bar-value">280</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">DGX Spark <span>Option A</span></div>
+          <div class="track"><div class="seg c-a" style="left:0;width:19.5%"></div><div class="line-mark" style="left:60.71%"></div></div>
+          <div class="bar-value">273</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">RTX A6000 <span>considered, rejected</span></div>
+          <div class="track"><div class="seg c-rej" style="left:0;width:54.86%"></div><div class="line-mark" style="left:60.71%"></div></div>
+          <div class="bar-value">768</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">RTX PRO 5000 <span>Option B</span></div>
+          <div class="track"><div class="seg c-b" style="left:0;width:96%"></div><div class="line-mark" style="left:60.71%"></div></div>
+          <div class="bar-value">1,344</div>
+        </div>
+      </div>
+      <div class="axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:25%">350</span><span style="left:50%">700</span><span style="left:75%">1,050</span><span style="left:100%">1,400</span></div><span></span></div>
+    </div>
+    <p class="note">The A6000 was the alternative raised in review. It is a 2020-generation card below CareMind's 850 GB/s line, and new units cost about the same as the faster RTX PRO 5000.</p>
+  </section>
+
+  <section aria-labelledby="cm">
+    <div class="section-head">
+      <span class="eyebrow">CareMind, checked in detail</span>
+      <h2 id="cm">Does the DGX Spark really work for CareMind?</h2>
+    </div>
+    <div class="caremind">
+      <div class="answer">
+        <span class="big">Yes, at about today's speed.</span>
+        <p>Everything CareMind runs on the AI machine works on the Spark unchanged: Ollama, the Caddy security proxy, and a small Python service that uses no extra libraries. The app and its Thai OCR run on the separate x86 server.</p>
+      </div>
+      <div class="answer">
+        <span class="big">Not faster, but enough for 2–3 wards.</span>
+        <p>The Spark writes text more slowly than today's lab GPU but reads CareMind's long prompts much faster, so the two roughly cancel out. In the pilot most notes run one at a time and stay within the target. Only when four notes queue on one unit does each take about 24 seconds, as on today's machine.</p>
+      </div>
+    </div>
+
+    <div class="chart">
+      <div class="chart-title">
+        <h3>Time for one handover note</h3>
+        <span class="note">Seconds, shorter is better. A full note of about 450 tokens, from CareMind's 25 Aug 2026 benchmark. Shorter notes in the final report took 6.4–9.8 s on today's GPU; the gaps between machines stay the same.</span>
+      </div>
+      <div class="legend"><span><i class="c-read"></i>Reading the patient record</span><span>Darker part: writing the note</span><span><i class="c-band"></i>Target: 5–10 s (NFR-9)</span></div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bar-label">Today's lab GPU <span>measured</span></div>
+          <div class="track"><div class="band" style="left:35.71%;width:35.71%"></div><div class="seg c-read" style="left:0;width:16.07%"></div><div class="seg c-lab" style="left:16.07%;width:66.79%"></div></div>
+          <div class="bar-value">11.6 s</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">DGX Spark <span>Option A · estimate</span></div>
+          <div class="track"><div class="band" style="left:35.71%;width:35.71%"></div><div class="seg c-read" style="left:0;width:5%"></div><div class="seg c-a" style="left:5%;width:78.57%"></div></div>
+          <div class="bar-value">~11.7 s</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">RTX A6000 <span>rejected · estimate</span></div>
+          <div class="track"><div class="band" style="left:35.71%;width:35.71%"></div><div class="seg c-read" style="left:0;width:3.57%"></div><div class="seg c-rej" style="left:3.57%;width:33.57%"></div></div>
+          <div class="bar-value">~5.2 s</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">RTX PRO 5000 <span>Option B · estimate</span></div>
+          <div class="track"><div class="band" style="left:35.71%;width:35.71%"></div><div class="seg c-read" style="left:0;width:2.86%"></div><div class="seg c-b" style="left:2.86%;width:21.43%"></div></div>
+          <div class="bar-value">~3.4 s</div>
+        </div>
+      </div>
+      <div class="axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:14.29%">2</span><span style="left:28.57%">4</span><span style="left:42.86%">6</span><span style="left:57.14%">8</span><span style="left:71.43%">10</span><span style="left:85.71%">12</span><span style="left:100%">14 s</span></div><span></span></div>
+    </div>
+
+    <p class="note">Two more CareMind findings that apply to either option. CareMind uses a second AI model (qwen2.5-coder 14B) for a developer tool that needs no patient data; run it on the lab machine, never on production. And a new GPU can change the model's wording slightly, so CareMind's daily quality checks must be re-run on the delivered hardware before nurses use it.</p>
+  </section>
+
+  <section aria-labelledby="prices">
+    <div class="section-head">
+      <span class="eyebrow">Prices</span>
+      <h2 id="prices">What it costs</h2>
+      <p>Thai retail prices where we found them, otherwise US prices converted at about 34 baht per dollar with margin and VAT. GPU prices moved 40–60% during 2026, so procurement must collect three quotations (สืบราคา) before writing the TOR.</p>
+    </div>
+
+    <h3>AI hardware, line by line</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th class="r">Qty</th><th class="r">THB each</th><th>Price reference</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4"><strong class="th-a">Option A · two DGX Sparks</strong></td></tr>
+          <tr><td>DGX Spark-class AI computer, 128 GB, 4 TB, 3-year on-site warranty</td><td class="r">2</td><td class="r">143,000–250,000</td><td><a href="https://www.advice.co.th/product/ai-supercomputer/nvidia-dgx-spark/nvidia-dgx-spark-gigabyte-ai-top-atom-atagb10-9000" target="_blank" rel="noopener">Advice ฿142,900</a> (cheapest Thai listing) · <a href="https://forums.developer.nvidia.com/t/2-23-2026-price-change-announcement/361713" target="_blank" rel="noopener">NVIDIA FE US$4,699</a><span class="sub">฿250,000 is the earlier draft's figure, above every listing found</span></td></tr>
+          <tr><td>Rack shelf and cables</td><td class="r">2</td><td class="r">3,000</td><td><span class="sub">Estimate</span></td></tr>
+          <tr class="total"><td>Option A AI hardware</td><td></td><td class="r">292,000–506,000</td><td></td></tr>
+          <tr><td colspan="4"><strong class="th-b">Option B · one GPU server</strong></td></tr>
+          <tr><td>2U rack server, 16 cores, 128 GB ECC, certified for one 300 W GPU, 3-year on-site warranty</td><td class="r">1</td><td class="r">180,000–250,000</td><td><span class="sub">From CareMind's spec (฿380,000–550,000 for a server with a 48 GB card), less the card. Needs quotations</span></td></tr>
+          <tr><td>GPU: ≥48 GB, ≥850 GB/s (RTX PRO 5000 Blackwell 48 GB or equivalent)</td><td class="r">1</td><td class="r">200,000–260,000</td><td><a href="https://www.autonetpc.com/product/leadtek-nvidia-rtx-pro-5000-blackwell-generation/" target="_blank" rel="noopener">AutoNet PC ฿238,500</a> · <a href="https://www.newegg.com/nvidia-blackwell-900-5g153-2250-000-rtx-pro-5000-48gb-graphics-card/p/N82E16814132111" target="_blank" rel="noopener">Newegg</a> · <a href="https://www.pny.com/nvidia-rtx-pro-5000-blackwell" target="_blank" rel="noopener">specs (PNY)</a></td></tr>
+          <tr class="total"><td>Option B AI hardware</td><td></td><td class="r">380,000–510,000</td><td></td></tr>
+          <tr><td>Optional in-hospital spare GPU: RTX PRO 4000 Blackwell 24 GB</td><td class="r">1</td><td class="r">120,000–140,000</td><td><a href="https://gpuprix.com/us/gpus/rtx-pro-4000-blackwell" target="_blank" rel="noopener">US$3,000–3,400</a> · <a href="https://www.newegg.com/nvidia-blackwell-900-5g147-2270-000-rtx-pro-4000-24gb-graphics-card/p/N82E16814132109" target="_blank" rel="noopener">Newegg</a><span class="sub">No Thai listing found; ask Ascenti</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>All equipment, by option</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th class="r th-a">Option A</th><th class="r th-b">Option B</th><th class="r th-b">B + spare card</th></tr></thead>
+        <tbody>
+          <tr><td>AI hardware</td><td class="r">292,000–506,000</td><td class="r">380,000–510,000</td><td class="r">500,000–650,000</td></tr>
+          <tr><td>Services server for the three apps<span class="sub">Needed in every option: no spare server exists · Min / Recommended</span></td><td class="r">150,000 / 200,000</td><td class="r">150,000 / 200,000</td><td class="r">150,000 / 200,000</td></tr>
+          <tr><td>UPS, backup NAS, encrypted drives, switch<span class="sub">Min / Recommended</span></td><td class="r">67,000 / 122,000</td><td class="r">67,000 / 122,000</td><td class="r">67,000 / 122,000</td></tr>
+          <tr><td>One Mali booth and vital-sign devices<span class="sub">Min / Recommended</span></td><td class="r">94,700 / 114,700</td><td class="r">94,700 / 114,700</td><td class="r">94,700 / 114,700</td></tr>
+          <tr class="total"><td>Equipment total, Minimum</td><td class="r">604,000–818,000</td><td class="r">692,000–822,000</td><td class="r">812,000–962,000</td></tr>
+          <tr class="total"><td>Equipment total, Recommended</td><td class="r">729,000–943,000</td><td class="r">817,000–947,000</td><td class="r">937,000–1,087,000</td></tr>
+          <tr><td>Electricity per year</td><td class="r">≈29,000</td><td class="r">≈33,000</td><td class="r">≈35,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Operating costs for the 6-month extension (same for every option)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Basis</th><th class="r">THB</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Max plan for development</td><td>3 accounts × US$125 a month × 6 months = US$2,250, at about 34 baht per dollar</td><td class="r">≈76,500</td></tr>
+          <tr><td>Development team compensation</td><td>3 teams × ฿15,000 a month × 6 months</td><td class="r">270,000</td></tr>
+          <tr><td>Project manager</td><td>฿25,000 a month × 6 months</td><td class="r">150,000</td></tr>
+          <tr class="total"><td>Operating total, 6 months</td><td></td><td class="r">≈496,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Total extension budget: equipment plus 6 months of operation</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th class="r th-a">Option A</th><th class="r th-b">Option B</th><th class="r th-b">B + spare card</th></tr></thead>
+        <tbody>
+          <tr><td>Equipment, Minimum / Recommended</td><td class="r">604,000–818,000<span class="sub">729,000–943,000</span></td><td class="r">692,000–822,000<span class="sub">817,000–947,000</span></td><td class="r">812,000–962,000<span class="sub">937,000–1,087,000</span></td></tr>
+          <tr><td>Operating, 6 months</td><td class="r">496,500</td><td class="r">496,500</td><td class="r">496,500</td></tr>
+          <tr class="total"><td>Total, Minimum</td><td class="r">1,101,000–1,315,000</td><td class="r">1,189,000–1,319,000</td><td class="r">1,309,000–1,459,000</td></tr>
+          <tr class="total"><td>Total, Recommended</td><td class="r">1,226,000–1,440,000</td><td class="r">1,314,000–1,444,000</td><td class="r">1,434,000–1,584,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The Claude Max line assumes US$125 per account per month; each US$10 difference changes it by about ฿6,100. Six months of electricity (about ฿15,000–18,000) is not included. The current project budget (฿394,000, พ.ศ. 2569) has no equipment line, so the hardware is a new capital request. There are no software licence costs for the AI or the servers: all of it is open source.</p>
+  </section>
+
+  <section aria-labelledby="vendors">
+    <div class="section-head">
+      <span class="eyebrow">Local suppliers</span>
+      <h2 id="vendors">Where to buy in Thailand</h2>
+      <p>Listings found on 2 October 2026. Use them for the price survey; a government purchase needs formal quotations with the 3-year on-site warranty written in. For Option B, buy the server with the GPU already installed and certified by the server vendor, under one warranty.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Vendor</th><th class="r">Listed price (THB)</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>DGX Spark · Gigabyte AI TOP ATOM</td><td><a href="https://www.advice.co.th/product/ai-supercomputer/nvidia-dgx-spark/nvidia-dgx-spark-gigabyte-ai-top-atom-atagb10-9000" target="_blank" rel="noopener">Advice</a></td><td class="r">142,900</td><td>Cheapest listing found</td></tr>
+          <tr><td>DGX Spark · ASUS Ascent GX10</td><td><a href="https://www.advice.co.th/product/ai-supercomputer/nvidia-dgx-spark/nvidia-dgx-spark-asus-gx10-gg0011bn-90ms0371-m000b0-" target="_blank" rel="noopener">Advice</a>, <a href="https://speedcom.co.th/en/collections/dgx-spark" target="_blank" rel="noopener">SpeedCom</a></td><td class="r">132,900–179,990</td><td>Varies by storage size</td></tr>
+          <tr><td>DGX Spark · Leadtek (NVIDIA Founders Edition)</td><td><a href="https://www.itcity.in.th/en/product/LEADTEK-NVIDIA-DGX-Spark-Blackwell-Architecture-DGX-Mini-PC-Ai-()_PRD202512010778" target="_blank" rel="noopener">IT City</a></td><td class="r">180,900</td><td>Bangkok-area delivery only</td></tr>
+          <tr><td></td><td><a href="https://www.jib.co.th/web/product/readProduct/82239/3242/AI-COMPUTER--%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C-AI--LEADTEK-NVIDIA-DGX-SPARK" target="_blank" rel="noopener">JIB</a></td><td class="r">199,000</td><td></td></tr>
+          <tr><td></td><td><a href="https://www.gearlab.co.th/products/leadtek-dgx-spark" target="_blank" rel="noopener">Gear Lab</a></td><td class="r">199,900</td><td></td></tr>
+          <tr><td></td><td><a href="https://www.uboncomputer.co.th/workstations-ai-ai-nvidia-dgx-spark.html" target="_blank" rel="noopener">Ubon Computer</a></td><td class="r">222,900</td><td></td></tr>
+          <tr><td>RTX PRO 5000 Blackwell 48 GB (Leadtek)</td><td><a href="https://www.autonetpc.com/product/leadtek-nvidia-rtx-pro-5000-blackwell-generation/" target="_blank" rel="noopener">AutoNet PC</a></td><td class="r">238,500</td><td>Card only</td></tr>
+          <tr><td>Leadtek RTX PRO cards and DGX Spark</td><td><a href="https://ascenti.co.th/main/product-category/graphic-card/vga-leadtek/vga-nvidia-leadtek/" target="_blank" rel="noopener">Ascenti Resources</a></td><td class="r">quote</td><td>Thai importer and distributor for Leadtek; <a href="https://ascenti.co.th/main/news-leadtek-nvidia-dgx-spark-founders-edition/" target="_blank" rel="noopener">launched the DGX Spark in Thailand</a></td></tr>
+          <tr><td>GPU servers · Supermicro, NVIDIA-certified</td><td><a href="https://taknet.co.th/" target="_blank" rel="noopener">Taknet Systems</a></td><td class="r">quote</td><td>On-site service in Thailand</td></tr>
+          <tr><td>GPU servers · Supermicro, Lenovo</td><td><a href="https://www.quickserv.co.th/server/SUPERMICRO.html" target="_blank" rel="noopener">QuickServ</a></td><td class="r">quote</td><td></td></tr>
+          <tr><td>GPU servers · Dell PowerEdge</td><td><a href="https://wisetech.co.th/dell-emc-poweredge/" target="_blank" rel="noopener">WiseTech</a>, <a href="https://addin.co.th/product-category/server/dell-server/" target="_blank" rel="noopener">Addin</a></td><td class="r">quote</td><td></td></tr>
+          <tr><td>Servers · Dell, HPE, Lenovo; UPS</td><td><a href="https://www.serverprothai.com/" target="_blank" rel="noopener">ServerProThai</a></td><td class="r">quote</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="rejected">
+    <div class="section-head">
+      <span class="eyebrow">Also looked at</span>
+      <h2 id="rejected">Options we ruled out</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Option</th><th class="r">Bandwidth</th><th>Price per card</th><th>Why not</th></tr></thead>
+        <tbody>
+          <tr><td>RTX A6000 48 GB</td><td class="r">768 GB/s</td><td><a href="https://gpudojo.com/a6000" target="_blank" rel="noopener">US$4,850–6,400 new</a></td><td>2020 generation, below CareMind's 850 GB/s line, and about the same price as the faster RTX PRO 5000. Used units don't suit government procurement</td></tr>
+          <tr><td>RTX 6000 Ada 48 GB</td><td class="r">960 GB/s</td><td><a href="https://www.bhphotovideo.com/c/product/1753962-REG/pny_vcnrtx6000ada_pb_rtx_6000_ada_generation.html" target="_blank" rel="noopener">US$6,500–9,500</a></td><td>Discontinued: stock and warranty uncertain</td></tr>
+          <tr><td>RTX PRO 6000 Blackwell 96 GB</td><td class="r">1,800 GB/s</td><td><a href="https://www.tomshardware.com/pc-components/gpus/nvidia-doubles-rtx-pro-6000-blackwells-msrp-to-a-staggering-usd16-000-96gb-card-started-pre-orders-below-usd8-000-last-year" target="_blank" rel="noopener">US$14,000–16,000</a></td><td>Far more than this workload needs</td></tr>
+          <tr><td>Three small GPU boxes, one per team</td><td class="r">~280 GB/s</td><td>≈฿350,000 together</td><td>Same speed as a Spark, with no spare</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="q">
+    <div class="section-head">
+      <span class="eyebrow">Before the TOR</span>
+      <h2 id="q">Decisions</h2>
+    </div>
+    <ul class="qs">
+      <li><b class="done">Confirmed</b><p>No spare server at MFU IT or the hospital, so the services server is bought. It is already in every total.</p></li>
+      <li><b class="done">Confirmed</b><p>Pilot scope: CareMind on 2–3 wards, one Mali booth.</p></li>
+      <li><b class="done">Confirmed</b><p>Under Option A, both Sparks run production at the same time: unit 1 CareMind, unit 2 Mali and CURA AI.</p></li>
+      <li><b class="open">Open</b><p>Option A or B? Recommendation for the pilot: A. If A, the Mali team tests the speech recogniser on a loaner Spark for 2–3 days before acceptance.</p></li>
+      <li><b class="open">Open</b><p>How likely is a hospital-wide rollout (about 15 wards) within 3 years? If likely, Option B is cheaper overall by ฿170,000–370,000.</p></li>
+      <li><b class="open">Open</b><p>Confirm the operating-cost basis: US$125 per Claude account per month, and ฿15,000 per team per month.</p></li>
+      <li><b class="open">Open</b><p>When must it be running? E-bidding takes 45–90 days from the TOR, and both product types have had 4–8 week stock delays.</p></li>
+      <li><b class="open">Open</b><p>Who owns the equipment after the pilot, MFU or the medical center? That decides which office issues the TOR.</p></li>
+    </ul>
+  </section>
+
+  <section>
+    <details>
+      <summary>Sources for the speed figures</summary>
+      <ul class="sources">
+        <li>CareMind measurements: <code>CareMind/HARDWARE_SPEC.md</code> §5.1 (25 Aug 2026) and <code>caremind-final-report.pdf</code> §6.4 (6.4–9.8 s per note, 3-hour load test)</li>
+        <li><a href="https://ollama.com/blog/nvidia-spark-performance" target="_blank" rel="noopener">Ollama: DGX Spark performance</a> (Llama 3.1 8B q4_K_M: 38 tokens/s writing, 7,614 tokens/s reading)</li>
+        <li><a href="https://github.com/DandinPower/llama.cpp_bench/blob/main/dgx_spark/report.md" target="_blank" rel="noopener">llama.cpp on DGX Spark</a> (8B models, 40–44 tokens/s)</li>
+        <li><a href="https://www.lmsys.org/blog/2025-10-13-nvidia-dgx-spark/" target="_blank" rel="noopener">LMSYS: DGX Spark in-depth review</a></li>
+        <li><a href="https://github.com/XiongjieDai/GPU-Benchmarks-on-LLM-Inference" target="_blank" rel="noopener">GPU benchmarks for LLM inference</a> (RTX A6000, Llama 3.1 8B Q4_K_M, 102 tokens/s)</li>
+        <li><a href="https://github.com/rappdw/transcribe-dgx" target="_blank" rel="noopener">Speech recognition on DGX Spark</a> (needs a custom CTranslate2 build on Arm)</li>
+      </ul>
+    </details>
+  </section>
+
+  <footer>
+    Full technical version with acceptance tests and risks: <a href="hw-provision.md">hw-provision.md</a>. Prepared for the MediHack project, สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์, Mae Fah Luang University.
+  </footer>
+</main>
+</body>
+</html>
