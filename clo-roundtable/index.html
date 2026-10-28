@@ -19,6 +19,7 @@
   section table { border-collapse: collapse; width: 100%; }
   section th, section td { padding: 12px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid #D8D2C4; }
   section aside { display: none; }
+  section a { color: inherit; }
   body.notes section.on aside { display: block; position: absolute; left: 0; right: 0; bottom: 0; background: rgba(11,20,34,.94); color: #F7F5F0; font: 28px/1.5 'Sarabun', Tahoma, sans-serif; padding: 32px 128px; }
   #bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 12px; padding: 10px; font: 14px/1 'Sarabun', Tahoma, sans-serif; color: #C9D2DE; }
   #bar button { background: #1E3150; color: #F7F5F0; border: 0; border-radius: 6px; padding: 8px 14px; font: inherit; cursor: pointer; }
@@ -53,7 +54,39 @@
 <p style="font-size:30px;font-weight:600;color:#F7F5F0">สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ (ADT) มหาวิทยาลัยแม่ฟ้าหลวง</p>
 <p style="font-size:26px;color:#C9D2DE">Chief Learning Officers Roundtable · TLIC มหาวิทยาลัยเชียงใหม่</p>
 </div>
-<aside>โจทย์ของเวทีคือ “จากนโยบาย AI สู่การปฏิบัติ” เราจะเล่า 4 เรื่อง: (1) แปลงประกาศนโยบาย AI ของมหาวิทยาลัยเป็นแนวปฏิบัติในรายวิชา (2) หลักการออกแบบการเรียนแบบ AI-First (3) ทักษะที่เราฝึกและรับรอง (4) วัดผลอย่างไรเมื่อผู้เรียนใช้ AI ทุกเรื่องมีตัวอย่างจริงจากหลักสูตร ADT-RAISE รุ่น 2 ที่ผู้เรียนพัฒนาระบบร่วมกับ Claude ตั้งแต่สัปดาห์แรก ปิดด้วยประเด็นที่ยังค้าง</aside>
+<aside>โจทย์ของเวทีคือ “จากนโยบาย AI สู่การปฏิบัติ” เราจะเล่า 4 เรื่อง: (1) แปลงประกาศนโยบาย AI ของมหาวิทยาลัยเป็นแนวปฏิบัติในรายวิชา (2) หลักการออกแบบการเรียนแบบ AI-First (3) ทักษะการทำงานกับ AI ที่ฝึกผู้เรียน (4) วัดผลอย่างไรเมื่อผู้เรียนใช้ AI ทุกเรื่องมีตัวอย่างจริงจากหลักสูตร ADT-RAISE รุ่น 2 ที่ผู้เรียนพัฒนาระบบร่วมกับ Claude ตั้งแต่สัปดาห์แรก ปิดด้วยประเด็นที่ยังค้าง</aside>
+</section>
+<section id="meme" data-transition="fade" style="background:#F7F5F0;color:#14233A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;letter-spacing:2px;color:#B5432A">ทำไมต้องเริ่มตอนนี้</p>
+<h2 style="font-family:'Kanit', Tahoma, sans-serif;font-size:60px;font-weight:600;line-height:1.3">AI เคาะประตูซอฟต์แวร์มาแล้วสามบาน ประตูถัดไปคือทุกสาขา</h2>
+</div>
+<div style="display:flex;gap:24px;align-items:center">
+<div style="width:336px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<img src="img/c_a1_secondthoughts.png" alt="บทความ First, They Came for the Software Engineers… จาก Second Thoughts" style="width:336px;height:210px;object-fit:cover;border:1px solid #D8D2C4;border-radius:8px">
+<p style="font-size:24px;color:#6A7181"><a href="https://secondthoughts.ai/p/first-they-came-for-the-software">Second Thoughts</a> · Apr 2025</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<img src="img/c_a3_pragmatic.png" alt="บทความ Is the AI developer a threat to jobs จาก The Pragmatic Engineer" style="width:336px;height:210px;object-fit:cover;border:1px solid #D8D2C4;border-radius:8px">
+<p style="font-size:24px;color:#6A7181"><a href="https://newsletter.pragmaticengineer.com/p/is-the-ai-developera-threat-to-jobs">Pragmatic Engineer</a> · Mar 2024</p>
+</div>
+</div>
+<img src="img/reaper_labeled.jpg" alt="มีม Death Knocking on Doors: ยมทูตเคาะประตูบานที่สี่ ป้าย สาขาของคุณ? หลังผ่านสามบานแรกที่ติดป้าย Software Eng." style="width:940px;height:531px;object-fit:contain;border-radius:12px">
+<div style="width:336px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<img src="img/c_a2_devto.png" alt="บทความ AI isn't taking jobs. It's taking the first job. จาก DEV Community" style="width:336px;height:210px;object-fit:cover;border:1px solid #D8D2C4;border-radius:8px">
+<p style="font-size:24px;color:#6A7181"><a href="https://dev.to/landedjobs/ai-isnt-taking-jobs-its-taking-the-first-job-1fpn">DEV Community</a> · Oct 2026</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<img src="img/c_a4_blood.png" alt="บทความ AI Killed My Job: Tech workers จาก Blood in the Machine" style="width:336px;height:210px;object-fit:cover;border:1px solid #D8D2C4;border-radius:8px">
+<p style="font-size:24px;color:#6A7181"><a href="https://www.bloodinthemachine.com/p/how-ai-is-killing-jobs-in-the-tech-f39">Blood in the Machine</a> · Jun 2025</p>
+</div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1500px;font-size:24px;color:#6A7181">มีม: “Death Knocking on Doors” — <a href="https://knowyourmeme.com/memes/death-knocking-on-doors">knowyourmeme.com</a> (ต้นฉบับการ์ตูนการเมือง ปี 2013) · ADT ดัดแปลงป้ายข้อความ</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">2</p>
+<aside>เปิดด้วยภาพที่ทุกคนคุ้นเคย มีม “ยมทูตเคาะประตู” สามบานแรกคือวิศวกรรมซอฟต์แวร์ ซึ่งโดน AI กระทบก่อนใคร เพราะผลงานตรวจได้ง่ายว่าใช้ได้หรือไม่ และบริษัท AI เข้าใจงานนี้ดีที่สุด บทความรอบภาพเล่าเรื่องเดียวกัน: AI เขียนโค้ดได้มากขึ้น (Second Thoughts, เม.ย. 2025) บริษัทเปิดตัว “AI software engineer” (Pragmatic Engineer, มี.ค. 2024) งานระดับเริ่มต้นหายไปก่อน (DEV Community, ต.ค. 2026) และเสียงจากคนทำงานสายเทคที่ถูกกระทบ (Blood in the Machine, มิ.ย. 2025) ประตูบานที่สี่คือคำถามถึงทุกคนในห้องนี้: สาขาของคุณพร้อมหรือยัง คำตอบของเราไม่ใช่การกลัว AI แต่คือสอนให้ผู้เรียนทุกสาขาใช้ AI เป็น ซึ่งเป็นเรื่องของสไลด์ถัดไป ที่มามีม: Know Your Meme “Death Knocking on Doors” https://knowyourmeme.com/memes/death-knocking-on-doors ต้นฉบับเป็นการ์ตูนการเมือง โพสต์ที่เก่าที่สุดที่ KYM พบคือ 16 ส.ค. 2013</aside>
 </section>
 <section id="policy" data-transition="fade" style="background:#F7F5F0;color:#14233A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
 <div style="display:flex;flex-direction:column;gap:8px">
@@ -70,7 +103,7 @@
 <tr style="background:#ECE8DF"><td><b>ข้อ 4.1</b> ตระหนักถึงอคติ</td><td>ประเมินอคติของโมเดล เป็นส่วนหนึ่งของเกณฑ์</td></tr>
 </table>
 <p style="position:absolute;left:128px;bottom:64px;width:1400px;font-size:24px;color:#6A7181">ที่มา: ประกาศมหาวิทยาลัยแม่ฟ้าหลวง เรื่องนโยบายและแนวปฏิบัติการใช้ AI 16 มี.ค. 2569</p>
-<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">2</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">3</p>
 <aside>มหาวิทยาลัยออกประกาศนโยบายและแนวปฏิบัติการใช้ AI เมื่อ 16 มีนาคม 2569 หลักใหญ่คือ “มนุษย์เป็นผู้ตัดสินใจ” ผู้ใช้รับผิดชอบผลลัพธ์ ต้องเปิดเผยการใช้ AI ห้ามป้อนข้อมูลส่วนบุคคลหรือข้อมูลลับเข้า AI สาธารณะ และต้องระวังอคติกับทรัพย์สินทางปัญญา ประกาศเขียนในระดับหลักการ คอลัมน์ขวาคือข้อเสนอว่าแต่ละข้อแปลเป็นสิ่งที่ผู้เรียนต้องทำในรายวิชาได้อย่างไร ข้อที่ยังไม่มีแนวปฏิบัติชัดคือข้อ 4.3 ทรัพย์สินทางปัญญา ซึ่งอยู่ในประเด็นค้างสไลด์สุดท้าย</aside>
 </section>
 <section id="program" data-transition="fade" style="background:#ECE8DF;color:#14233A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
@@ -115,67 +148,39 @@
 </div>
 </div>
 <p style="position:absolute;left:128px;bottom:64px;width:1500px;font-size:24px;color:#6A7181">บทเรียนรุ่น 1: สอนเขียนโค้ดด้วยมือ ผู้เรียนไม่สำเร็จ 45% → รุ่น 2 เปลี่ยนเป็น AI-First · หลักการเดียวกันใช้ใน MediHack 2026</p>
-<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">3</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">4</p>
 <aside>สี่หลักการนี้ใช้ได้กับรายวิชาใดก็ได้ที่ผู้เรียนสร้างผลงานร่วมกับ AI: เริ่มจากโจทย์จริง ให้ AI ลงมือ แต่คนออกแบบและตัดสิน ทำเป็นรอบสั้นพร้อม feedback และวัดจากผลงานกับสมรรถนะ ตัวอย่างที่ชัดที่สุดคือ ADT-RAISE รุ่น 2 ผู้เรียนเป็นคนทำงานจากหลายสาขา ส่วนใหญ่ไม่มีพื้นฐาน IT เรียน 22 สัปดาห์ 285 ชั่วโมง โดยใช้ Claude Code ช่วยเขียนโค้ด และต้องสร้าง Web App ที่มี AI ในตัวจากปัญหาในงานของตัวเอง สัปดาห์แรกได้ไอเดีย 42 เรื่องจาก Hackathon ครอบคลุมสุขภาพชุมชน การศึกษา งานราชการ ก่อสร้าง และพลังงาน เหตุผลที่ต้องเป็น AI-First มาจากรุ่น 1 ที่สอนเขียนโค้ดด้วยมือ ผู้เรียนที่ไม่มีพื้นฐานเจอ cognitive overload และหลุดกลางทาง 45% หลักการเดียวกันใช้ใน MediHack 2026 ที่นักศึกษาข้ามสาขาแก้โจทย์จริงจากโรงพยาบาล</aside>
 </section>
-<section id="habits" data-transition="fade" style="background:#14233A;color:#F7F5F0;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<section id="habits" data-transition="fade" style="background:#14233A;color:#F7F5F0;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
 <div style="display:flex;flex-direction:column;gap:8px">
-<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;letter-spacing:2px;color:#D9A441">ทักษะที่เราฝึก · Hard Skill 4 · Soft Skill 4</p>
-<h2 style="font-family:'Kanit', Tahoma, sans-serif;font-size:60px;font-weight:600;line-height:1.3">8 ทักษะที่ผู้เรียนได้รับการรับรอง</h2>
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;letter-spacing:2px;color:#D9A441">ทักษะที่เราฝึก นอกเหนือจากการใช้เครื่องมือ</p>
+<h2 style="font-family:'Kanit', Tahoma, sans-serif;font-size:60px;font-weight:600;line-height:1.3">4 ทักษะของผู้เรียนที่ทำงานกับ AI</h2>
 </div>
-<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:20px">
-<div style="display:flex;flex-direction:column;gap:8px;background:#1E3150;padding:24px;border-radius:14px;border-top:6px solid #D9A441">
-<p style="font-size:24px;font-weight:700;color:#D9A441">Hard Skill · M1</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">AI-Driven UX/UI Design</h3>
-<p style="font-size:24px;line-height:1.45;color:#C9D2DE">ใช้ AI สร้าง Persona Journey Map และ Prototype</p>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#1E3150;padding:36px;border-radius:16px;border-left:6px solid #D9A441">
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;color:#D9A441">ทักษะ 01 · ให้บริบทก่อนสั่งงาน</p>
+<h3 style="font-family:'Kanit', Tahoma, sans-serif;font-size:36px;font-weight:600;line-height:1.3">บรีฟ AI เหมือนเพื่อนร่วมทีม</h3>
+<p style="font-size:26px;line-height:1.5;color:#C9D2DE">เขียนเป้าหมาย ข้อกำหนด และมาตรฐานงานไว้ให้ AI อ่าน ก่อนลงมือ (RAISE: ไฟล์ CLAUDE.md)</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#1E3150;padding:24px;border-radius:14px;border-top:6px solid #D9A441">
-<p style="font-size:24px;font-weight:700;color:#D9A441">Hard Skill · M2</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Full-Stack Development (Agentic)</h3>
-<p style="font-size:24px;line-height:1.45;color:#C9D2DE">สร้างแอปครบวงจร ด้วย Claude Code แล้ว deploy</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1E3150;padding:36px;border-radius:16px;border-left:6px solid #D9A441">
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;color:#D9A441">ทักษะ 02 · คิดก่อนพิมพ์</p>
+<h3 style="font-family:'Kanit', Tahoma, sans-serif;font-size:36px;font-weight:600;line-height:1.3">ตรวจ Prompt ก่อนใช้</h3>
+<p style="font-size:26px;line-height:1.5;color:#C9D2DE">ปรับ prompt ด้วย CheckPrompt และสร้างพื้นฐานด้วยคู่มือ AI Literacy พร้อมแบบทดสอบ 119 ข้อ</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#1E3150;padding:24px;border-radius:14px;border-top:6px solid #D9A441">
-<p style="font-size:24px;font-weight:700;color:#D9A441">Hard Skill · M3</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Data Analytics &amp; AI Modeling</h3>
-<p style="font-size:24px;line-height:1.45;color:#C9D2DE">Dashboard จากข้อมูลจริง เชื่อม AI และประเมิน Bias</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1E3150;padding:36px;border-radius:16px;border-left:6px solid #D9A441">
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;color:#D9A441">ทักษะ 03 · ให้ AI ตรวจ แต่คนตัดสิน</p>
+<h3 style="font-family:'Kanit', Tahoma, sans-serif;font-size:36px;font-weight:600;line-height:1.3">ใช้ AI อีกตัวช่วยรีวิว</h3>
+<p style="font-size:26px;line-height:1.5;color:#C9D2DE">แล้วทีมตัดสินว่าจะรับหรือแก้ (RAISE: Reviewer / Tester sub-agent และ Playwright MCP)</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#1E3150;padding:24px;border-radius:14px;border-top:6px solid #D9A441">
-<p style="font-size:24px;font-weight:700;color:#D9A441">Hard Skill · M4</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">IoT &amp; Real-time Development</h3>
-<p style="font-size:24px;line-height:1.45;color:#C9D2DE">ส่งข้อมูลเซนเซอร์ขึ้น Cloud ผ่าน MQTT พร้อม AI</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#F7F5F0;color:#14233A;padding:24px;border-radius:14px;border-top:6px solid #B5432A">
-<p style="font-size:24px;font-weight:700;color:#B5432A">Soft Skill · W1, M5</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Industry Problem-Solving</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5262">แก้ Pain Point จริง ในงานของตนเอง</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#F7F5F0;color:#14233A;padding:24px;border-radius:14px;border-top:6px solid #B5432A">
-<p style="font-size:24px;font-weight:700;color:#B5432A">Soft Skill · M5</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Business Model Planning</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5262">วิเคราะห์ต้นทุน รายได้ และกลุ่มลูกค้า</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#F7F5F0;color:#14233A;padding:24px;border-radius:14px;border-top:6px solid #B5432A">
-<p style="font-size:24px;font-weight:700;color:#B5432A">Soft Skill · ทุก Module</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Presentation &amp; Communication</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5262">เล่าเรื่องด้วยข้อมูล และตอบคำถามได้</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:8px;background:#F7F5F0;color:#14233A;padding:24px;border-radius:14px;border-top:6px solid #B5432A">
-<p style="font-size:24px;font-weight:700;color:#B5432A">Soft Skill · ทุก Module</p>
-<h3 style="font-size:26px;font-weight:700;line-height:1.3">Creative Thinking &amp; Innovation</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5262">ใช้ AI สร้างทางเลือกใหม่ ในการแก้ปัญหา</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1E3150;padding:36px;border-radius:16px;border-left:6px solid #D9A441">
+<p style="font-family:'Kanit', Tahoma, sans-serif;font-size:24px;font-weight:500;color:#D9A441">ทักษะ 04 · ออกแบบให้ล้มอย่างปลอดภัย</p>
+<h3 style="font-family:'Kanit', Tahoma, sans-serif;font-size:36px;font-weight:600;line-height:1.3">ตรวจ ระบุที่มา และมี fallback</h3>
+<p style="font-size:26px;line-height:1.5;color:#C9D2DE">ตรวจผลจาก AI ระบุว่าส่วนใดมาจาก AI และระบบต้องใช้งานได้ แม้ AI ล้มเหลว</p>
 </div>
 </div>
-<div style="display:flex;gap:16px;align-items:center;background:#1E3150;padding:20px 28px;border-radius:14px">
-<p style="font-size:24px;font-weight:700;color:#D9A441;width:250px">ประเมิน 3 ระดับ</p>
-<p style="flex:1;font-size:24px;line-height:1.45;color:#F7F5F0"><b>1</b> เข้าใจ และทำได้ ภายใต้คำแนะนำ</p>
-<p style="font-size:30px;color:#D9A441">→</p>
-<p style="flex:1;font-size:24px;line-height:1.45;color:#F7F5F0"><b>2</b> ทำได้ด้วยตนเอง ในงานจริง</p>
-<p style="font-size:30px;color:#D9A441">→</p>
-<p style="flex:1;font-size:24px;line-height:1.45;color:#F7F5F0"><b>3</b> ระดับมืออาชีพ ออกแบบ และขยายผลได้</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1500px;font-size:24px;color:#C9D2DE">ที่มา: เกณฑ์ใบรับรองทักษะ ADT-RAISE รุ่น 2 · ผูกกับ TPQI 7001–7009 และ PLO 1 Technical / PLO 2 Employability</p>
-<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#C9D2DE">4</p>
-<aside>ผู้เรียนได้รับใบรับรอง 8 ทักษะ แบ่งเป็น Hard Skill 4 ทักษะ ตามแต่ละ Module และ Soft Skill 4 ทักษะ ที่ฝึกต่อเนื่องตลอดหลักสูตร แต่ละทักษะประเมิน 3 ระดับ ตัวอย่าง Full-Stack Development (Agentic): ระดับ 1 เข้าใจโครงสร้าง Full-Stack ตั้งค่าสภาพแวดล้อมและ CLAUDE.md ได้ ระดับ 2 พัฒนา Frontend Backend และฐานข้อมูลเชื่อมกันและ deploy ได้ด้วยตนเอง ระดับ 3 ออกแบบสถาปัตยกรรมที่ขยายได้และใช้ Reviewer / Tester sub-agent ระดับมืออาชีพ ทักษะการทำงานกับ AI ไม่ได้แยกเป็นวิชา แต่ฝังอยู่ในทุกทักษะ เช่น ให้บริบทกับ AI ผ่าน CLAUDE.md ใช้ AI อีกตัวช่วยรีวิว ตรวจผลและระบุที่มาของข้อความจาก AI และออกแบบระบบให้ทำงานต่อได้เมื่อ AI ล้มเหลว ทุกทักษะผูกกับหน่วยสมรรถนะ TPQI 7001–7009 และ PLO 2 ข้อของหลักสูตร</aside>
+<p style="position:absolute;left:128px;bottom:64px;width:1400px;font-size:24px;color:#C9D2DE">ตัวอย่างในวงเล็บ: ใช้จริงกับ Claude Code ใน ADT-RAISE รุ่น 2</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#C9D2DE">5</p>
+<aside>เครื่องมือ AI เปลี่ยนเร็ว แต่ทักษะการทำงานกับ AI ใช้ได้ทุกเครื่องมือและทุกสาขา เราจึงฝึกผู้เรียน 4 ทักษะ (1) ให้บริบทก่อนสั่งงาน เหมือนบรีฟเพื่อนร่วมทีมใหม่ ใน RAISE คือไฟล์ CLAUDE.md (2) คิดก่อนพิมพ์ ตรวจ prompt และเรียน AI Literacy (3) ใช้ sub-agent ช่วยรีวิวและทดสอบ แต่คนในทีมเป็นผู้ตัดสิน (4) ออกแบบระบบให้ล้มอย่างปลอดภัยและเปิดเผยที่มาของข้อความจาก AI ทั้ง 4 ทักษะตรงกับประกาศมหาวิทยาลัยข้อ 1, 2.1 และ 2.3</aside>
 </section>
 <section id="metrics" data-transition="fade" style="background:#F7F5F0;color:#14233A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
 <div style="display:flex;flex-direction:column;gap:8px">
@@ -201,7 +206,7 @@
 </div>
 </div>
 <p style="position:absolute;left:128px;bottom:64px;width:1400px;font-size:24px;color:#6A7181">ที่มา: ADT-RAISE NonDegree Batch 2 — ระบบส่งคะแนนกลาง (Certificate)</p>
-<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">5</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#6A7181">6</p>
 <aside>เมื่อผู้เรียนใช้ AI การวัดแค่ชิ้นงานสุดท้ายไม่พอ เราเสนอให้วัด 4 ชั้น: (1) ผลงานที่ใช้งานได้จริง (2) ความสามารถในการกำกับ AI ซึ่งเป็นทักษะใหม่ที่ต้องวัดตรง ๆ (3) สมรรถนะเทียบมาตรฐานวิชาชีพ แยกเป็นระดับ (4) ความรับผิดชอบตามประกาศมหาวิทยาลัย ตัวอย่างใน ADT-RAISE รุ่น 2: น้ำหนักรวม 100% แบ่งเป็น W1 10, M1 15, M2 20, M3 20, M4 15, M5 20 ผู้สอนแต่ละ Module กรอกคะแนนในระบบกลางที่ถ่วงน้ำหนักให้อัตโนมัติ แถบสีแดงคือช่วงที่วัดการกำกับ AI โดยตรง เช่น Agentic AI และ One-Shot ใน M2 แต่ละช่วงผูกกับหน่วยสมรรถนะ TPQI 7001–7009 และ PLO 2 ข้อ ใบรับรองทักษะมี 8 ทักษะ ทักษะละ 3 ระดับ</aside>
 </section>
 <section id="outcome" data-transition="fade" style="background:#B5432A;color:#F7F5F0;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
@@ -224,7 +229,7 @@
 </div>
 </div>
 <p style="position:absolute;left:128px;bottom:64px;width:1500px;font-size:24px;color:#F6E3DD">ผลระหว่างทาง ADT-RAISE รุ่น 2 ณ 28 ต.ค. 2569: ส่งงาน M2 แล้ว 33/39 คน · ได้ ≥ 60 คะแนน M1 23 คน · M2 21 คน</p>
-<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#F6E3DD">6</p>
+<p style="position:absolute;right:128px;bottom:64px;width:120px;text-align:right;font-size:24px;color:#F6E3DD">7</p>
 <aside>ปิดด้วยสิ่งที่ยังไม่เรียบร้อย แบ่งเป็นสองระดับ ระดับนโยบายและเครือข่าย ซึ่งเกินกำลังสถาบันเดียว: (1) ทรัพย์สินทางปัญญาของงานที่ AI สร้าง ตามประกาศข้อ 4.3 (2) โจทย์จริงมักมีข้อมูลส่วนบุคคล แต่ประกาศข้อ 3 ห้ามป้อนเข้า AI สาธารณะ จึงต้องมีแนวทางทำข้อมูลนิรนามหรือข้อมูลทดสอบ (3) การจัดหา AI subscription ที่ระเบียบพัสดุยังไม่รองรับ ระดับหลักสูตร: (4) ความเที่ยงของการวัดเมื่อ AI ช่วยทำงาน (5) ความสอดคล้องของ PLO สมรรถนะ และเกณฑ์ผ่าน (6) ผู้เรียนที่ตามไม่ทัน แม้ AI จะลดกำแพงเทคนิคแล้ว ตัวเลขในวงเล็บและด้านล่างมาจาก ADT-RAISE เป็นผลระหว่างทาง ไม่ใช่ผลสุดท้าย</aside>
 </section>
 </div>
