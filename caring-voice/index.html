@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เสียงใส่ใจ (Caring Voice)</title>
+<meta name="description" content="เสียงใส่ใจ (Caring Voice): ระบบ AI ติดตามผู้ป่วย NCD ด้วยเสียงภาษาไทย ปิดวงจรการดูแลจากคำแนะนำของแพทย์ สู่บ้านผู้ป่วย และกลับมาเป็นข้อมูล">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #F6F5F0; --card: #FCFDF8; --line: #E4E2DA; --navy: #1F2540; --navy2: #3A4166; --slate: #5A628C;
+    --ink: #2B2B33; --muted: #6E7385; --red: #C05C44; --red-soft: #FCEBE3; --red-line: #F0D9CE;
+    --lav: #E5E8F1; --lav-line: #D2D7E6; --green: #2F7D62; --tan: #C9836A;
+  }
+  html, body { margin: 0; height: 100%; background: #E9E7E0; overflow: hidden; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; cursor: pointer; }
+  #stage > section { position: absolute; inset: 0; width: 1920px; height: 1080px; box-sizing: border-box; display: none; overflow: hidden;
+    background: var(--bg); color: var(--ink); font-family: 'Prompt', Tahoma, sans-serif; }
+  #stage > section.on { display: block; }
+  section * { margin: 0; box-sizing: border-box; }
+  section ul { list-style: none; padding: 0; }
+  section a { color: inherit; }
+
+  /* shared slide chrome */
+  .deco { position: absolute; pointer-events: none; }
+  .deco-tr { right: 0; top: 0; width: 370px; height: 210px; }
+  .deco-bl { left: 0; bottom: 0; width: 90px; height: 380px; }
+  .head { position: absolute; left: 103px; top: 62px; right: 400px; }
+  .head h2 { font-size: 50px; font-weight: 700; line-height: 1.3; color: var(--navy); white-space: nowrap; }
+  .head p { margin-top: 18px; font-size: 24px; font-weight: 300; color: var(--muted); white-space: nowrap; }
+  .foot { position: absolute; left: 103px; right: 102px; top: 1017px; border-top: 2px solid #DDDCD5; display: flex; justify-content: space-between; padding-top: 14px; font-size: 17px; font-weight: 300; color: var(--muted); }
+  .foot b { font-weight: 600; color: var(--slate); }
+  .card { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; }
+  .card.pink { background: var(--red-soft); border-color: var(--red-line); }
+  .card.lav { background: var(--lav); border-color: var(--lav-line); }
+  .card.hot { background: var(--red-soft); border: 2px solid var(--red); }
+  .kicker { font-size: 19px; font-weight: 600; color: var(--red); }
+  .navy { color: var(--navy); } .red { color: var(--red); } .green { color: var(--green); } .slate { color: var(--slate); } .muted { color: var(--muted); }
+
+  /* 1 cover */
+  #s1 h1 { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font-size: 86px; font-weight: 700; color: var(--navy); }
+  #s1 .sub { position: absolute; left: 0; right: 0; top: 292px; text-align: center; font-size: 38px; font-weight: 300; color: var(--slate); }
+  #s1 .wave { position: absolute; left: 360px; top: 400px; width: 1265px; height: 230px; }
+  #s1 .box { position: absolute; left: 491px; top: 676px; width: 938px; height: 174px; text-align: center; padding-top: 30px; }
+  #s1 .box p:nth-child(1) { font-size: 25px; font-weight: 600; color: var(--navy); }
+  #s1 .box p:nth-child(2) { margin-top: 10px; font-size: 21px; color: var(--ink); }
+  #s1 .box p:nth-child(3) { margin-top: 6px; font-size: 21px; font-weight: 600; color: var(--red); }
+  #s1 .logos img { position: absolute; }
+
+  /* 3 & 7 stat tiles */
+  .stats { position: absolute; left: 103px; top: 238px; width: 1707px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .stats .card { height: 162px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .stats .num { font-size: 54px; font-weight: 700; line-height: 1.15; }
+  .stats .lbl { font-size: 19px; font-weight: 300; color: var(--muted); }
+  #s7 .stats .card { height: 175px; align-items: flex-start; padding: 0 26px; gap: 2px; }
+  #s7 .stats .num { font-size: 44px; }
+  #s7 .stats .cap { font-size: 17px; font-weight: 300; color: var(--muted); }
+  .pair { position: absolute; left: 103px; top: 448px; width: 1715px; height: 502px; display: grid; grid-template-columns: 823px 823px; justify-content: space-between; }
+  .pair > .card { padding: 40px 36px; }
+  .pair h3 { font-size: 34px; font-weight: 700; color: var(--navy); margin: 8px 0 22px; }
+  .pair li { font-size: 21px; line-height: 1.7; margin-bottom: 12px; display: flex; gap: 10px; }
+  .pair li i { font-style: normal; font-weight: 700; color: var(--red); flex: none; }
+  #s3 .sister { margin-top: 38px; background: #F1EFE8; border: 1.5px solid var(--line); border-radius: 6px; padding: 18px; text-align: center; font-size: 19px; font-weight: 600; color: var(--slate); }
+
+  /* 4 loop */
+  #s4 .steps { position: absolute; left: 103px; top: 258px; width: 1717px; display: flex; justify-content: space-between; }
+  #s4 .step { position: relative; width: 308px; height: 403px; margin-top: 25px; padding: 46px 22px 0; text-align: center; }
+  #s4 .step .n { position: absolute; left: 50%; top: -26px; transform: translateX(-50%); width: 50px; height: 50px; border-radius: 50%; background: var(--navy2); color: #fff; font-size: 26px; font-weight: 700; display: grid; place-items: center; }
+  #s4 .step.hot .n { background: var(--red); }
+  #s4 .step svg { width: 72px; height: 88px; }
+  #s4 .step .k { margin-top: 18px; font-size: 15px; font-weight: 600; color: var(--slate); }
+  #s4 .step.hot .k { color: var(--red); }
+  #s4 .step h3 { margin-top: 10px; font-size: 22px; font-weight: 700; color: var(--navy); }
+  #s4 .step p.d { margin-top: 16px; text-align: left; font-size: 17px; font-weight: 300; line-height: 1.8; }
+  #s4 .arrow { position: absolute; top: 357px; width: 40px; height: 30px; }
+  #s4 .back { position: absolute; left: 240px; top: 660px; width: 1440px; height: 90px; }
+  #s4 .back-label { position: absolute; left: 707px; top: 685px; width: 508px; height: 60px; border: 2px solid var(--red); border-radius: 30px; background: var(--bg); display: grid; place-items: center; font-size: 19px; font-weight: 600; color: var(--red); }
+  #s4 .core { position: absolute; left: 103px; top: 800px; width: 1715px; height: 150px; text-align: center; padding-top: 38px; }
+  #s4 .core p:first-child { font-size: 24px; font-weight: 600; color: var(--navy); }
+  #s4 .core p:last-child { margin-top: 14px; font-size: 19px; font-weight: 300; }
+
+  /* 5 conversation */
+  #s5 .phone { position: absolute; left: 146px; top: 254px; width: 321px; height: 686px; }
+  #s5 .phone-cap { position: absolute; left: 106px; top: 952px; width: 401px; text-align: center; font-size: 18px; font-weight: 300; color: var(--muted); }
+  #s5 .src { position: absolute; top: 254px; width: 595px; height: 254px; padding: 26px 30px; }
+  #s5 .src h3 { font-size: 23px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+  #s5 .src li { font-size: 19px; line-height: 2.05; }
+  #s5 .src li::before { content: '· '; color: var(--red); }
+  #s5 .vline { position: absolute; width: 3px; }
+  #s5 .bar { position: absolute; left: 583px; top: 553px; width: 1235px; height: 78px; background: var(--navy); border-radius: 6px; color: #fff; display: grid; place-items: center; font-size: 23px; font-weight: 600; }
+  #s5 .res-k { position: absolute; left: 583px; top: 680px; font-size: 19px; font-weight: 600; color: var(--red); }
+  #s5 .quote { position: absolute; left: 583px; top: 721px; width: 918px; height: 112px; display: grid; place-items: center; text-align: center; font-size: 21px; font-weight: 600; line-height: 1.65; color: var(--navy); }
+  #s5 .instead { position: absolute; left: 583px; top: 851px; width: 918px; height: 67px; background: #F1EFE8; border: 1.5px solid var(--line); border-radius: 10px; display: grid; place-items: center; font-size: 18px; font-weight: 300; color: var(--muted); }
+  #s5 .why { position: absolute; left: 1527px; top: 721px; width: 291px; height: 197px; padding: 22px 22px; }
+  #s5 .why p:first-child { text-align: center; font-size: 17px; font-weight: 600; color: var(--red); }
+  #s5 .why p:last-child { margin-top: 12px; font-size: 17px; font-weight: 600; line-height: 1.8; color: var(--navy); }
+
+  /* 6 trend */
+  #s6 .dash { position: absolute; left: 66px; top: 202px; width: 1090px; height: 811px; padding: 5px; background: #fff; border: 1px solid #DDDCD5; box-shadow: 0 4px 10px rgba(31,37,64,.25); }
+  #s6 .dash img { width: 100%; height: 100%; display: block; }
+  #s6 .pt { position: absolute; left: 1188px; width: 630px; height: 135px; padding: 22px 28px; border-left: 6px solid var(--red); border-radius: 4px; }
+  #s6 .pt h3 { font-size: 21px; font-weight: 700; color: var(--navy); }
+  #s6 .pt p { margin-top: 10px; font-size: 16px; font-weight: 300; line-height: 1.75; }
+  #s6 .goal { position: absolute; left: 1188px; top: 708px; width: 630px; height: 243px; padding: 26px 32px; }
+  #s6 .goal .big { margin-top: 8px; font-size: 50px; font-weight: 700; }
+  #s6 .goal .big span { font-size: 30px; color: var(--red); margin: 0 18px; }
+  #s6 .goal h3 { font-size: 21px; font-weight: 700; color: var(--navy); }
+  #s6 .goal p.v { margin-top: 12px; font-size: 19px; }
+
+  /* 7 market */
+  #s7 .pair h3 { margin: 0 0 18px; }
+  #s7 .vs { gap: 12px !important; }
+  #s7 .cmp { margin-top: -10px; font-size: 19px; font-weight: 300; color: var(--muted); }
+  #s7 .vs { margin-top: 22px; display: flex; flex-direction: column; gap: 18px; }
+  #s7 .vs .x { font-size: 19px; font-weight: 600; color: var(--slate); display: flex; gap: 8px; align-items: center; }
+  #s7 .vs .x svg { width: 20px; height: 20px; flex: none; }
+  #s7 .vs .y { margin: 6px 0 0 32px; font-size: 19px; font-weight: 600; color: var(--navy); }
+  #s7 .vs .y::before { content: '→ '; color: var(--red); }
+  #s7 .ip dt { margin-top: 14px; font-size: 19px; font-weight: 600; color: var(--red); }
+  #s7 .ip dt:first-child { margin-top: 0; }
+  #s7 .ip dd { margin: 6px 0 0; font-size: 19px; line-height: 1.6; }
+
+  /* 8 team & ask */
+  #s8 .col-h { position: absolute; font-size: 25px; font-weight: 700; color: var(--navy); }
+  #s8 .person { position: absolute; left: 103px; width: 823px; height: 111px; padding: 16px 30px; border-left: 6px solid var(--red); border-radius: 4px; }
+  #s8 .person .k { font-size: 17px; font-weight: 600; color: var(--red); }
+  #s8 .person h3 { margin-top: 4px; font-size: 23px; font-weight: 700; color: var(--navy); }
+  #s8 .person p { margin-top: 2px; font-size: 16px; font-weight: 300; color: var(--muted); }
+  #s8 .infra { position: absolute; left: 103px; top: 752px; width: 823px; height: 198px; padding: 30px 34px; }
+  #s8 .infra li { font-size: 19px; line-height: 2.35; }
+  #s8 .infra li::before { content: '· '; }
+  #s8 .money { position: absolute; top: 289px; width: 401px; height: 144px; padding: 24px 30px; }
+  #s8 .money p { font-size: 16px; font-weight: 300; color: var(--muted); }
+  #s8 .money .v { margin-top: 2px; font-size: 48px; font-weight: 700; color: var(--red); }
+  #s8 .money .v span { font-size: 20px; margin-left: 10px; }
+  #s8 .phase { position: absolute; left: 994px; width: 824px; height: 97px; display: flex; align-items: center; gap: 18px; padding: 0 18px; }
+  #s8 .phase .n { flex: none; width: 54px; height: 54px; border-radius: 50%; background: var(--navy2); color: #fff; display: grid; place-items: center; font-size: 26px; font-weight: 700; }
+  #s8 .phase h3 { font-size: 18px; font-weight: 700; color: var(--navy); }
+  #s8 .phase h3 span { margin-left: 12px; color: var(--red); font-weight: 600; }
+  #s8 .phase p { margin-top: 4px; font-size: 16px; font-weight: 300; line-height: 1.55; }
+  #s8 .ask { position: absolute; left: 994px; top: 853px; width: 824px; height: 97px; background: var(--navy); border-radius: 4px; color: #fff; display: grid; place-items: center; text-align: center; font-size: 20px; font-weight: 600; line-height: 1.6; }
+
+  #bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 12px; padding: 10px; font: 14px/1 'Prompt', Tahoma, sans-serif; color: var(--slate); }
+  #bar button { background: var(--navy); color: #F6F5F0; border: 0; border-radius: 6px; padding: 8px 14px; font: inherit; cursor: pointer; }
+  #bar span { align-self: center; min-width: 56px; text-align: center; }
+  @media print {
+    html, body { overflow: visible; background: none; }
+    #bar { display: none; }
+    #stage { position: static; transform: none !important; width: auto; height: auto; }
+    #stage > section { position: relative; display: block; page-break-after: always; }
+    @page { size: 1920px 1080px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="deco-tr" viewBox="0 0 370 210">
+      <g fill="none" stroke-width="2">
+        <path d="M0 0 V67 L86 153 H370" stroke="#3A4166"/>
+        <path d="M129 0 V77 L200 148 V207 H370" stroke="#C9836A"/>
+        <path d="M325 0 V113 H370" stroke="#C9836A"/>
+        <path d="M258 0 V67 H370 M162 35 H370" stroke="#3A4166" stroke-width="1.5"/>
+        <circle cx="86" cy="153" r="7" fill="#F6F5F0" stroke="#3A4166"/>
+        <circle cx="200" cy="148" r="7" fill="#F6F5F0" stroke="#3A4166"/>
+        <circle cx="258" cy="67" r="7" fill="#F6F5F0" stroke="#3A4166"/>
+      </g>
+    </symbol>
+    <symbol id="deco-bl" viewBox="0 0 90 380">
+      <g fill="none" stroke-width="2">
+        <path d="M0 7 H16 L78 69 V380" stroke="#3A4166"/>
+        <path d="M0 137 H40 V380" stroke="#C9836A"/>
+        <path d="M0 257 H9 V380 M0 330 H60" stroke="#3A4166" stroke-width="1.5"/>
+        <circle cx="16" cy="7" r="7" fill="#F6F5F0" stroke="#3A4166"/>
+        <circle cx="78" cy="69" r="7" fill="#F6F5F0" stroke="#3A4166"/>
+      </g>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 40 30"><path d="M0 9 H22 V0 L40 15 L22 30 V21 H0 Z" fill="#5A628C"/></symbol>
+    <symbol id="x" viewBox="0 0 20 20"><path d="M2 2 L18 18 M18 2 L2 18" stroke="#5A628C" stroke-width="2" fill="none"/></symbol>
+  </defs>
+</svg>
+<div id="stage">
+
+<section id="s1">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <svg class="deco deco-bl" aria-hidden="true"><use href="#deco-bl"/></svg>
+  <h1>เสียงใส่ใจ (Caring Voice)</h1>
+  <p class="sub">ระบบ AI ติดตามผู้ป่วย NCD ด้วยเสียงภาษาไทย</p>
+  <svg class="wave" viewBox="0 0 1265 230" aria-label="ภาพคลื่นเสียงต่อเนื่องเป็นกราฟคลื่นหัวใจ และตารางจุดข้อมูล" fill="none">
+    <path d="M2 135 H128 C150 134 165 137 180 134 S200 138 215 131 C228 127 232 140 245 138 S255 125 262 128 C270 132 270 145 278 140 S288 122 296 128 C304 136 302 146 310 142 S318 122 326 130 C334 140 332 146 342 140 S352 126 360 132 L366 128 L372 140 L380 120 L387 150 L396 92 L405 160 L414 70 L423 170 L431 54 L440 190 L450 116 L460 60 L470 180 L478 190 L488 104 L497 96 L506 140 L515 158 L524 130 L533 124 L545 138 L555 140 C570 136 580 135 600 136 C620 134 640 137 660 135 C680 136 700 134 720 135 H860 L873 100 L887 172 L901 8 L917 208 L931 135 H962 L977 104 L991 162 L1004 135 H1077" stroke="#1F2540" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#3A4166" stroke-width="1.2">
+      <path d="M1093 70 H1260 M1093 135 H1260 M1093 200 H1260 M1120 55 V215 M1179 55 V215 M1238 55 V215"/>
+    </g>
+    <g fill="#1F2540">
+      <circle cx="1120" cy="70" r="4.5"/><circle cx="1179" cy="70" r="4.5"/><circle cx="1238" cy="70" r="4.5"/>
+      <circle cx="1120" cy="135" r="4.5"/><circle cx="1179" cy="135" r="4.5"/><circle cx="1238" cy="135" r="4.5"/>
+      <circle cx="1120" cy="200" r="4.5"/><circle cx="1179" cy="200" r="4.5"/><circle cx="1238" cy="200" r="4.5"/>
+    </g>
+  </svg>
+  <div class="box card">
+    <p>ปิดวงจรการดูแล — จากคำแนะนำของแพทย์ สู่บ้านผู้ป่วย และกลับมาเป็นข้อมูล</p>
+    <p>ติดตามอัตโนมัติผ่าน LINE OA · Email · SMS &nbsp;·&nbsp; สนทนาด้วยเสียงกับ “พยาบาลฝน”</p>
+    <p>แล้ววัดผลเป็น “แนวโน้มการทำตามคำแนะนำ” ที่แพทย์ใช้ตัดสินใจได้</p>
+  </div>
+  <div class="logos">
+    <img src="img/logo-wellness.png" alt="MFU Wellness Center" style="left:686px;top:909px;width:186px;height:87px">
+    <img src="img/logo-mch.png" alt="MFU MCH โรงพยาบาลศูนย์การแพทย์มหาวิทยาลัยแม่ฟ้าหลวง" style="left:923px;top:890px;width:93px;height:94px">
+    <img src="img/logo-adt.png" alt="ADT สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์" style="left:1096px;top:914px;width:124px;height:69px">
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>1</b></div>
+</section>
+
+<section id="s2">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <div class="head">
+    <h2>ทำไมการดูแล NCD ถึงยังไม่ได้ผล</h2>
+    <p>ปัญหาไม่ใช่การวินิจฉัย — แต่คือช่วง 3 เดือนระหว่างนัด ที่ไม่มีใครรู้ว่าเกิดอะไรขึ้น</p>
+  </div>
+  <img src="img/ncd-crisis.png" alt="อินโฟกราฟิกวิกฤตผู้ป่วย NCD ล้นระบบ: ความดันโลหิตสูง 14 ล้านคน เบาหวาน 5.18 ล้านคน แพทย์เพิ่มเพียง 53% ใน 12 ปี ขณะที่ผู้ป่วยเพิ่ม 64% และ 76.2% ของผู้ป่วยในภาคเหนือตอนบนไม่สามารถควบคุมระดับน้ำตาลได้" style="position:absolute;left:103px;top:223px;width:703px;height:797px">
+  <img src="img/followup-gap.png" alt="อินโฟกราฟิกข้อจำกัดการติดตามผล (The Follow-up Gap): พยาบาลไม่เพียงพอในการติดตาม และผู้สูงอายุเผชิญปัญหา Digital Divide ไม่ถนัดพิมพ์หรือกรอกฟอร์ม ทำให้การดูแลที่บ้านขาดช่วง" style="position:absolute;left:967px;top:210px;width:702px;height:807px">
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>2</b></div>
+</section>
+
+<section id="s3">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <svg class="deco deco-bl" aria-hidden="true"><use href="#deco-bl"/></svg>
+  <div class="head">
+    <h2>เราไม่ได้เริ่มจากศูนย์ — ระบบฐานใช้งานจริงแล้ววันนี้</h2>
+    <p>MFU Wellness Center ใช้ระบบนี้ดูแลผู้รับบริการอยู่แล้ว สิ่งที่ขอทุนคือการต่อยอด “การติดตามด้วยเสียง” เข้าไป</p>
+  </div>
+  <div class="stats">
+    <div class="card"><p class="num navy">TRL 7</p><p class="lbl">ระดับความพร้อมเทคโนโลยี</p></div>
+    <div class="card"><p class="num navy">30,000</p><p class="lbl">ผู้รับบริการที่รองรับ</p></div>
+    <div class="card"><p class="num green">26/26</p><p class="lbl">กรณีทดสอบผ่าน UAT</p></div>
+    <div class="card"><p class="num red">6.90%</p><p class="lbl">WER — ความแม่นยำ ASR ไทย</p></div>
+  </div>
+  <div class="pair">
+    <div class="card">
+      <p class="kicker">ระบบปัจจุบัน (Live)</p>
+      <h3>ให้คำแนะนำหลังตรวจสุขภาพ</h3>
+      <ul>
+        <li><i>—</i>แชตบอต LINE OA บันทึก แสดงผล และแนะนำข้อมูลสุขภาพรายบุคคล</li>
+        <li><i>—</i>คำแนะนำทุกฉบับผ่านการตรวจและอนุมัติโดยแพทย์ก่อนส่งถึงผู้ป่วย</li>
+        <li><i>—</i>แดชบอร์ดติดตามผู้ป่วยสำหรับแพทย์และพยาบาล เชื่อมข้อมูลเวชระเบียน</li>
+        <li><i>—</i>ผู้ใช้งานจริง: แพทย์ 8 คน · พยาบาล 14 คน · ผู้ป่วย 300 ราย</li>
+      </ul>
+      <p class="sister">ระบบที่ใช้เทคนิคเดียวกัน: สัมภาษณ์ผ่านวิดีโอ 141,000 ครั้ง · เสถียร 99.7%</p>
+    </div>
+    <div class="card pink">
+      <p class="kicker">ส่งมอบใหม่จากทุนนี้</p>
+      <h3>ติดตามด้วยเสียง + วัดผลเป็นแนวโน้ม</h3>
+      <ul>
+        <li><i>+</i>“พยาบาลฝน” — AI Voice Coach ภาษาไทยและสำเนียงล้านนา โทรติดตามผู้ป่วยเอง</li>
+        <li><i>+</i>บทสนทนาอ้างอิงคำแนะนำของแพทย์ และจำบทสนทนาติดตามครั้งก่อนได้</li>
+        <li><i>+</i>รายงานแนวโน้มการทำตามคำแนะนำ (Adherence Trend) รายบุคคลและรายคลินิก</li>
+        <li><i>+</i>เอกสารจริยธรรม (IRB) + บทความวิจัยตีพิมพ์ระดับนานาชาติ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>3</b></div>
+</section>
+
+<section id="s4">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <div class="head">
+    <h2>วงจรการติดตาม: จากคำแนะนำแพทย์ → สู่ผู้ป่วย → กลับเป็นข้อมูล</h2>
+    <p>ทุกขั้นตอนเกิดขึ้นอัตโนมัติ โดยมีแพทย์เป็นผู้อนุมัติก่อนข้อมูลเข้าเวชระเบียนเสมอ</p>
+  </div>
+  <div class="steps">
+    <div class="step card"><span class="n">1</span>
+      <svg viewBox="0 0 72 88" fill="none" stroke="#1F2540" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="ไอคอนรายงานผลตรวจ"><rect x="8" y="4" width="56" height="80" rx="4"/><path d="M18 18 H54 M18 28 H44 M14 52 H24 L30 40 L37 64 L43 50 H58 M18 74 H54"/></svg>
+      <p class="k">จุดตั้งต้น</p><h3>รายงานผลและคำแนะนำ</h3>
+      <p class="d">ผู้ป่วยได้รับรายงานประเมินสุขภาพพร้อมคำแนะนำที่แพทย์ตรวจและอนุมัติแล้ว ระบบเก็บคำแนะนำนี้ไว้เป็น Care Plan</p></div>
+    <div class="step card"><span class="n">2</span>
+      <svg viewBox="0 0 72 88" fill="none" stroke="#1F2540" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="ไอคอนโทรศัพท์รับข้อความ"><path d="M8 16 Q36 -8 64 16 M18 26 Q36 10 54 26 M28 36 Q36 30 44 36"/><rect x="21" y="40" width="30" height="46" rx="5"/><path d="M33 80 H39"/><circle cx="36" cy="38" r="2" fill="#1F2540"/></svg>
+      <p class="k">LINE OA · Email · SMS</p><h3>ติดตามอัตโนมัติ</h3>
+      <p class="d">ระบบส่งคำเชิญสัมภาษณ์ตามตารางติดตาม ผ่านช่องทางที่ผู้ป่วยสะดวก</p></div>
+    <div class="step card"><span class="n">3</span>
+      <svg viewBox="0 0 72 88" fill="none" stroke="#1F2540" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="ไอคอนไมโครโฟน"><rect x="26" y="6" width="20" height="40" rx="10"/><path d="M16 34 Q16 58 36 58 Q56 58 56 34 M36 58 V72 M24 72 H48 M6 24 V44 M66 24 V44"/></svg>
+      <p class="k">เฉพาะบุคคล</p><h3>สนทนากับ “พยาบาลฝน”</h3>
+      <p class="d">ผู้ป่วยกดลิงก์แล้วพูดคุยด้วยเสียง ไม่ต้องพิมพ์ ไม่ต้องกรอกฟอร์ม รองรับสำเนียงล้านนา</p></div>
+    <div class="step card"><span class="n">4</span>
+      <svg viewBox="0 0 72 88" fill="none" stroke="#1F2540" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="ไอคอนคลิปบอร์ดเครื่องหมายถูก"><rect x="8" y="12" width="56" height="72" rx="6"/><rect x="26" y="4" width="20" height="12" rx="3"/><path d="M22 48 L32 60 L52 36"/></svg>
+      <p class="k">มีแพทย์กำกับ</p><h3>สรุปเข้าประวัติ</h3>
+      <p class="d">AI สรุปบทสนทนาเป็นรายงานมีโครงสร้าง แล้วบันทึกลงเวชระเบียน</p></div>
+    <div class="step card hot"><span class="n">5</span>
+      <svg viewBox="0 0 72 88" fill="none" stroke="#C05C44" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="ไอคอนกราฟแนวโน้มขาขึ้น"><path d="M4 10 V78 H70"/><path d="M14 64 L30 50 L42 58 L62 30 M50 30 H62 V42"/><circle cx="14" cy="64" r="3" fill="#C05C44"/><circle cx="30" cy="50" r="3" fill="#C05C44"/><circle cx="42" cy="58" r="3" fill="#C05C44"/></svg>
+      <p class="k">สิ่งที่ไม่เคยมีมาก่อน</p><h3>รายงานแนวโน้ม</h3>
+      <p class="d">แพทย์เห็นแนวโน้มการทำตามคำแนะนำรายบุคคลเพื่อปรับแผนการดูแลครั้งถัดไป</p></div>
+  </div>
+  <svg class="arrow" style="left:414px" aria-hidden="true"><use href="#arrow"/></svg>
+  <svg class="arrow" style="left:766px" aria-hidden="true"><use href="#arrow"/></svg>
+  <svg class="arrow" style="left:1118px" aria-hidden="true"><use href="#arrow"/></svg>
+  <svg class="arrow" style="left:1470px" aria-hidden="true"><use href="#arrow"/></svg>
+  <svg class="back" viewBox="0 0 1440 90" fill="none" aria-hidden="true"><path d="M1424 2 V55 H17 V24" stroke="#C05C44" stroke-width="3"/><path d="M4 26 L17 0 L30 26 Z" fill="#C05C44"/></svg>
+  <p class="back-label">ปรับคำแนะนำจากแนวโน้มที่เห็น</p>
+  <div class="core card lav">
+    <p><span class="red">หัวใจของระบบ:</span> ผู้ป่วยไม่ต้องเรียนรู้อะไรใหม่ — แค่รับสายแล้วพูด &nbsp;· บุคลากรไม่ต้องทำงานเพิ่ม · &nbsp;ข้อมูลไหลกลับเข้ามารายงานเอง</p>
+    <p>ลดเวลาบันทึกเวชระเบียน 2–5 นาที/ราย · ลดเวลาซักประวัติ 5–10 นาที/ราย</p>
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>4</b></div>
+</section>
+
+<section id="s5">
+  <div class="head">
+    <h2>ไม่ใช่แชตบอตถามคำถามเดิมทุกครั้ง</h2>
+    <p>“พยาบาลฝน” ประกอบบทสนทนาใหม่ทุกรอบ จากคำแนะนำของแพทย์ + สิ่งที่ผู้ป่วยเล่าไว้ครั้งก่อน</p>
+  </div>
+  <img class="phone" src="img/nurse-fon-call.png" alt="หน้าจอโทรศัพท์ขณะสนทนาด้วยเสียงกับพยาบาลฝน AI Voice Nurse ผ่าน LINE Call พร้อมคำแนะนำและการแจ้งเตือนพยาบาล">
+  <p class="phone-cap">สนทนาด้วยเสียงผ่าน LINE Call (E2E)</p>
+  <div class="src card pink" style="left:583px">
+    <h3>คำแนะนำของแพทย์ (Care Plan)</h3>
+    <ul><li>ลดน้ำหนัก 3 กก. ใน 3 เดือน</li><li>เดินหลังอาหารเย็น 20 นาที</li><li>ยาความดันเช้า–เย็น</li></ul>
+  </div>
+  <div class="src card lav" style="left:1215px">
+    <h3>ประวัติการติดตามครั้งก่อน</h3>
+    <ul><li>ครั้งก่อนเดินได้ 2 วัน/สัปดาห์</li><li>บอกว่าเข่าเจ็บตอนเดินนาน</li><li>ลืมยามื้อเย็นบ่อย</li></ul>
+  </div>
+  <span class="vline" style="left:879px;top:508px;height:45px;background:#C05C44"></span>
+  <span class="vline" style="left:1511px;top:508px;height:45px;background:#1F2540"></span>
+  <p class="bar">พยาบาลฝน ประกอบเป็นบทสนทนาเฉพาะรายก่อนโทรทุกครั้ง</p>
+  <span class="vline" style="left:1199px;top:631px;height:42px;background:#1F2540"></span>
+  <p class="res-k">ผลลัพธ์ — บทสนทนาที่ต่อเนื่องจากครั้งที่แล้ว</p>
+  <p class="quote card">“ครั้งที่แล้วคุณป้าบอกว่าเดินได้ 2 วันต่อสัปดาห์ แล้วเข่าเจ็บใช่ไหมคะ<br>สัปดาห์นี้เดินได้กี่วันคะ ถ้าเข่ายังเจ็บ ฝนมีท่าที่เบากว่านี้แนะนำนะคะ”</p>
+  <p class="instead">แทนที่จะเป็น: “วันนี้คุณออกกำลังกายหรือไม่?” — คำถามเดิมที่ผู้ป่วยเลิกตอบภายใน 2 สัปดาห์</p>
+  <div class="why card hot">
+    <p>ทำไมถึงสำคัญ</p>
+    <p>ผู้ป่วยรู้สึกว่า “มีคนจำได้” จึงยอมคุยต่อเนื่อง — อัตราการตอบกลับที่ยั่งยืน คือเงื่อนไขของข้อมูลแนวโน้มที่เชื่อถือได้</p>
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>5</b></div>
+</section>
+
+<section id="s6">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <div class="head">
+    <h2>สิ่งที่ไม่เคยมีมาก่อน: แนวโน้มการทำตามคำแนะนำ</h2>
+    <p>ทุกวันนี้แพทย์เห็นแค่ค่าตรวจครั้งถัดไป — ระบบนี้ทำให้เห็น “พฤติกรรมระหว่างทาง” ที่ทำให้ค่านั้นเปลี่ยน</p>
+  </div>
+  <div class="dash"><img src="img/dashboard.png" alt="แดชบอร์ดภาพรวมประชากรสำหรับพยาบาลและแพทย์: ผู้ป่วยในการติดตาม 27 คน ต้องติดตามใกล้ชิด 10 คน ความเสี่ยงสูง 3 คน การโทรใน 7 วัน 14 ครั้ง กราฟการกระจายความเสี่ยง กราฟการโทรติดตามย้อนหลัง 14 วัน และรายชื่อผู้ป่วยเรียงตามความเสี่ยง"></div>
+  <div class="pt card" style="top:248px">
+    <h3>เห็นว่าใครกำลังหลุด — ก่อนค่าตรวจจะแย่</h3>
+    <p>ระบบจัดกลุ่มผู้ป่วยที่การทำตามคำแนะนำลดลงต่อเนื่อง ให้พยาบาลโทรหาเฉพาะคนที่ต้องโทรจริง ๆ</p>
+  </div>
+  <div class="pt card" style="top:402px">
+    <h3>รู้ว่าคำแนะนำแบบไหน “ทำได้จริง”</h3>
+    <p>เทียบคำแนะนำกับพฤติกรรมที่เกิดขึ้นจริง จึงปรับแผนจากหลักฐาน ไม่ใช่จากการเดา</p>
+  </div>
+  <div class="pt card" style="top:555px">
+    <h3>วัดผลเชิงระบบได้เป็นครั้งแรก</h3>
+    <p>การติดตามเปลี่ยนผลลัพธ์สุขภาพจริงหรือไม่</p>
+  </div>
+  <div class="goal card hot">
+    <p class="kicker">เป้าหมายผลลัพธ์ของโครงการ</p>
+    <p class="big"><span class="slate" style="font-size:50px;margin:0;color:var(--slate)">28.3%</span><span>→</span><b class="red" style="font-weight:700">≥35%</b></p>
+    <h3>อัตราการควบคุมเบาหวานในกลุ่มทดลอง</h3>
+    <p class="v">มูลค่าผลกระทบที่ประเมินได้ ≥ 28.2 ล้านบาท</p>
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>6</b></div>
+</section>
+
+<section id="s7">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <svg class="deco deco-bl" aria-hidden="true"><use href="#deco-bl"/></svg>
+  <div class="head">
+    <h2>ผลิตภัณฑ์ ตลาด และความได้เปรียบ</h2>
+    <p>เสียงใส่ใจ — AI Coach สำหรับผู้ป่วยโรคไม่ติดต่อเรื้อรัง (NCD)</p>
+  </div>
+  <div class="stats">
+    <div class="card"><p class="cap">ระดับความพร้อม (TRL)</p><p class="num navy">7 → 9</p><p class="cap">เมื่อสิ้นสุดโครงการ</p></div>
+    <div class="card"><p class="cap">รายได้ SaaS ต่อโรงพยาบาล</p><p class="num red">0.6–1.2 ลบ.</p><p class="cap">ต่อปี · ภาครัฐ 2–4 แสน</p></div>
+    <div class="card"><p class="cap">ตลาดรวมในไทย (TAM)</p><p class="num navy">8,400 ลบ.</p><p class="cap">ต่อปี · รพ. 1,400 แห่ง</p></div>
+    <div class="card"><p class="cap">การเติบโตของตลาด</p><p class="num green">20.8%</p><p class="cap">CAGR AI Healthcare ไทย</p></div>
+  </div>
+  <div class="pair">
+    <div class="card">
+      <h3>ความได้เปรียบเชิงแข่งขัน</h3>
+      <p class="cmp">คู่แข่งต่างประเทศ — Nuance DAX · Abridge · Suki AI · Nabla Copilot</p>
+      <div class="vs">
+        <div><p class="x"><svg aria-hidden="true"><use href="#x"/></svg>ไม่รองรับภาษาไทย และไม่รองรับสำเนียงล้านนา</p><p class="y">เราพัฒนา ASR ภาษาไทยทางการแพทย์เอง วัดได้ที่ WER 6.90%</p></div>
+        <div><p class="x"><svg aria-hidden="true"><use href="#x"/></svg>ไม่เชื่อมต่อระบบเวชระเบียนของไทย</p><p class="y">ระบบเราเชื่อม HIS ที่ใช้จริงใน รพ. ไทย และคืนข้อมูลกลับเวชระเบียนอัตโนมัติ</p></div>
+        <div><p class="x"><svg aria-hidden="true"><use href="#x"/></svg>ราคา 500–2,000 USD ต่อเดือน</p><p class="y">โครงสร้างราคาของเราออกแบบให้ รพ. รัฐไทยจ่ายไหว พร้อม Subsidized Tier</p></div>
+        <div><p class="x"><svg aria-hidden="true"><use href="#x"/></svg>เป็นเครื่องมือถอดเสียงให้แพทย์ ไม่ใช่ติดตามผู้ป่วย</p><p class="y">เราติดตามผู้ป่วยที่บ้านเชิงรุก และวัดการทำตามคำแนะนำเป็นแนวโน้ม</p></div>
+      </div>
+    </div>
+    <div class="card pink">
+      <h3>ทรัพย์สินทางปัญญาและเส้นทางสู่ตลาด</h3>
+      <dl class="ip">
+        <dt>ทรัพย์สินทางปัญญา</dt>
+        <dd>แบบจำลอง ASR ทางการแพทย์ภาษาไทย + น้ำหนักที่ปรับแต่งแล้ว (ลิขสิทธิ์ มฟล. 100%) · คลังเสียงคลินิก NCD ภาษาไทย</dd>
+        <dt>การคุ้มครองสิทธิ</dt>
+        <dd>ยื่นจดอนุสิทธิบัตร “ระบบติดตามผู้ป่วยด้วยเสียง” · เป็นทรัพย์สินทางปัญญาด้านเสียงทางการแพทย์ของไทย</dd>
+        <dt>เส้นทางเข้าสู่ตลาดภาครัฐ</dt>
+        <dd>ขึ้นบัญชีบริการดิจิทัล (depa) เพื่อให้หน่วยงานรัฐจัดซื้อได้โดยตรง</dd>
+        <dt>มาตรฐานที่จะได้รับ</dt>
+        <dd>ISO 27001 · ISO 27799 · ISO 9001 · ปฏิบัติตาม PDPA ตั้งแต่ระบบปัจจุบัน</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>7</b></div>
+</section>
+
+<section id="s8">
+  <svg class="deco deco-tr" aria-hidden="true"><use href="#deco-tr"/></svg>
+  <svg class="deco deco-bl" aria-hidden="true"><use href="#deco-bl"/></svg>
+  <div class="head">
+    <h2>ทีม งบประมาณ และสิ่งที่เราขอ</h2>
+    <p>สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ (ADT) · มหาวิทยาลัยแม่ฟ้าหลวง — มหาวิทยาลัยของรัฐตาม พ.ร.บ. 2541</p>
+  </div>
+  <p class="col-h" style="left:103px;top:238px">ทีมวิจัย</p>
+  <div class="person card" style="top:289px"><p class="k">หัวหน้าโครงการ (PI)</p><h3>รศ.ดร.นชา ชลดำรงค์กุล</h3><p>คณบดีสำนักวิชาเทคโนโลยีดิจิทัลประยุกต์</p></div>
+  <div class="person card" style="top:418px"><p class="k">Co-PI / หัวหน้าทีม AI</p><h3>อ.ดร.ปรัสรา จักรแก้ว</h3><p>AI/ML · การรู้จำเสียง · การประมวลผลภาษาธรรมชาติ</p></div>
+  <div class="person card" style="top:548px"><p class="k">Clinical Lead</p><h3>นายแพทย์ชนกันต์ พัฒนา</h3><p>กำกับความถูกต้องทางคลินิกและการอนุมัติคำแนะนำ</p></div>
+  <p class="col-h" style="left:103px;top:702px">ความพร้อมด้านโครงสร้างพื้นฐาน</p>
+  <ul class="infra card lav">
+    <li>ห้องปฏิบัติการ AI/HPC ของ ADT พร้อม GPU Cluster สำหรับปรับแต่งโมเดล ASR/LLM</li>
+    <li>สถานที่นำร่อง: MFU Wellness Center — ผู้รับบริการ 30,000 คน พร้อมข้อมูลเวชระเบียน</li>
+    <li>บุคลากรแพทย์และพยาบาลของ มฟล. ร่วมกำกับข้อมูลและตรวจสอบคุณภาพทางคลินิก</li>
+  </ul>
+  <p class="col-h" style="left:994px;top:238px">งบประมาณและระยะเวลา</p>
+  <div class="money card hot" style="left:994px"><p>งบประมาณที่ขอรับ</p><p class="v">9,500,000<span>บาท</span></p></div>
+  <div class="money card hot" style="left:1417px"><p>ระยะเวลาโครงการ</p><p class="v">1<span>ปี</span></p></div>
+  <p class="col-h" style="left:994px;top:454px">แผนการดำเนินงาน</p>
+  <div class="phase card" style="top:503px"><span class="n">1</span><div><h3>ระยะ 1<span>เดือน 1–4</span></h3><p>ขออนุมัติจริยธรรม (IRB) · ปรับแต่งระบบเสียง · ทดลอง 50 ราย · จัดทำ Business Plan และโครงสร้างราคา SaaS</p></div></div>
+  <div class="phase card" style="top:618px"><span class="n">2</span><div><h3>ระยะ 2<span>เดือน 5–8</span></h3><p>ขยายการทดลองเป็น 200 ราย · พัฒนา AI Coach เต็มรูปแบบ · นำร่องลูกค้ารายแรก</p></div></div>
+  <div class="phase card" style="top:732px"><span class="n">3</span><div><h3>ระยะ 3<span>เดือน 9–12</span></h3><p>ประเมินผลและตีพิมพ์ · ปิดสัญญา SaaS รายปี · ยอดขายปีแรก ≥ 600,000 บาท</p></div></div>
+  <p class="ask">สิ่งที่ขอ: ทุน 9.5 ล้านบาท 1 ปี เพื่อเปลี่ยนระบบที่ใช้งานอยู่แล้ว<br>ให้กลายเป็นการติดตามที่วัดผลได้ และขายได้จริงในปีแรก</p>
+  <div class="foot"><span>เสียงใส่ใจ (Caring Voice) · มหาวิทยาลัยแม่ฟ้าหลวง</span><b>8</b></div>
+</section>
+
+</div>
+<div id="bar"><button id="prev" aria-label="สไลด์ก่อนหน้า">←</button><span id="count"></span><button id="next" aria-label="สไลด์ถัดไป">→</button></div>
+<script>
+const s = [...document.querySelectorAll('#stage > section')];
+let i = Math.max(0, Math.min(s.length - 1, (parseInt(location.hash.replace('#slide-', '')) || 1) - 1));
+const stage = document.getElementById('stage');
+function fit() { const k = Math.min(innerWidth / 1920, (innerHeight - 44) / 1080); stage.style.transform = `translate(-50%, calc(-50% - 22px)) scale(${k})`; }
+function show(n) { i = Math.max(0, Math.min(s.length - 1, n)); s.forEach((x, j) => x.classList.toggle('on', j === i)); document.getElementById('count').textContent = `${i + 1} / ${s.length}`; history.replaceState(null, '', `#slide-${i + 1}`); }
+const next = () => show(i + 1), prev = () => show(i - 1);
+document.getElementById('prev').onclick = prev;
+document.getElementById('next').onclick = next;
+addEventListener('keydown', e => {
+  if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
+  else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(s.length - 1);
+});
+let tx = null;
+stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+stage.addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); e.preventDefault(); } });
+stage.addEventListener('click', e => { if (!e.target.closest('a')) next(); });
+addEventListener('resize', fit); fit(); show(i);
+</script>
+</body>
+</html>
