@@ -147,15 +147,17 @@ h1.t em{font-style:normal;color:var(--dce)}
 #s5 .guard{position:absolute;left:100px;right:100px;top:642px;height:70px;border-radius:18px;border:3px dashed var(--green);background:var(--greenSoft);display:flex;align-items:center;justify-content:center;gap:16px;font-size:27px;font-weight:500;color:var(--ink)}
 #s5 .guard .ico{color:var(--green);width:40px;height:40px}
 #s5 .guard b{font-family:var(--head);font-size:30px;color:var(--green);font-weight:600}
-#s5 .cmp{position:absolute;left:100px;right:100px;top:736px;bottom:86px;display:grid;grid-template-columns:1fr 470px;gap:34px}
-#s5 .cmp h5{font-size:25px;font-weight:700;color:var(--ink2);margin-bottom:4px}
-#s5 .row{display:grid;grid-template-columns:470px 1fr 70px;align-items:center;gap:16px;height:40px;font-size:24px;font-weight:500;color:var(--ink2)}
-#s5 .seg{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;height:20px}
-#s5 .seg i{border-radius:5px;background:#E1E7F0}
-#s5 .seg i.on{background:#4A6A96}
+#s5 .cmp{position:absolute;left:100px;right:100px;top:734px;bottom:86px;display:grid;grid-template-columns:1fr 440px;gap:30px}
+#s5 .row{display:grid;grid-template-columns:450px repeat(6,1fr) 66px;align-items:center;gap:8px;height:40px;font-size:24px;font-weight:500;color:var(--ink2)}
+#s5 .row.hd{height:38px;font-size:22px;font-weight:700;color:var(--ink)}
+#s5 .row.hd span{text-align:center;white-space:nowrap}
+#s5 .row.hd span:first-child{text-align:left;font-size:24px;color:var(--ink2)}
+#s5 .row i{justify-self:center;width:28px;height:28px;border-radius:50%;background:#E6EBF2;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:18px;font-weight:700;color:#fff}
+#s5 .row i.on{background:#4A6A96}
+#s5 .row i.on:after{content:"✓"}
 #s5 .row .k{font-family:var(--head);font-size:28px;font-weight:600;color:var(--ink2);text-align:right}
-#s5 .row.dce{color:var(--dce);font-weight:700}
-#s5 .row.dce .seg i{background:var(--dce)}
+#s5 .row.dce{color:var(--dce);font-weight:700;background:var(--dceSoft);border-radius:10px}
+#s5 .row.dce i.on{background:var(--dce)}
 #s5 .row.dce .k{color:var(--dce)}
 #s5 .verdict{padding:18px 26px;display:flex;gap:22px;align-items:center;border-color:var(--dceLine);background:linear-gradient(170deg,var(--dceSoft),#fff 75%)}
 #s5 .verdict .num{font-size:96px;color:var(--dce);flex:none}
@@ -527,7 +529,7 @@ h1.t em{font-style:normal;color:var(--dce)}
   <div class="jr">
     <div class="pipe"></div>
     <div class="stops">
-      <div class="st a d2" style="--c:var(--violet);--s:var(--violetSoft)"><div class="orb"><svg class="ico"><use href="#i-phone"/></svg><b>1</b></div><div class="card"><h4>อุปกรณ์อัจฉริยะ</h4><span class="like">เหมือน “ประตูบ้าน”</span><p>มือถือ กล้อง เซนเซอร์<br>ต้นทางและปลายทางของข้อมูล</p></div></div>
+      <div class="st a d2" style="--c:var(--violet);--s:var(--violetSoft)"><div class="orb"><svg class="ico"><use href="#i-phone"/></svg><b>1</b></div><div class="card"><h4>อุปกรณ์อัจฉริยะ</h4><span class="like">เหมือน “ประตูบ้าน”</span><p>มือถือ กล้อง เซนเซอร์ แว่น VR<br>ต้นทางและปลายทางของข้อมูล</p></div></div>
       <div class="st a d3" style="--c:var(--teal);--s:var(--tealSoft)"><div class="orb"><svg class="ico"><use href="#i-tower"/></svg><b>2</b></div><div class="card"><h4>เครือข่ายสื่อสาร</h4><span class="like">เหมือน “ถนน”</span><p>Wi-Fi · 5G · สายไฟเบอร์<br>เส้นทางที่ข้อมูลวิ่งผ่าน</p></div></div>
       <div class="st a d4" style="--c:var(--amber);--s:var(--amberSoft)"><div class="orb"><svg class="ico"><use href="#i-edge"/></svg><b>3</b></div><div class="card"><h4>ศูนย์ข้อมูลใกล้บ้าน</h4><span class="like">เหมือน “ร้านค้าปากซอย”</span><p>เก็บข้อมูลยอดนิยมไว้ใกล้ตัว<br>คลิปจึงเล่นทันที ไม่สะดุด</p></div></div>
       <div class="st a d5" style="--c:var(--sky);--s:var(--blueSoft)"><div class="orb"><svg class="ico"><use href="#i-cloud"/></svg><b>4</b></div><div class="card"><h4>คลาวด์</h4><span class="like">เหมือน “คลังสินค้าใหญ่”</span><p>เก็บและประมวลผลข้อมูล<br>เช่น LINE · YouTube</p></div></div>
@@ -536,19 +538,19 @@ h1.t em{font-style:normal;color:var(--dce)}
   <div class="guard a d6"><svg class="ico"><use href="#i-shield"/></svg><b>ความปลอดภัยไซเบอร์</b>คือ “ยาม” ที่เฝ้าทุกช่วงทาง ป้องกันการขโมยข้อมูลและระบบล่ม</div>
   <div class="cmp">
     <div class="a d7">
-      <h5>เทียบกับหลักสูตรใกล้เคียง: สอนครอบคลุมกี่ด้าน (จาก 6 ด้าน)</h5>
-      <div class="row"><span>วิศวกรรมดิจิทัล · ม.สงขลานครินทร์</span><div class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><span class="k">3/6</span></div>
-      <div class="row"><span>วิทยาการและเทคโนโลยีดิจิทัล · ม.มหิดล</span><div class="seg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><span class="k">2/6</span></div>
-      <div class="row"><span>วิศวกรรมดิจิทัลฯ อัจฉริยะ · มก. ศรีราชา</span><div class="seg"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><span class="k">1/6</span></div>
-      <div class="row"><span>วิศวกรรมดิจิทัล · สถาบันไทย-ญี่ปุ่น</span><div class="seg"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="k">0/6</span></div>
-      <div class="row dce"><span>DCE · ม.แม่ฟ้าหลวง</span><div class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><span class="k">6/6</span></div>
+      <div class="row hd"><span>เทียบหลักสูตรใกล้เคียง</span><span>เครือข่าย</span><span>ไซเบอร์</span><span>คลาวด์</span><span>IoT</span><span>AI</span><span>โลกเสมือน</span><span></span></div>
+      <div class="row"><span>วิศวกรรมดิจิทัล · ม.สงขลานครินทร์</span><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><span class="k">3/6</span></div>
+      <div class="row"><span>วิทยาการและเทคโนโลยีดิจิทัล · ม.มหิดล</span><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><span class="k">2/6</span></div>
+      <div class="row"><span>วิศวกรรมดิจิทัลฯ อัจฉริยะ · มก. ศรีราชา</span><i></i><i></i><i></i><i></i><i class="on"></i><i></i><span class="k">1/6</span></div>
+      <div class="row"><span>วิศวกรรมดิจิทัล · สถาบันไทย-ญี่ปุ่น</span><i></i><i></i><i></i><i></i><i></i><i></i><span class="k">0/6</span></div>
+      <div class="row dce"><span>&nbsp;DCE · ม.แม่ฟ้าหลวง</span><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><span class="k">6/6</span></div>
     </div>
     <div class="card verdict a d8">
       <div class="num">6<small>/6</small></div>
       <p><b>ครบทั้ง 6 ด้าน</b><br>เพียงหลักสูตรเดียว</p>
     </div>
   </div>
-  <div class="foot"><span class="src">พิจารณาจากจุดเน้นที่ระบุในหลักสูตรของแต่ละสถาบัน (สถาบันไทย-ญี่ปุ่น เน้นสหวิทยาการ)</span><span class="pg"><b>5</b> / 11</span></div>
+  <div class="foot"><span class="src">6 ด้านมาจากจุดเน้นและ 3 แกนของหลักสูตร DCE · ทำเครื่องหมายตามจุดเน้นที่แต่ละสถาบันระบุ (สถาบันไทย-ญี่ปุ่น เน้นสหวิทยาการ)</span><span class="pg"><b>5</b> / 11</span></div>
 </section>
 
 <!-- ============ S6 ROADMAP ============ -->
@@ -635,7 +637,7 @@ h1.t em{font-style:normal;color:var(--dce)}
       <div class="bd">
         <div class="flow"><div class="fs"><i><svg class="ico"><use href="#i-phone"/></svg></i><span>อุปกรณ์</span></div><div class="fs"><i><svg class="ico"><use href="#i-tower"/></svg></i><span>เครือข่าย</span></div><div class="fs"><i><svg class="ico"><use href="#i-edge"/></svg></i><span>ศูนย์ข้อมูล</span></div><div class="fs"><i><svg class="ico"><use href="#i-cloud"/></svg></i><span>คลาวด์</span></div></div>
         <div class="guard"><svg class="ico"><use href="#i-shield"/></svg>ความปลอดภัยไซเบอร์ครอบทุกช่วง</div>
-        <div class="note">หลักสูตรใกล้เคียงเน้นเพียงบางด้าน เช่น ซอฟต์แวร์ ไฟฟ้า หรือ AI</div>
+        <div class="note"><b>6 ด้าน:</b> เครือข่าย · ไซเบอร์ · คลาวด์<br>IoT · AI · โลกเสมือน</div>
         <div class="stat"><div class="num">6<small>/6</small></div><p><b>DCE ครบทั้ง 6 ด้าน</b><br>หลักสูตรใกล้เคียง<br>สูงสุด 3 จาก 6 ด้าน</p></div>
       </div>
     </div>
