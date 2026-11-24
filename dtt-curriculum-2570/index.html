@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DTT Curriculum 2570</title>
+<meta name="description" content="หลักสูตรวิทยาศาสตรมหาบัณฑิต สาขาวิชาเทคโนโลยีการแปลงเป็นดิจิทัล (DTT) หลักสูตรปรับปรุง พ.ศ. 2570 สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ มหาวิทยาลัยแม่ฟ้าหลวง">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Light, high-legibility theme matching the DCE 2570 deck:
+   dark ink on white, body text >= 24px on the 1920x1080 stage, Thai-first wording, minimal motion. */
+:root{
+  --bg:#F4F7FB; --paper:#FFFFFF; --ink:#0B1B33; --ink2:#22324D; --muted:#46556B; --line:#CBD5E3; --soft:#EEF3F9;
+  --dtt:#1D5BAA; --dttSoft:#E8F0FB; --dttLine:#B5CBEA; --dttDeep:#0F3A75;
+  --blue:#1D4ED8; --blueSoft:#E8EFFD; --teal:#0E7490; --tealSoft:#E2F3F7;
+  --violet:#6D28D9; --violetSoft:#F1EBFD; --green:#047857; --greenSoft:#E2F5EC;
+  --amber:#B45309; --amberSoft:#FEF3E2; --red:#C8102E; --redSoft:#FDECEF; --pink:#BE185D; --pinkSoft:#FCE7F3;
+  --head:'Kanit','Leelawadee UI','Tahoma',sans-serif; --body:'Sarabun','Leelawadee UI','Tahoma',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#D9E0EA;color:var(--ink);font-family:var(--body);overflow:hidden}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1920px;height:1080px;flex:none;transform-origin:center center}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s;
+  background:radial-gradient(900px 600px at 100% 0%,#E6EEFB,transparent 70%),linear-gradient(180deg,#FFFFFF,var(--bg))}
+.slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;background:linear-gradient(180deg,var(--dtt),var(--dttDeep))}
+.slide.active{opacity:1;visibility:visible}
+.pad{position:absolute;inset:0;padding:64px 100px 90px}
+.kicker{display:inline-block;font-family:var(--body);font-weight:700;font-size:26px;color:var(--dtt);background:var(--dttSoft);padding:6px 20px;border-radius:999px}
+h1.t{font-family:var(--head);font-weight:600;font-size:64px;line-height:1.2;margin-top:12px;color:var(--ink)}
+h1.t em{font-style:normal;color:var(--dtt)}
+.foot{position:absolute;left:100px;right:250px;bottom:28px;display:flex;justify-content:space-between;align-items:center;font-size:22px;color:var(--muted)}
+.foot .src{max-width:1300px;line-height:1.35}
+.foot .pg{font-family:var(--head);font-size:26px;color:var(--muted)}
+.foot .pg b{color:var(--dtt);font-weight:600}
+.num{font-family:var(--head);font-weight:700;line-height:1}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:24px;box-shadow:0 6px 22px rgba(15,35,70,.07)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:999px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.ico{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.a{opacity:0;transition:opacity .6s ease}
+.active .a{opacity:1}
+.active .d1{transition-delay:.1s}.active .d2{transition-delay:.2s}.active .d3{transition-delay:.3s}.active .d4{transition-delay:.4s}
+.active .d5{transition-delay:.5s}.active .d6{transition-delay:.6s}.active .d7{transition-delay:.7s}.active .d8{transition-delay:.8s}
+.growy{transform:scaleY(0);transform-origin:bottom;transition:transform 1s ease-out}
+.active .growy{transform:scaleY(1)}
+ul.dots{list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.dots li{font-size:25px;line-height:1.38;color:var(--ink2);display:flex;gap:12px}
+ul.dots li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c,var(--dtt));margin-top:13px;flex:none}
+
+/* ---------- S1 title ---------- */
+#s1 .halo{position:absolute;right:40px;top:150px;width:820px;height:820px;border-radius:50%;background:radial-gradient(circle,#DCE8FA 0%,#EEF4FC 55%,transparent 70%)}
+#s1 .globe{position:absolute;right:-40px;top:220px;width:1000px}
+#s1 .logos{display:flex;align-items:center;gap:20px}
+#s1 .logo{width:140px;height:140px;padding:10px;border-radius:50%;background:#fff;border:2px solid var(--line);box-shadow:0 6px 20px rgba(15,35,70,.1);object-fit:contain}
+#s1 .mfu{height:150px;width:auto}
+#s1 .mega{font-family:var(--head);font-weight:700;font-size:220px;line-height:.95;margin-top:18px;color:var(--dtt)}
+#s1 .full{font-family:var(--head);font-size:46px;font-weight:500;margin-top:10px;color:var(--ink2)}
+#s1 .th{font-size:40px;font-weight:600;color:var(--ink);margin-top:26px;line-height:1.45}
+#s1 .yr{display:flex;align-items:center;gap:22px;margin-top:26px;font-family:var(--head);font-size:42px;font-weight:600}
+#s1 .yr .old{color:var(--muted)}
+#s1 .yr .arrow{font-size:46px;color:var(--dtt)}
+#s1 .yr .new{color:#fff;background:var(--dtt);padding:2px 22px;border-radius:14px}
+#s1 .stats{position:absolute;left:100px;bottom:100px;display:flex;gap:20px}
+#s1 .stats .card{padding:20px 30px;min-width:260px}
+#s1 .stats .num{font-size:64px;color:var(--ink)}
+#s1 .stats .num small{font-size:32px;color:var(--muted);font-weight:500}
+#s1 .stats .l{font-size:26px;font-weight:600;color:var(--ink2);margin-top:8px}
+
+/* ---------- S2 core ---------- */
+#s2 .three{position:absolute;left:100px;right:100px;top:250px;height:500px;--fs:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+#s2 .pl{padding:28px 30px;border-top:10px solid var(--c);display:flex;flex-direction:column;gap:14px;position:relative}
+#s2 .pl .icon{width:84px;height:84px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:var(--s);color:var(--c)}
+#s2 .pl .icon .ico{width:48px;height:48px}
+#s2 .pl .no{position:absolute;right:24px;top:16px;font-family:var(--head);font-size:64px;font-weight:700;color:var(--c);opacity:.25}
+#s2 .pl ul.dots li{font-size:28px}
+#s2 .pl h3{font-family:var(--head);font-size:36px;font-weight:600;line-height:1.2;color:var(--ink)}
+#s2 .out{position:absolute;left:100px;right:100px;top:780px;height:186px;border-radius:24px;background:linear-gradient(100deg,var(--dttDeep),var(--dtt));color:#fff;display:flex;align-items:center;gap:34px;padding:24px 40px}
+#s2 .out .icon{width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex:none}
+#s2 .out .icon .ico{width:62px;height:62px}
+#s2 .out .tag{font-size:24px;font-weight:700;color:#BFD6F5;letter-spacing:1px}
+#s2 .out h3{font-family:var(--head);font-size:44px;font-weight:600;line-height:1.15}
+#s2 .out p{font-size:25px;line-height:1.4;color:#E4EEFB;margin-top:6px}
+
+/* ---------- S3 PEO / PLO ---------- */
+#s3 .lab{position:absolute;left:100px;font-family:var(--head);font-size:30px;font-weight:600;color:var(--dtt);display:flex;align-items:center;gap:14px}
+#s3 .lab small{font-family:var(--body);font-size:24px;font-weight:600;color:var(--muted)}
+#s3 .peo{position:absolute;left:100px;right:100px;top:290px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+#s3 .pe{padding:20px 24px;display:flex;gap:16px;align-items:center;border-left:8px solid var(--c)}
+#s3 .pe .ic{width:72px;height:72px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center;flex:none}
+#s3 .pe .ic .ico{width:42px;height:42px}
+#s3 .pe b{font-family:var(--head);font-size:26px;color:var(--c);display:block}
+#s3 .pe span{display:block;font-size:24px;font-weight:600;line-height:1.3;color:var(--ink)}
+#s3 .pe i{display:block;font-style:normal;font-size:24px;color:var(--muted);font-weight:600}
+#s3 .flow{position:absolute;left:100px;right:100px;top:478px;height:40px;display:flex;align-items:center;justify-content:center;gap:16px;font-size:25px;font-weight:600;color:var(--ink2)}
+#s3 .flow .ln{flex:1;border-top:4px dashed #9AB0CC}
+#s3 .plo{position:absolute;left:100px;right:100px;top:590px;bottom:100px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+#s3 .po{padding:20px 22px;display:flex;flex-direction:column;gap:10px;border-top:8px solid var(--dtt)}
+#s3 .po .h{display:flex;align-items:center;justify-content:space-between}
+#s3 .po .h b{font-family:var(--head);font-size:40px;color:var(--dtt)}
+#s3 .po .h span{font-size:22px;font-weight:700;color:var(--dtt);background:var(--dttSoft);padding:2px 12px;border-radius:999px}
+#s3 .po p{font-size:26px;line-height:1.42;color:var(--ink)}
+
+/* ---------- S4 new / different / better ---------- */
+#s4 .three{position:absolute;left:100px;right:100px;top:244px;bottom:100px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+#s4 .cl{overflow:hidden;display:flex;flex-direction:column;border:3px solid var(--c)}
+#s4 .hd{background:var(--c);color:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px}
+#s4 .hd .n{width:58px;height:58px;border-radius:50%;background:#fff;color:var(--c);font-family:var(--head);font-size:32px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+#s4 .hd h3{font-family:var(--head);font-size:48px;font-weight:600;line-height:1}
+#s4 .hd small{font-family:var(--head);font-size:24px;font-weight:500;opacity:.85;margin-left:10px}
+#s4 .bd{padding:28px 26px;display:flex;flex-direction:column;gap:40px;flex:1}
+#s4 .it{display:flex;gap:16px;align-items:flex-start}
+#s4 .it .ic{width:64px;height:64px;border-radius:16px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center;flex:none}
+#s4 .it .ic .ico{width:38px;height:38px}
+#s4 .it b{display:block;font-family:var(--head);font-size:34px;font-weight:600;line-height:1.25;color:var(--ink)}
+#s4 .it span{display:block;font-size:28px;color:var(--ink2);line-height:1.4;margin-top:6px}
+#s4 .it span em{font-style:normal;font-weight:700;color:var(--c)}
+#s4 .vs{margin-top:auto;padding:18px 22px;border-radius:16px;background:var(--s);font-size:26px;line-height:1.4;color:var(--ink)}
+#s4 .vs b{color:var(--c)}
+
+/* ---------- S5 T-shape ---------- */
+#s5 .tee{position:absolute;left:100px;top:250px;width:1100px;height:720px}
+#s5 .bar{position:absolute;left:0;right:0;top:0;height:250px;border-radius:24px;background:linear-gradient(170deg,var(--dttSoft),#fff 80%);border:3px solid var(--dttLine);padding:18px 22px}
+#s5 .bar .lb,#s5 .stem .lb{font-family:var(--head);font-size:28px;font-weight:600;color:var(--dtt);display:flex;align-items:center;gap:12px}
+#s5 .bar .lb small,#s5 .stem .lb small{font-family:var(--body);font-size:24px;color:var(--muted);font-weight:600}
+#s5 .bar .row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+#s5 .sk{background:#fff;border:2px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+#s5 .sk .ic{width:70px;height:70px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
+#s5 .sk .ic .ico{width:42px;height:42px}
+#s5 .sk b{font-family:var(--head);font-size:27px;font-weight:600;line-height:1.2;color:var(--ink)}
+#s5 .stem{position:absolute;left:330px;width:440px;top:270px;bottom:0;border-radius:24px;background:linear-gradient(180deg,var(--dtt),var(--dttDeep));padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+#s5 .stem .lb{color:#fff}
+#s5 .stem .lb small{color:#BFD6F5}
+#s5 .stem .sk{flex-direction:row;text-align:left;gap:16px;padding:14px 18px}
+#s5 .side{position:absolute;left:1240px;right:100px;top:250px;bottom:110px;display:flex;flex-direction:column;gap:22px}
+#s5 .ex{padding:26px 30px;border-left:10px solid var(--c)}
+#s5 .ex h4{font-family:var(--head);font-size:34px;font-weight:600;color:var(--c);line-height:1.2}
+#s5 .ex h4 small{display:block;font-family:var(--body);font-size:24px;font-weight:700;color:var(--muted)}
+#s5 .ex p{font-size:26px;line-height:1.45;color:var(--ink);margin-top:10px}
+#s5 .goal{margin-top:auto;padding:22px 26px;border-radius:20px;background:var(--amberSoft);border:2px solid #F3D19A;font-size:26px;line-height:1.45;color:var(--ink)}
+#s5 .goal b{color:var(--amber);font-family:var(--head);font-weight:600;font-size:30px;display:block}
+
+/* ---------- S6 study plans ---------- */
+#s6 .plans{position:absolute;left:100px;right:100px;top:250px;height:400px;display:grid;grid-template-columns:1fr 1.25fr;gap:26px}
+#s6 .pn{padding:26px 32px;display:flex;flex-direction:column;gap:14px;border-top:10px solid var(--c)}
+#s6 .pn .top{display:flex;justify-content:space-between;align-items:flex-start}
+#s6 .pn h3{font-family:var(--head);font-size:40px;font-weight:600;color:var(--c);line-height:1.15}
+#s6 .pn h3 small{display:block;font-family:var(--body);font-size:26px;font-weight:700;color:var(--ink2);margin-top:4px}
+#s6 .pn .tot{text-align:right}
+#s6 .pn .tot .num{font-size:84px;color:var(--c)}
+#s6 .pn .tot span{display:block;font-size:24px;font-weight:600;color:var(--muted)}
+#s6 .split{display:flex;height:64px;border-radius:14px;overflow:hidden;font-family:var(--head);font-size:28px;font-weight:600;color:#fff}
+#s6 .split div{display:flex;align-items:center;justify-content:center}
+#s6 .pn p{font-size:25px;line-height:1.4;color:var(--ink2)}
+#s6 .pn p b{color:var(--ink)}
+#s6 .stairs{position:absolute;left:100px;right:100px;top:680px;bottom:104px;display:grid;grid-template-columns:330px repeat(3,1fr);gap:20px;align-items:end}
+#s6 .stairs .intro{align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+#s6 .stairs .intro b{font-family:var(--head);font-size:32px;font-weight:600;color:var(--dtt);line-height:1.2}
+#s6 .stairs .intro span{font-size:25px;color:var(--ink2);line-height:1.4;margin-top:8px}
+#s6 .st{padding:18px 22px;display:flex;flex-direction:column;gap:8px;border-top:8px solid var(--c)}
+#s6 .st .k{font-size:24px;font-weight:700;color:var(--c)}
+#s6 .st h4{font-family:var(--head);font-size:29px;font-weight:600;line-height:1.2}
+#s6 .st p{font-size:24px;line-height:1.38;color:var(--ink2)}
+#s6 .s1{height:200px}#s6 .s2{height:250px}#s6 .s3{height:296px}
+
+/* ---------- S7 courses ---------- */
+#s7 .mx{position:absolute;left:100px;top:250px;width:1090px;bottom:104px;padding:20px 26px}
+#s7 .mx h4,#s7 .el h4{font-family:var(--head);font-size:30px;font-weight:600;display:flex;align-items:center;gap:12px}
+#s7 .mx h4 small,#s7 .el h4 small{font-family:var(--body);font-size:24px;font-weight:600;color:var(--muted)}
+#s7 .tr{display:grid;grid-template-columns:1fr 130px 330px;gap:16px;align-items:center;padding:14px 4px;border-bottom:2px solid var(--line)}
+#s7 .tr.hd{font-size:24px;font-weight:700;color:var(--muted);padding:12px 4px 10px}
+#s7 .tr .c{font-size:26px;font-weight:600;line-height:1.3;color:var(--ink)}
+#s7 .tr .p{justify-self:start;font-family:var(--head);font-size:26px;font-weight:600;color:var(--dtt);background:var(--dttSoft);padding:2px 14px;border-radius:999px;white-space:nowrap}
+#s7 .tr .k{font-size:24px;line-height:1.35;color:var(--ink2)}
+#s7 .tr.cap .c{color:var(--dtt)}
+#s7 .tr:last-child{border-bottom:0}
+#s7 .el{position:absolute;left:1220px;right:100px;top:250px;bottom:104px;padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+#s7 .ei{display:flex;gap:16px;align-items:center;padding:10px 0;border-bottom:2px solid var(--line)}
+#s7 .ei:last-child{border-bottom:0}
+#s7 .ei .ic{width:64px;height:64px;border-radius:16px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center;flex:none}
+#s7 .ei .ic .ico{width:38px;height:38px}
+#s7 .ei b{display:block;font-size:24px;font-weight:700;color:var(--c)}
+#s7 .ei span{display:block;font-size:25px;font-weight:600;line-height:1.3;color:var(--ink)}
+
+/* ---------- S8 AI ---------- */
+#s8 .crs{position:absolute;left:100px;right:100px;top:250px;height:310px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+#s8 .cr{padding:24px 28px;display:flex;flex-direction:column;gap:10px;border-top:10px solid var(--c);position:relative}
+#s8 .cr .no{font-size:24px;font-weight:700;color:var(--c)}
+#s8 .cr .icon{position:absolute;right:24px;top:22px;width:76px;height:76px;border-radius:20px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
+#s8 .cr .icon .ico{width:44px;height:44px}
+#s8 .cr h3{font-family:var(--head);font-size:31px;font-weight:600;line-height:1.25;color:var(--ink);padding-right:90px}
+#s8 .cr p{font-size:24px;line-height:1.35;color:var(--muted);font-weight:600}
+#s8 .perv{position:absolute;left:100px;right:100px;top:590px;height:190px;border-radius:24px;background:linear-gradient(100deg,var(--dttDeep),var(--dtt));color:#fff;display:grid;grid-template-columns:1fr 520px;gap:30px;align-items:center;padding:24px 36px}
+#s8 .perv .tag{font-size:24px;font-weight:700;color:#BFD6F5;letter-spacing:1px}
+#s8 .perv h3{font-family:var(--head);font-size:40px;font-weight:600;line-height:1.15}
+#s8 .perv p{font-size:25px;line-height:1.4;color:#E4EEFB;margin-top:6px}
+#s8 .perv .chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}
+#s8 .perv .chip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#fff;font-size:28px;padding:8px 22px}
+#s8 .resp{position:absolute;left:100px;right:100px;top:808px;bottom:100px;border-radius:20px;border:3px dashed var(--green);background:var(--greenSoft);display:grid;grid-template-columns:300px 1fr 1fr;gap:26px;align-items:center;padding:16px 30px}
+#s8 .resp .h{display:flex;align-items:center;gap:14px;font-family:var(--head);font-size:32px;font-weight:600;color:var(--green);line-height:1.15}
+#s8 .resp .h .ico{width:52px;height:52px;flex:none}
+#s8 .resp div p{font-size:25px;line-height:1.38;color:var(--ink)}
+#s8 .resp div p b{color:var(--green)}
+
+/* ---------- S9 competencies ---------- */
+#s9 .grid{position:absolute;left:100px;top:250px;width:1080px;bottom:104px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:22px}
+#s9 .cp{padding:22px 26px;display:flex;flex-direction:column;gap:10px;border-top:10px solid var(--c);position:relative}
+#s9 .cp .icon{width:76px;height:76px;border-radius:20px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
+#s9 .cp .icon .ico{width:44px;height:44px}
+#s9 .cp .no{position:absolute;right:22px;top:12px;font-family:var(--head);font-size:60px;font-weight:700;color:var(--c);opacity:.25}
+#s9 .cp h3{font-family:var(--head);font-size:30px;font-weight:600;line-height:1.2;color:var(--ink)}
+#s9 .cp p{font-size:24px;line-height:1.4;color:var(--ink2)}
+#s9 .nur{position:absolute;left:1210px;right:100px;top:250px;bottom:104px;padding:24px 28px;display:flex;flex-direction:column;gap:14px;border-color:var(--dttLine);background:linear-gradient(170deg,var(--dttSoft),#fff 70%)}
+#s9 .nur h4{font-family:var(--head);font-size:32px;font-weight:600;color:var(--dtt);line-height:1.2}
+#s9 .nur h4 small{display:block;font-family:var(--body);font-size:24px;font-weight:600;color:var(--muted)}
+#s9 .ns{display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:start;padding-top:14px;border-top:2px solid var(--dttLine)}
+#s9 .ns .n{width:70px;height:70px;border-radius:50%;background:var(--dtt);color:#fff;font-family:var(--head);font-size:30px;font-weight:700;display:flex;align-items:center;justify-content:center}
+#s9 .ns b{display:block;font-family:var(--head);font-size:28px;font-weight:600;line-height:1.2;color:var(--ink)}
+#s9 .ns span{display:block;font-size:24px;line-height:1.38;color:var(--ink2);margin-top:4px}
+
+/* ---------- S10 target & admission ---------- */
+#s10 .left{position:absolute;left:100px;top:250px;width:640px;bottom:104px;display:flex;flex-direction:column;gap:16px}
+#s10 .tg{padding:16px 22px;display:flex;gap:16px;align-items:flex-start;border-left:8px solid var(--c)}
+#s10 .tg .ic{width:64px;height:64px;border-radius:16px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center;flex:none}
+#s10 .tg .ic .ico{width:38px;height:38px}
+#s10 .tg h4{font-family:var(--head);font-size:28px;font-weight:600;line-height:1.2;color:var(--c)}
+#s10 .tg p{font-size:24px;line-height:1.38;color:var(--ink2);margin-top:4px}
+#s10 .tg p b{color:var(--ink)}
+#s10 .chart{position:absolute;left:770px;right:100px;top:250px;bottom:104px;padding:24px 36px}
+#s10 .chart .top{display:flex;justify-content:space-between;align-items:flex-start}
+#s10 .chart h4{font-family:var(--head);font-size:32px;font-weight:600}
+#s10 .chart .lg2{display:flex;gap:24px;font-size:24px;font-weight:600;color:var(--muted);margin-top:8px}
+#s10 .chart .lg2 span{display:flex;align-items:center;gap:10px}
+#s10 .chart .lg2 i{width:28px;height:20px;border-radius:5px;display:inline-block}
+#s10 .chart .tot{display:flex;gap:16px}
+#s10 .chart .tot div{text-align:center;padding:10px 18px;border-radius:16px;background:var(--soft)}
+#s10 .chart .tot .num{font-size:52px;color:var(--dtt)}
+#s10 .chart .tot span{display:block;font-size:22px;font-weight:600;color:var(--ink2)}
+#s10 .cols{position:absolute;left:40px;right:40px;bottom:80px;top:250px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:end;border-bottom:3px solid var(--line)}
+#s10 .col{display:flex;gap:10px;align-items:flex-end;justify-content:center;height:100%;position:relative}
+#s10 .bar{width:84px;border-radius:10px 10px 0 0;position:relative}
+#s10 .bar.plan{background:#E3E9F2;border:3px dashed #8193AD;border-bottom:0}
+#s10 .bar.act{background:var(--dtt)}
+#s10 .bar.int{position:absolute;left:0;right:0;bottom:0;background:var(--amber);border-radius:0}
+#s10 .bar b{position:absolute;top:-46px;left:-14px;right:-14px;text-align:center;font-family:var(--head);font-size:36px;font-weight:600;color:var(--dtt)}
+#s10 .bar.plan b{color:var(--muted);font-size:28px;top:-38px}
+#s10 .yl{position:absolute;bottom:-58px;left:0;right:0;text-align:center;font-family:var(--head);font-size:30px;font-weight:500;color:var(--ink)}
+
+/* ---------- S11 careers ---------- */
+#s11 .jobs{position:absolute;left:100px;right:100px;top:250px;height:430px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+#s11 .jb{padding:20px 20px;display:flex;flex-direction:column;gap:10px;border-top:10px solid var(--c);position:relative}
+#s11 .jb .icon{width:70px;height:70px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
+#s11 .jb .icon .ico{width:40px;height:40px}
+#s11 .jb .no{position:absolute;right:18px;top:12px;font-family:var(--head);font-size:52px;font-weight:700;color:var(--c);opacity:.25}
+#s11 .jb h3{font-family:var(--head);font-size:26px;font-weight:600;line-height:1.25;color:var(--ink)}
+#s11 .jb .en{font-size:22px;font-weight:700;color:var(--c);line-height:1.3}
+#s11 .jb p{margin-top:auto;font-size:24px;line-height:1.35;color:var(--ink2);padding-top:10px;border-top:2px solid var(--line)}
+#s11 .bot{position:absolute;left:100px;right:100px;top:706px;bottom:100px;display:grid;grid-template-columns:780px 1fr;gap:24px}
+#s11 .emp{padding:20px 26px;display:flex;flex-direction:column;gap:12px;border-color:var(--dttLine);background:linear-gradient(170deg,var(--dttSoft),#fff 75%)}
+#s11 .emp h4,#s11 .par h4{font-family:var(--head);font-size:28px;font-weight:600;color:var(--ink)}
+#s11 .emp .row{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}
+#s11 .emp .st{display:flex;gap:16px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px 18px}
+#s11 .emp .st .num{font-size:60px;color:var(--dtt)}
+#s11 .emp .st .num small{font-size:30px}
+#s11 .emp .st b{display:block;font-size:24px;font-weight:700;color:var(--ink)}
+#s11 .emp .st span{display:block;font-size:24px;color:var(--ink2);line-height:1.3}
+#s11 .par{padding:20px 26px;display:flex;flex-direction:column;gap:12px}
+#s11 .par .lgs{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#s11 .par .lg{border-radius:14px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;padding:8px 12px;text-align:center}
+#s11 .par .lg img{max-height:64px;max-width:100%;object-fit:contain;display:block}
+#s11 .par .lg.tx{font-family:var(--head);font-size:24px;font-weight:600;color:var(--ink);line-height:1.2}
+
+/* ---------- S12 awards ---------- */
+#s12 .bento{position:absolute;left:100px;right:100px;top:240px;bottom:96px;display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:20px}
+#s12 .tile{position:relative;border-radius:22px;overflow:hidden;border:2px solid var(--line);background:#fff;display:flex;flex-direction:column;box-shadow:0 6px 22px rgba(15,35,70,.07)}
+#s12 .tile .ph{flex:1;min-height:0;position:relative;background:#0B1B33}
+#s12 .tile .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#s12 .tile .cap{padding:12px 20px 14px;flex:none}
+#s12 .tile .cap .tg{display:inline-block;font-size:22px;font-weight:700;padding:2px 14px;border-radius:999px;background:var(--amberSoft);color:var(--amber);border:2px solid #F3D19A}
+#s12 .tile .cap h4{font-family:var(--head);font-size:28px;font-weight:600;margin-top:6px;line-height:1.2}
+#s12 .tile .cap p{font-size:24px;color:var(--ink2);margin-top:2px;line-height:1.3}
+#s12 .t1{grid-row:1/3}
+#s12 .t1 .cap{padding:18px 26px 22px}
+#s12 .t1 .cap h4{font-size:38px}
+#s12 .t1 .cap p{font-size:26px}
+#s12 .t1 .medal{position:absolute;right:20px;top:20px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE59A,#E0A10B 60%,#8A5A00);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#2A1A00;box-shadow:0 8px 24px rgba(0,0,0,.3),inset 0 0 0 6px rgba(255,255,255,.3)}
+#s12 .t1 .medal b{font-family:var(--head);font-size:34px;line-height:1.05}
+#s12 .t1 .medal span{font-size:22px;font-weight:700;text-align:center;line-height:1.15}
+
+/* nav UI */
+#ui{position:fixed;right:18px;bottom:14px;display:flex;gap:10px;z-index:10;opacity:.45;transition:opacity .3s}
+#ui:hover{opacity:1}
+#ui button{background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:12px;width:52px;height:46px;font-size:24px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(15,35,70,.12)}
+#bar{position:fixed;left:0;top:0;height:5px;background:var(--dtt);z-index:10;transition:width .5s}
+
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;background:#fff}
+  #viewport{position:static;display:block}
+  #stage{transform:none!important}
+  .slide{position:relative;opacity:1;visibility:visible;page-break-after:always;break-after:page;width:1920px;height:1080px}
+  .a{opacity:1!important}.growy{transform:none!important}
+  #ui,#bar{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="viewport"><div id="stage">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20"/></symbol>
+    <symbol id="i-ai" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 7.5l1.3 3.2 3.2 1.3-3.2 1.3-1.3 3.2-1.3-3.2L7.5 12l3.2-1.3z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 2h6M10 2v6L4.5 18.5A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.8-2.5L14 8V2"/><path d="M7 14h10"/></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4z"/><path d="M8 2v16M16 6v16"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18.2h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.2v1.9h6v-1.9c0-.8.3-1.6 1-2.2A6.5 6.5 0 0 0 12 2.5z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2l10 5-10 5L2 7z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M14.5 14.8L9.2 9.5C11 5 14.5 2.2 21 3c.8 6.5-2 10-6.5 11.8z"/><path d="M9.6 9.9H5.4L3 12.6l4.2.9M14.1 14.4v4.2l-2.7 2.4-.9-4.2"/><circle cx="15.6" cy="8.4" r="1.6"/></symbol>
+    <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="10" rx="1.5"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="12" rx="1"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3 6.3 7 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 7-1z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ S1 TITLE ============ -->
+<section class="slide" id="s1">
+  <div class="halo"></div>
+  <img class="globe a d2" src="img/globe.webp" alt="">
+  <div class="pad">
+    <div class="logos a"><img class="logo" src="img/dtt-logo.jpg" alt="DTT logo"><img class="mfu" src="img/mfu-logo.png" alt="ตรามหาวิทยาลัยแม่ฟ้าหลวง"></div>
+    <div class="mega a d1">DTT</div>
+    <div class="full a d1">Digital Transformation Technology</div>
+    <div class="th a d2">หลักสูตรวิทยาศาสตรมหาบัณฑิต<br>สาขาวิชาเทคโนโลยีการแปลงเป็นดิจิทัล</div>
+    <div class="yr a d3"><span class="old">ฉบับ พ.ศ. 2565</span><span class="arrow">➜</span><span class="new">ฉบับปรับปรุง พ.ศ. 2570</span></div>
+  </div>
+  <div class="stats">
+    <div class="card a d4"><div class="num">36</div><div class="l">หน่วยกิต (ปริญญาโท)</div></div>
+    <div class="card a d5"><div class="num">2</div><div class="l">แผนการเรียน 1.1 · 1.2</div></div>
+    <div class="card a d6"><div class="num">5</div><div class="l">PLOs ใหม่ ปี 2570</div></div>
+  </div>
+  <div class="foot"><span class="src">สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ · มหาวิทยาลัยแม่ฟ้าหลวง</span><span class="pg"><b>1</b> / 12</span></div>
+</section>
+
+<!-- ============ S2 CORE ============ -->
+<section class="slide" id="s2">
+  <div class="pad">
+    <div class="kicker a">องค์ประกอบหลักของหลักสูตร</div>
+    <h1 class="t a d1">3 แกนหลัก สู่ <em>Agile Change Agent</em></h1>
+  </div>
+  <div class="three">
+    <div class="card pl a d2" style="--c:var(--blue);--s:var(--blueSoft)">
+      <div class="no">01</div><div class="icon"><svg class="ico"><use href="#i-brief"/></svg></div>
+      <h3>Business Context<br>&amp; Constraints</h3>
+      <ul class="dots" style="--c:var(--blue)"><li>เข้าใจบริบทธุรกิจและข้อจำกัด</li><li>วางกลยุทธ์เชื่อมเทคโนโลยีเข้ากับองค์กร</li><li>สร้างความได้เปรียบในยุคดิจิทัล</li><li>สื่อสารข้ามสายงานได้</li></ul>
+    </div>
+    <div class="card pl a d3" style="--c:var(--violet);--s:var(--violetSoft)">
+      <div class="no">02</div><div class="icon"><svg class="ico"><use href="#i-ai"/></svg></div>
+      <h3>AI &amp;<br>Emerging Tech</h3>
+      <ul class="dots" style="--c:var(--violet)"><li>ประยุกต์ใช้ AI และ Generative AI</li><li>เทคโนโลยี Emerging &amp; Disruptive</li><li>สร้างนวัตกรรมดิจิทัล ขับเคลื่อนองค์กร</li></ul>
+    </div>
+    <div class="card pl a d4" style="--c:var(--green);--s:var(--greenSoft)">
+      <div class="no">03</div><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+      <h3>Ethics &amp;<br>Governance</h3>
+      <ul class="dots" style="--c:var(--green)"><li>จริยธรรมปัญญาประดิษฐ์ (AI Ethics)</li><li>กำกับดูแลเทคโนโลยีอย่างมีธรรมาภิบาล</li><li>ความมั่นคงปลอดภัย และใช้เทคโนโลยีอย่างรับผิดชอบ</li></ul>
+    </div>
+  </div>
+  <div class="out a d5">
+    <div class="icon"><svg class="ico"><use href="#i-users"/></svg></div>
+    <div>
+      <div class="tag">MAIN PROGRAM OUTCOME</div>
+      <h3>“Agile Change Agents”</h3>
+      <p>บ่มเพาะผ่านความร่วมมือกับภาคอุตสาหกรรม (Industrial Collaboration) และการเรียนรู้จากการปฏิบัติจริง (Work-based Learning) เพื่อนำความรู้ไปขับเคลื่อนการเปลี่ยนแปลงองค์กรได้จริง</p>
+    </div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>2</b> / 12</span></div>
+</section>
+
+<!-- ============ S3 PEO PLO ============ -->
+<section class="slide" id="s3">
+  <div class="pad">
+    <div class="kicker a">วัตถุประสงค์และผลลัพธ์การเรียนรู้</div>
+    <h1 class="t a d1">4 PEOs กำหนดทิศ · <em>5 PLOs</em> วัดผลได้จริง</h1>
+  </div>
+  <div class="lab a d1" style="top:244px">Program Educational Objectives <small>บัณฑิตที่เราอยากเห็น</small></div>
+  <div class="peo">
+    <div class="card pe a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="ic"><svg class="ico"><use href="#i-target"/></svg></div><div><b>PEO 1</b><span>ผู้นำเชิงยุทธศาสตร์ และการประยุกต์ใช้เทคโนโลยี</span><i>Strategic Tech Leader</i></div></div>
+    <div class="card pe a d3" style="--c:var(--violet);--s:var(--violetSoft)"><div class="ic"><svg class="ico"><use href="#i-flask"/></svg></div><div><b>PEO 2</b><span>นักสร้างสรรค์นวัตกรรม และวิจัยประยุกต์</span><i>Applied Researcher</i></div></div>
+    <div class="card pe a d4" style="--c:var(--green);--s:var(--greenSoft)"><div class="ic"><svg class="ico"><use href="#i-shield"/></svg></div><div><b>PEO 3</b><span>ยึดมั่นธรรมาภิบาลดิจิทัล และจริยธรรม AI</span><i>Ethical Governance</i></div></div>
+    <div class="card pe a d5" style="--c:var(--amber);--s:var(--amberSoft)"><div class="ic"><svg class="ico"><use href="#i-cycle"/></svg></div><div><b>PEO 4</b><span>ผู้นำการเปลี่ยนแปลงแบบ Agile และเรียนรู้ตลอดชีวิต</span><i>Agile Change Agent</i></div></div>
+  </div>
+  <div class="flow a d5"><span class="ln"></span><span>ถ่ายทอดเป็นผลลัพธ์การเรียนรู้ระดับหลักสูตร ▼</span><span class="ln"></span></div>
+  <div class="lab a d5" style="top:536px">Program Learning Outcomes <small>สิ่งที่บัณฑิตทำได้เมื่อจบ</small></div>
+  <div class="plo">
+    <div class="card po a d6"><div class="h"><b>PLO 1</b><span>ธุรกิจ</span></div><p>ประเมินความพร้อมขององค์กร จากแบบจำลองธุรกิจและข้อจำกัด เพื่อเสนอแนวทางการเปลี่ยนผ่านดิจิทัล</p></div>
+    <div class="card po a d6"><div class="h"><b>PLO 2</b><span>AI</span></div><p>ปรับแต่งปัญญาประดิษฐ์ และเทคโนโลยีสมัยใหม่ เพื่อเพิ่มประสิทธิภาพ และผลผลิตขององค์กร</p></div>
+    <div class="card po a d7"><div class="h"><b>PLO 3</b><span>วิจัย</span></div><p>สร้างสรรค์ผลงานวิจัย หรือนวัตกรรมดิจิทัล ด้วยกระบวนการวิจัย เพื่อแก้ปัญหาจริงในอุตสาหกรรม</p></div>
+    <div class="card po a d7"><div class="h"><b>PLO 4</b><span>จริยธรรม</span></div><p>ปฏิบัติตามจริยธรรม ด้าน AI และเทคโนโลยีดิจิทัล อย่างมีธรรมาภิบาล</p></div>
+    <div class="card po a d8"><div class="h"><b>PLO 5</b><span>ภาวะผู้นำ</span></div><p>แสดงภาวะผู้นำ ขับเคลื่อนการเปลี่ยนแปลงองค์กร ด้วยแนวคิดแบบ Agile ในสภาวะที่ผันผวน</p></div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>3</b> / 12</span></div>
+</section>
+
+<!-- ============ S4 NDB ============ -->
+<section class="slide" id="s4">
+  <div class="pad">
+    <div class="kicker a">สรุปจุดเด่นหลักสูตร</div>
+    <h1 class="t a d1">DTT 2570: <em>ใหม่</em> · แตกต่าง · ดีกว่า</h1>
+  </div>
+  <div class="three">
+    <div class="card cl a d2" style="--c:var(--dtt);--s:var(--dttSoft)">
+      <div class="hd"><div class="n">1</div><h3>ใหม่<small>NEW</small></h3></div>
+      <div class="bd">
+        <div class="it"><div class="ic"><svg class="ico"><use href="#i-shield"/></svg></div><div><b>Governance &amp; Ethics</b><span>ปฏิบัติตาม<em>จริยธรรมด้าน AI</em> และเทคโนโลยีดิจิทัล อย่างมีธรรมาภิบาล</span></div></div>
+        <div class="it"><div class="ic"><svg class="ico"><use href="#i-cycle"/></svg></div><div><b>Agile Leadership</b><span>เป็น<em>ผู้นำการเปลี่ยนแปลง</em> (Change Agent) ขององค์กร ด้วยแนวคิด Agile ในสภาวะที่ผันผวน</span></div></div>
+      </div>
+    </div>
+    <div class="card cl a d3" style="--c:var(--teal);--s:var(--tealSoft)">
+      <div class="hd"><div class="n">2</div><h3>แตกต่าง<small>DIFFERENT</small></h3></div>
+      <div class="bd">
+        <div class="it"><div class="ic"><svg class="ico"><use href="#i-brief"/></svg></div><div><b>Business Context &amp; Constraints</b><span>ประเมินความพร้อมองค์กร จาก<em>แบบจำลองธุรกิจและข้อจำกัดจริง</em> ก่อนเสนอแนวทางเปลี่ยนผ่าน</span></div></div>
+        <div class="it"><div class="ic"><svg class="ico"><use href="#i-flask"/></svg></div><div><b>Applied Innovation</b><span>สร้างงานวิจัยหรือนวัตกรรม เพื่อ<em>แก้ปัญหาจริงในอุตสาหกรรม</em></span></div></div>
+      </div>
+    </div>
+    <div class="card cl a d4" style="--c:var(--violet);--s:var(--violetSoft)">
+      <div class="hd"><div class="n">3</div><h3>ดีกว่า<small>BETTER</small></h3></div>
+      <div class="bd">
+        <div class="it"><div class="ic"><svg class="ico"><use href="#i-ai"/></svg></div><div><b>AI &amp; Digital Tech for Transformation</b><span><em>ปรับแต่ง AI</em> และเทคโนโลยีสมัยใหม่ เพื่อเพิ่มประสิทธิภาพ และผลผลิตขององค์กร</span></div></div>
+        <div class="vs"><b>จากเดิม (2565)</b> เน้นกระบวนการจัดการดิจิทัล และวิทยาการข้อมูล<br><b>สู่ (2570)</b> AI · ธุรกิจ · ธรรมาภิบาล · ภาวะผู้นำ</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570 และ PLOs ฉบับ พ.ศ. 2565</span><span class="pg"><b>4</b> / 12</span></div>
+</section>
+
+<!-- ============ S5 T-SHAPE ============ -->
+<section class="slide" id="s5">
+  <div class="pad">
+    <div class="kicker a">โครงสร้างสมรรถนะ</div>
+    <h1 class="t a d1">ออกแบบให้เป็น <em>T-Shaped Professional</em></h1>
+  </div>
+  <div class="tee">
+    <div class="bar a d2">
+      <div class="lb">Broad Skills <small>รู้กว้าง · แนวนอน</small></div>
+      <div class="row">
+        <div class="sk" style="--c:var(--blue);--s:var(--blueSoft)"><div class="ic"><svg class="ico"><use href="#i-map"/></svg></div><b>Strategic Roadmap</b></div>
+        <div class="sk" style="--c:var(--green);--s:var(--greenSoft)"><div class="ic"><svg class="ico"><use href="#i-shield"/></svg></div><b>Digital Governance</b></div>
+        <div class="sk" style="--c:var(--amber);--s:var(--amberSoft)"><div class="ic"><svg class="ico"><use href="#i-cycle"/></svg></div><b>Agile Leadership</b></div>
+        <div class="sk" style="--c:var(--pink);--s:var(--pinkSoft)"><div class="ic"><svg class="ico"><use href="#i-heart"/></svg></div><b>Customer Experience</b></div>
+      </div>
+    </div>
+    <div class="stem a d3">
+      <div class="lb">Deep Expertise <small>รู้ลึก · แนวตั้ง</small></div>
+      <div class="sk" style="--c:var(--violet);--s:var(--violetSoft)"><div class="ic"><svg class="ico"><use href="#i-ai"/></svg></div><b>Applied AI / LLMs / RAG</b></div>
+      <div class="sk" style="--c:var(--teal);--s:var(--tealSoft)"><div class="ic"><svg class="ico"><use href="#i-bolt"/></svg></div><b>Hyper-Automation</b></div>
+      <div class="sk" style="--c:var(--dtt);--s:var(--dttSoft)"><div class="ic"><svg class="ico"><use href="#i-bulb"/></svg></div><b>Innovation Research</b></div>
+    </div>
+  </div>
+  <div class="side">
+    <div class="card ex a d4" style="--c:var(--dtt)"><h4><small>แนวนอน</small>Broad Skills</h4><p>ความรู้รอบด้านเชิงยุทธศาสตร์ ธุรกิจ และการบริหารคน เพื่อเชื่อมโยงข้ามสายงาน</p></div>
+    <div class="card ex a d5" style="--c:var(--violet)"><h4><small>แนวตั้ง</small>Deep Expertise</h4><p>ความเชี่ยวชาญเชิงลึก ในเทคโนโลยีเฉพาะทาง และกระบวนการวิจัยนวัตกรรม</p></div>
+    <div class="goal a d6"><b>ผลลัพธ์</b>คุยกับผู้บริหารได้ และลงมือกับเทคโนโลยีได้ ในคนเดียวกัน</div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>5</b> / 12</span></div>
+</section>
+
+<!-- ============ S6 STUDY PLANS ============ -->
+<section class="slide" id="s6">
+  <div class="pad">
+    <div class="kicker a">แผนการเรียน</div>
+    <h1 class="t a d1">36 หน่วยกิต เลือกได้ <em>2 แผน</em></h1>
+  </div>
+  <div class="plans">
+    <div class="card pn a d2" style="--c:var(--violet)">
+      <div class="top"><h3>แผน 1.1<small>Thesis Only</small></h3><div class="tot"><div class="num">36</div><span>หน่วยกิต</span></div></div>
+      <div class="split"><div style="flex:1;background:var(--violet)">วิทยานิพนธ์ 36</div></div>
+      <p>เรียนแบบไม่นับหน่วยกิต และต้องผ่าน 2 วิชา: <b>Research Methodology</b> และ <b>Digital Governance</b></p>
+    </div>
+    <div class="card pn a d3" style="--c:var(--dtt)">
+      <div class="top"><h3>แผน 1.2<small>Coursework &amp; Thesis</small></h3><div class="tot"><div class="num">18+18</div><span>หน่วยกิต</span></div></div>
+      <div class="split"><div style="flex:1;background:var(--dtt)">รายวิชา 18</div><div style="flex:1;background:var(--dttDeep)">วิทยานิพนธ์ 18</div></div>
+      <p>เรียน 7 รายวิชา: <b>วิชาบังคับ 5 วิชา</b> สร้างฐาน KSA และ <b>วิชาเลือก 2 วิชา</b> ตามความเชี่ยวชาญที่สนใจ</p>
+    </div>
+  </div>
+  <div class="stairs">
+    <div class="intro a d4"><b>แผน 1.2: บันได 3 ขั้น</b><span>สร้างทักษะระดับผู้เชี่ยวชาญ จากฐานรากถึงงานจริง</span></div>
+    <div class="card st s1 a d4" style="--c:var(--blue)"><div class="k">ขั้นที่ 1 · ฐานราก</div><h4>Core Foundation</h4><p>Strategic Digital Transformation · Applied AI · Research Methodology</p></div>
+    <div class="card st s2 a d5" style="--c:var(--green)"><div class="k">ขั้นที่ 2 · ธรรมาภิบาล + วิชาเลือก</div><h4>Governance &amp; Electives</h4><p>Digital Governance, Cybersecurity, AI Ethics · วิชาเลือก · Professional Experience</p></div>
+    <div class="card st s3 a d6" style="--c:var(--dtt)"><div class="k">ขั้นที่ 3 · ประยุกต์ใช้จริง</div><h4>Capstone &amp; Thesis</h4><p>Capstone Project / Thesis 18 หน่วยกิต บูรณาการความรู้ เพื่อแก้ปัญหาจริง</p></div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>6</b> / 12</span></div>
+</section>
+
+<!-- ============ S7 COURSES ============ -->
+<section class="slide" id="s7">
+  <div class="pad">
+    <div class="kicker a">รายวิชา</div>
+    <h1 class="t a d1">วิชาบังคับ 5 วิชา ผูกกับ <em>PLO</em> ทุกวิชา</h1>
+  </div>
+  <div class="card mx a d2">
+    <h4>Core Courses Matrix <small>วิชาบังคับ · PLO หลัก · KSA</small></h4>
+    <div class="tr hd"><span>รายวิชาบังคับ</span><span>PLO หลัก</span><span>KSA</span></div>
+    <div class="tr"><span class="c">Strategic Digital Transformation and Business Roadmap</span><span class="p">PLO 1</span><span class="k">Maturity Models, Gap Analysis, Strategy</span></div>
+    <div class="tr"><span class="c">Applied AI and Emerging Technologies</span><span class="p">PLO 2</span><span class="k">GenAI, Prompt Engineering, Automation</span></div>
+    <div class="tr"><span class="c">Research Methodology and Innovation Thinking</span><span class="p">PLO 3</span><span class="k">Design Thinking, Applied Research</span></div>
+    <div class="tr"><span class="c">Digital Governance, Cybersecurity, and AI Ethics</span><span class="p">PLO 4</span><span class="k">PDPA, AI Ethics, Governance</span></div>
+    <div class="tr cap"><span class="c">Capstone Project / Thesis</span><span class="p">PLO 1–5</span><span class="k">Integrated Competency &amp; Leadership</span></div>
+  </div>
+  <div class="card el a d3">
+    <h4>Specialization Electives <small>วิชาเลือก</small></h4>
+    <div class="ei" style="--c:var(--pink);--s:var(--pinkSoft)"><div class="ic"><svg class="ico"><use href="#i-heart"/></svg></div><div><b>Customer &amp; CX</b><span>Digital Marketing and Customer Experience Design</span></div></div>
+    <div class="ei" style="--c:var(--blue);--s:var(--blueSoft)"><div class="ic"><svg class="ico"><use href="#i-layers"/></svg></div><div><b>Enterprise &amp; Agile</b><span>Enterprise Transformation and Strategic Leadership</span></div></div>
+    <div class="ei" style="--c:var(--teal);--s:var(--tealSoft)"><div class="ic"><svg class="ico"><use href="#i-chart"/></svg></div><div><b>Data Insights</b><span>Data-Driven Insights and Business Intelligence</span></div></div>
+    <div class="ei" style="--c:var(--amber);--s:var(--amberSoft)"><div class="ic"><svg class="ico"><use href="#i-brief"/></svg></div><div><b>Professional Experience</b><span>Professional Experience in Digital Transformation</span></div></div>
+    <div class="ei" style="--c:var(--violet);--s:var(--violetSoft)"><div class="ic"><svg class="ico"><use href="#i-rocket"/></svg></div><div><b>Emerging Trends</b><span>Selected Topics in Digital Transformation Technology</span></div></div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>7</b> / 12</span></div>
+</section>
+
+<!-- ============ S8 AI ============ -->
+<section class="slide" id="s8">
+  <div class="pad">
+    <div class="kicker a">AI Integrated Learning</div>
+    <h1 class="t a d1">AI ทั้งในรายวิชาโดยตรง และ<em>ในทุกรายวิชา</em></h1>
+  </div>
+  <div class="crs">
+    <div class="card cr a d2" style="--c:var(--violet);--s:var(--violetSoft)"><div class="icon"><svg class="ico"><use href="#i-ai"/></svg></div><div class="no">COURSE 01</div><h3>ปัญญาประดิษฐ์เชิงประยุกต์ และเทคโนโลยีบังเกิดใหม่</h3><p>Applied AI and Emerging Technologies</p></div>
+    <div class="card cr a d3" style="--c:var(--teal);--s:var(--tealSoft)"><div class="icon"><svg class="ico"><use href="#i-chart"/></svg></div><div class="no">COURSE 02</div><h3>การขับเคลื่อนด้วยข้อมูล และระบบอัจฉริยะทางธุรกิจ</h3><p>Data-Driven Insights and Business Intelligence</p></div>
+    <div class="card cr a d4" style="--c:var(--green);--s:var(--greenSoft)"><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div><div class="no">COURSE 03</div><h3>ธรรมาภิบาลดิจิทัล ความปลอดภัยไซเบอร์ และจริยธรรม AI</h3><p>Digital Governance, Cybersecurity Strategy, and AI Ethics</p></div>
+  </div>
+  <div class="perv a d5">
+    <div><div class="tag">PERVASIVE AI INTEGRATION</div><h3>บูรณาการ AI ในทุกรายวิชา</h3><p>ใช้ AI สืบค้น ประมวลผล และวิเคราะห์ข้อมูล เพื่อการเรียนรู้และการวิจัย พร้อมปรับแต่ง AI สนับสนุนงานวิจัย</p></div>
+    <div class="chips"><span class="chip">Generative AI</span><span class="chip">RAG</span><span class="chip">Agentic AI</span></div>
+  </div>
+  <div class="resp a d6">
+    <div class="h"><svg class="ico"><use href="#i-shield"/></svg>Responsible AI</div>
+    <div><p><b>Ethical Use</b> ปลูกฝังความรับผิดชอบ และธรรมาภิบาล ในการประยุกต์ใช้เทคโนโลยี</p></div>
+    <div><p><b>Human-in-the-Loop</b> ผลลัพธ์จาก AI ต้องผ่านการตรวจสอบโดยมนุษย์เสมอ</p></div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>8</b> / 12</span></div>
+</section>
+
+<!-- ============ S9 COMPETENCIES ============ -->
+<section class="slide" id="s9">
+  <div class="pad">
+    <div class="kicker a">สมรรถนะของบัณฑิต</div>
+    <h1 class="t a d1">4 สมรรถนะ บ่มเพาะด้วย<em>โจทย์จริง</em></h1>
+  </div>
+  <div class="grid">
+    <div class="card cp a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="no">1</div><div class="icon"><svg class="ico"><use href="#i-layers"/></svg></div><h3>Modern Tech &amp; Business Integration</h3><p>บูรณาการเทคโนโลยีสมัยใหม่กับบริบทธุรกิจ เพื่อแก้ปัญหาจริงผ่านกระบวนการวิจัย</p></div>
+    <div class="card cp a d3" style="--c:var(--green);--s:var(--greenSoft)"><div class="no">2</div><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div><h3>Responsible Digital &amp; AI Ethics</h3><p>ใช้ดิจิทัลและ AI อย่างถูกต้อง ปลอดภัย คำนึงถึงจริยธรรม และธรรมาภิบาลข้อมูล</p></div>
+    <div class="card cp a d4" style="--c:var(--teal);--s:var(--tealSoft)"><div class="no">3</div><div class="icon"><svg class="ico"><use href="#i-chat"/></svg></div><h3>Cross-Functional Communication</h3><p>สื่อสารและประสานงานข้ามสายงาน ได้ราบรื่นทั้งฝั่งธุรกิจ และฝั่งเทคโนโลยี</p></div>
+    <div class="card cp a d5" style="--c:var(--amber);--s:var(--amberSoft)"><div class="no">4</div><div class="icon"><svg class="ico"><use href="#i-cycle"/></svg></div><h3>Agile Change Agent</h3><p>นำการเปลี่ยนแปลงดิจิทัล ยืดหยุ่น ปรับตัวได้ดี รับมือสภาวะแวดล้อมที่ผันผวน</p></div>
+  </div>
+  <div class="card nur a d6">
+    <h4><small>NURTURING APPROACH</small>บ่มเพาะอย่างไร</h4>
+    <div class="ns"><div class="n">01</div><div><b>Project &amp; Work-Based Learning</b><span>เรียนจากโครงงานและการทำงานจริง ร่วมกับองค์กรพันธมิตร</span></div></div>
+    <div class="ns"><div class="n">02</div><div><b>Industry Capstone / Research</b><span>โจทย์วิจัยจากภาคอุตสาหกรรม โดยผู้แทนอุตสาหกรรมร่วมประเมิน</span></div></div>
+    <div class="ns"><div class="n">03</div><div><b>Multidisciplinary Integration</b><span>บูรณาการธุรกิจ ดิจิทัล AI และจริยธรรม ความปลอดภัย ธรรมาภิบาล ในทุกรายวิชา</span></div></div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>9</b> / 12</span></div>
+</section>
+
+<!-- ============ S10 TARGET + ADMISSION ============ -->
+<section class="slide" id="s10">
+  <div class="pad">
+    <div class="kicker a">กลุ่มเป้าหมายและการรับนักศึกษา</div>
+    <h1 class="t a d1">เปิดรับทั้งสาย IT และ <em>Non-IT</em> ไทยและต่างชาติ</h1>
+  </div>
+  <div class="left">
+    <div class="card tg a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="ic"><svg class="ico"><use href="#i-cap"/></svg></div><div><h4>พื้นฐานการศึกษา</h4><p><b>IT และ Non-IT</b> รวมถึงนักศึกษา DTBI, CE, DCE ที่ต้องการจบเร็วขึ้น</p></div></div>
+    <div class="card tg a d3" style="--c:var(--amber);--s:var(--amberSoft)"><div class="ic"><svg class="ico"><use href="#i-globe"/></svg></div><div><h4>ไทยและต่างชาติ</h4><p>รวมนักศึกษาต่างชาติ ที่กำลังเรียนปริญญาตรีในประเทศไทย</p></div></div>
+    <div class="card tg a d4" style="--c:var(--green);--s:var(--greenSoft)"><div class="ic"><svg class="ico"><use href="#i-brief"/></svg></div><div><h4>คนทำงาน</h4><p>บุคลากรภาครัฐและเอกชน ที่ต้องการ <b>Reskill / Upskill</b> และผู้ที่ได้รับมอบหมายเป็น <b>Change Agent</b></p></div></div>
+  </div>
+  <div class="card chart a d3">
+    <div class="top">
+      <div><h4>แผนรับ และนักศึกษาใหม่ ปีการศึกษา 2565–2569</h4>
+        <div class="lg2"><span><i style="background:#E3E9F2;border:2px dashed #8193AD"></i>แผนการรับ</span><span><i style="background:var(--dtt)"></i>นักศึกษาใหม่</span><span><i style="background:var(--amber)"></i>ต่างชาติ</span></div></div>
+      <div class="tot"><div><div class="num">43</div><span>นักศึกษาใหม่ 5 ปี</span></div><div><div class="num" style="color:var(--amber)">19</div><span>ต่างชาติ</span></div></div>
+    </div>
+    <div class="cols">
+      <div class="col"><div class="bar plan growy" style="height:46.7%"><b>10</b></div><div class="bar act growy" style="height:65.3%"><b>14</b><div class="bar int" style="height:28.6%"></div></div><div class="yl">2565</div></div>
+      <div class="col"><div class="bar plan growy" style="height:46.7%"><b>10</b></div><div class="bar act growy" style="height:28%"><b>6</b><div class="bar int" style="height:33.3%"></div></div><div class="yl">2566</div></div>
+      <div class="col"><div class="bar plan growy" style="height:46.7%"><b>10</b></div><div class="bar act growy" style="height:46.7%"><b>10</b><div class="bar int" style="height:70%"></div></div><div class="yl">2567</div></div>
+      <div class="col"><div class="bar plan growy" style="height:70%"><b>15</b></div><div class="bar act growy" style="height:37.3%"><b>8</b><div class="bar int" style="height:50%"></div></div><div class="yl">2568</div></div>
+      <div class="col"><div class="bar plan growy" style="height:70%"><b>15</b></div><div class="bar act growy" style="height:23.3%"><b>5</b><div class="bar int" style="height:40%"></div></div><div class="yl">2569</div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: สถิติผลการรับนักศึกษา ปีการศึกษา 2565–2569 (นักศึกษาใหม่/ต่างชาติ: 14/4, 6/2, 10/7, 8/4, 5/2)</span><span class="pg"><b>10</b> / 12</span></div>
+</section>
+
+<!-- ============ S11 CAREERS ============ -->
+<section class="slide" id="s11">
+  <div class="pad">
+    <div class="kicker a">อาชีพและภาวะการมีงานทำ</div>
+    <h1 class="t a d1">5 เส้นทางอาชีพ ของ <em>Agile Change Agent</em></h1>
+  </div>
+  <div class="jobs">
+    <div class="card jb a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="no">01</div><div class="icon"><svg class="ico"><use href="#i-target"/></svg></div><h3>นักบริหาร/นักยุทธศาสตร์ การเปลี่ยนผ่านดิจิทัล</h3><div class="en">Digital Strategy &amp; Transformation Leader</div><p>DT Director, Strategy Consultant, CDO</p></div>
+    <div class="card jb a d3" style="--c:var(--teal);--s:var(--tealSoft)"><div class="no">02</div><div class="icon"><svg class="ico"><use href="#i-devices"/></svg></div><h3>ที่ปรึกษาเทคโนโลยีดิจิทัล และนวัตกรรม</h3><div class="en">Digital Tech &amp; Innovation Consultant</div><p>Solutions Architect, IT Consultant, Tech Advisor</p></div>
+    <div class="card jb a d4" style="--c:var(--violet);--s:var(--violetSoft)"><div class="no">03</div><div class="icon"><svg class="ico"><use href="#i-ai"/></svg></div><h3>ผู้จัดการโครงการนวัตกรรม และ AI ประยุกต์</h3><div class="en">Applied AI &amp; Innovation Project Manager</div><p>AI Specialist, Product Owner, AI Transformation Manager</p></div>
+    <div class="card jb a d5" style="--c:var(--green);--s:var(--greenSoft)"><div class="no">04</div><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div><h3>ผู้จัดการธรรมาภิบาลข้อมูล และความปลอดภัยไซเบอร์</h3><div class="en">Data Governance &amp; Cybersecurity Officer</div><p>AI Ethics Lead, AI Auditor, Compliance Specialist</p></div>
+    <div class="card jb a d6" style="--c:var(--amber);--s:var(--amberSoft)"><div class="no">05</div><div class="icon"><svg class="ico"><use href="#i-bulb"/></svg></div><h3>นักวิจัย นักพัฒนา และผู้ประกอบการนวัตกรรม</h3><div class="en">Digital Innovation Researcher &amp; Entrepreneur</div><p>Startup Founder, Researcher, R&amp;D Specialist</p></div>
+  </div>
+  <div class="bot">
+    <div class="card emp a d6">
+      <h4>ภาวะการมีงานทำ ตามรุ่นรับเข้า</h4>
+      <div class="row">
+        <div class="st"><div class="num">91.7<small>%</small></div><div><b>รุ่นรับเข้า 2565</b><span>จบ 12 · ทำงาน 11 · ศึกษาต่อ 1</span></div></div>
+        <div class="st"><div class="num">100<small>%</small></div><div><b>รุ่นรับเข้า 2566</b><span>จบ 3 · ทำงานทั้ง 3 คน</span></div></div>
+      </div>
+    </div>
+    <div class="card par a d7">
+      <h4>องค์กรพันธมิตร</h4>
+      <div class="lgs">
+        <div class="lg"><img src="img/partner1.png" alt="สมาคมปัญญาประดิษฐ์ประเทศไทย (AIAT)"></div>
+        <div class="lg tx">มูลนิธิแม่ฟ้าหลวง ในพระบรมราชูปถัมภ์</div>
+        <div class="lg"><img src="img/partner5.png" alt="Summit Computer"></div>
+        <div class="lg tx">mfes solutions</div>
+        <div class="lg tx">สมาคมทุเรียนไทย</div>
+        <div class="lg tx">สมาคมการค้า เกษตรไทย-จีน</div>
+        <div class="lg tx">ท่าอากาศยาน แม่ฟ้าหลวง เชียงราย</div>
+        <div class="lg tx" style="color:var(--muted)">และพันธมิตรอื่น</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT 2570 · ภาวะการมีงานทำตามรุ่นรับเข้า (ปีการศึกษา 2565 = 2022, 2566 = 2023)</span><span class="pg"><b>11</b> / 12</span></div>
+</section>
+
+<!-- ============ S12 AWARDS ============ -->
+<section class="slide" id="s12">
+  <div class="pad">
+    <div class="kicker a">ผลงานนักศึกษา</div>
+    <h1 class="t a d1">นักศึกษา DTT <em>คว้ารางวัล</em> จากงานจริง</h1>
+  </div>
+  <div class="bento">
+    <div class="tile t1 a d2">
+      <div class="ph"><img src="img/award-inno.jpg" alt="นักศึกษา DTT รับรางวัล Student Entrepreneur of the Year ในงาน MFU INNO PRIZE 2026"></div>
+      <div class="medal"><b>2026</b><span>MFU INNO<br>PRIZE</span></div>
+      <div class="cap"><span class="tg">MFU Innovation Day 2026</span><h4>Student Entrepreneur of the Year</h4><p>รางวัล MFU INNO PRIZE 2026 ของนักศึกษาปริญญาโท สาขา Digital Transformation</p></div>
+    </div>
+    <div class="tile a d3">
+      <div class="ph"><img src="img/award-dit-gold.jpg" alt="ทีมนักศึกษารับเหรียญทอง DIT Award 2026" style="object-position:center 30%"></div>
+      <div class="cap"><span class="tg">เหรียญทอง · DIT Award 2026</span><h4>Cattle Detection &amp; Pose Localization</h4><p>Computer Vision สำหรับฟาร์มภาคเหนือ</p></div>
+    </div>
+    <div class="tile a d4">
+      <div class="ph"><img src="img/award-healthtech.jpg" alt="นักศึกษา DTT ในโครงการ Health Tech X"></div>
+      <div class="cap"><span class="tg">Health Tech X</span><h4>1 ใน 23 ทีมนวัตกร</h4><p>ทุนสนับสนุนรวม 1,000,000 บาท</p></div>
+    </div>
+    <div class="tile a d5">
+      <div class="ph"><img src="img/award-dit-bronze.jpg" alt="นักศึกษารับรางวัลที่ 3 และเหรียญทองแดง" style="object-position:center 30%"></div>
+      <div class="cap"><span class="tg">รางวัลที่ 3 · เหรียญทองแดง</span><h4>Durian Integrated Knowledge Map</h4><p>ประเภทนักศึกษา DIT Awards 2026</p></div>
+    </div>
+    <div class="tile a d6">
+      <div class="ph"><img src="img/award-38.jpg" alt="ประกาศแสดงความยินดี นางสาวสุทัสสา สานนท์ 1 ใน 38 ตัวแทนประเทศไทย" style="object-position:right center"></div>
+      <div class="cap"><span class="tg">ตัวแทนประเทศไทย</span><h4>1 ใน 38 ตัวแทนประเทศไทย</h4><p>สถาบันวิจัยและนวัตกรรม มฟล. แสดงความยินดี</p></div>
+    </div>
+  </div>
+  <div class="foot"><span class="src">ที่มา: ข่าวผลงานนักศึกษา สำนักวิชาเทคโนโลยีดิจิทัลประยุกต์ และสถาบันวิจัยและนวัตกรรม มฟล.</span><span class="pg"><b>12</b> / 12</span></div>
+</section>
+
+</div></div>
+<div id="ui"><button id="prev" aria-label="ก่อนหน้า">‹</button><button id="next" aria-label="ถัดไป">›</button><button id="fs" aria-label="เต็มจอ">⛶</button></div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=[...document.querySelectorAll('.slide')];
+  let cur=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='scale('+s+')';}
+  addEventListener('resize',fit);fit();
+  function go(i){
+    i=Math.max(0,Math.min(slides.length-1,i));
+    slides[cur].classList.remove('active');cur=i;
+    const s=slides[cur];void s.offsetWidth;s.classList.add('active');
+    document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+    try{history.replaceState(null,'','#'+(cur+1));}catch(e){}
+  }
+  const start=parseInt((location.hash||'#1').slice(1))||1;
+  slides[0].classList.remove('active');go(start-1);
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();go(cur+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){toggleFs();}
+  });
+  function toggleFs(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen();}
+  document.getElementById('next').onclick=()=>go(cur+1);
+  document.getElementById('prev').onclick=()=>go(cur-1);
+  document.getElementById('fs').onclick=toggleFs;
+  let tx=null;addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));tx=null;});
+})();
+</script>
+</body>
+</html>
