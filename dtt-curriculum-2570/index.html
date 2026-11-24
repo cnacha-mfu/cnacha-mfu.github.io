@@ -83,24 +83,20 @@ ul.dots li::before{content:"";width:10px;height:10px;border-radius:50%;backgroun
 #s2 .out h3{font-family:var(--head);font-size:44px;font-weight:600;line-height:1.15}
 #s2 .out p{font-size:25px;line-height:1.4;color:#E4EEFB;margin-top:6px}
 
-/* ---------- S3 PEO / PLO ---------- */
-#s3 .lab{position:absolute;left:100px;font-family:var(--head);font-size:30px;font-weight:600;color:var(--dtt);display:flex;align-items:center;gap:14px}
-#s3 .lab small{font-family:var(--body);font-size:24px;font-weight:600;color:var(--muted)}
-#s3 .peo{position:absolute;left:100px;right:100px;top:290px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-#s3 .pe{padding:20px 24px;display:flex;gap:16px;align-items:center;border-left:8px solid var(--c)}
+/* ---------- S3 PEO -> PLO ---------- */
+#s3 .rows{position:absolute;left:100px;right:100px;top:250px;bottom:104px;display:grid;grid-template-rows:repeat(4,1fr);gap:18px}
+#s3 .r{display:grid;grid-template-columns:560px 70px 1fr;align-items:stretch}
+#s3 .pe{padding:16px 24px;display:flex;gap:18px;align-items:center;border-left:10px solid var(--c)}
 #s3 .pe .ic{width:72px;height:72px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center;flex:none}
 #s3 .pe .ic .ico{width:42px;height:42px}
-#s3 .pe b{font-family:var(--head);font-size:26px;color:var(--c);display:block}
-#s3 .pe span{display:block;font-size:24px;font-weight:600;line-height:1.3;color:var(--ink)}
+#s3 .pe b{font-family:var(--head);font-size:26px;color:var(--c);display:block;line-height:1.1}
+#s3 .pe span{display:block;font-family:var(--head);font-size:30px;font-weight:600;line-height:1.2;color:var(--ink)}
 #s3 .pe i{display:block;font-style:normal;font-size:24px;color:var(--muted);font-weight:600}
-#s3 .flow{position:absolute;left:100px;right:100px;top:478px;height:40px;display:flex;align-items:center;justify-content:center;gap:16px;font-size:25px;font-weight:600;color:var(--ink2)}
-#s3 .flow .ln{flex:1;border-top:4px dashed #9AB0CC}
-#s3 .plo{position:absolute;left:100px;right:100px;top:590px;bottom:100px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-#s3 .po{padding:20px 22px;display:flex;flex-direction:column;gap:10px;border-top:8px solid var(--dtt)}
-#s3 .po .h{display:flex;align-items:center;justify-content:space-between}
-#s3 .po .h b{font-family:var(--head);font-size:40px;color:var(--dtt)}
-#s3 .po .h span{font-size:22px;font-weight:700;color:var(--dtt);background:var(--dttSoft);padding:2px 12px;border-radius:999px}
-#s3 .po p{font-size:26px;line-height:1.42;color:var(--ink)}
+#s3 .ar{display:flex;align-items:center;justify-content:center;color:var(--c);font-family:var(--head);font-size:44px;font-weight:700}
+#s3 .plos{display:flex;gap:16px}
+#s3 .po{flex:1;padding:14px 22px;display:flex;gap:18px;align-items:center;border-radius:20px;background:var(--s);border:2px solid var(--c)}
+#s3 .po b{font-family:var(--head);font-size:34px;color:var(--c);white-space:nowrap;flex:none}
+#s3 .po p{font-size:26px;line-height:1.38;color:var(--ink)}
 
 /* ---------- S4 new / different / better ---------- */
 #s4 .three{position:absolute;left:100px;right:100px;top:244px;bottom:100px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -391,24 +387,30 @@ ul.dots li::before{content:"";width:10px;height:10px;border-radius:50%;backgroun
 <!-- ============ S3 PEO PLO ============ -->
 <section class="slide" id="s3">
   <div class="pad">
-    <div class="kicker a">วัตถุประสงค์และผลลัพธ์การเรียนรู้</div>
-    <h1 class="t a d1">4 PEOs กำหนดทิศ · <em>5 PLOs</em> วัดผลได้จริง</h1>
+    <div class="kicker a">PEO → PLO</div>
+    <h1 class="t a d1">4 เป้าหมายบัณฑิต สู่ <em>5 ผลลัพธ์การเรียนรู้</em></h1>
   </div>
-  <div class="lab a d1" style="top:244px">Program Educational Objectives <small>บัณฑิตที่เราอยากเห็น</small></div>
-  <div class="peo">
-    <div class="card pe a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="ic"><svg class="ico"><use href="#i-target"/></svg></div><div><b>PEO 1</b><span>ผู้นำเชิงยุทธศาสตร์ และการประยุกต์ใช้เทคโนโลยี</span><i>Strategic Tech Leader</i></div></div>
-    <div class="card pe a d3" style="--c:var(--violet);--s:var(--violetSoft)"><div class="ic"><svg class="ico"><use href="#i-flask"/></svg></div><div><b>PEO 2</b><span>นักสร้างสรรค์นวัตกรรม และวิจัยประยุกต์</span><i>Applied Researcher</i></div></div>
-    <div class="card pe a d4" style="--c:var(--green);--s:var(--greenSoft)"><div class="ic"><svg class="ico"><use href="#i-shield"/></svg></div><div><b>PEO 3</b><span>ยึดมั่นธรรมาภิบาลดิจิทัล และจริยธรรม AI</span><i>Ethical Governance</i></div></div>
-    <div class="card pe a d5" style="--c:var(--amber);--s:var(--amberSoft)"><div class="ic"><svg class="ico"><use href="#i-cycle"/></svg></div><div><b>PEO 4</b><span>ผู้นำการเปลี่ยนแปลงแบบ Agile และเรียนรู้ตลอดชีวิต</span><i>Agile Change Agent</i></div></div>
-  </div>
-  <div class="flow a d5"><span class="ln"></span><span>ถ่ายทอดเป็นผลลัพธ์การเรียนรู้ระดับหลักสูตร ▼</span><span class="ln"></span></div>
-  <div class="lab a d5" style="top:536px">Program Learning Outcomes <small>สิ่งที่บัณฑิตทำได้เมื่อจบ</small></div>
-  <div class="plo">
-    <div class="card po a d6"><div class="h"><b>PLO 1</b><span>ธุรกิจ</span></div><p>ประเมินความพร้อมขององค์กร จากแบบจำลองธุรกิจและข้อจำกัด เพื่อเสนอแนวทางการเปลี่ยนผ่านดิจิทัล</p></div>
-    <div class="card po a d6"><div class="h"><b>PLO 2</b><span>AI</span></div><p>ปรับแต่งปัญญาประดิษฐ์ และเทคโนโลยีสมัยใหม่ เพื่อเพิ่มประสิทธิภาพ และผลผลิตขององค์กร</p></div>
-    <div class="card po a d7"><div class="h"><b>PLO 3</b><span>วิจัย</span></div><p>สร้างสรรค์ผลงานวิจัย หรือนวัตกรรมดิจิทัล ด้วยกระบวนการวิจัย เพื่อแก้ปัญหาจริงในอุตสาหกรรม</p></div>
-    <div class="card po a d7"><div class="h"><b>PLO 4</b><span>จริยธรรม</span></div><p>ปฏิบัติตามจริยธรรม ด้าน AI และเทคโนโลยีดิจิทัล อย่างมีธรรมาภิบาล</p></div>
-    <div class="card po a d8"><div class="h"><b>PLO 5</b><span>ภาวะผู้นำ</span></div><p>แสดงภาวะผู้นำ ขับเคลื่อนการเปลี่ยนแปลงองค์กร ด้วยแนวคิดแบบ Agile ในสภาวะที่ผันผวน</p></div>
+  <div class="rows">
+    <div class="r a d2" style="--c:var(--blue);--s:var(--blueSoft)">
+      <div class="card pe"><div class="ic"><svg class="ico"><use href="#i-target"/></svg></div><div><b>PEO 1</b><span>ผู้นำเชิงยุทธศาสตร์</span><i>Strategic Tech Leader</i></div></div>
+      <div class="ar">➜</div>
+      <div class="plos"><div class="po"><b>PLO 1</b><p>ประเมินความพร้อมองค์กร จากแบบจำลองธุรกิจและข้อจำกัด</p></div><div class="po"><b>PLO 2</b><p>ปรับแต่ง AI และเทคโนโลยีสมัยใหม่ เพิ่มผลผลิตองค์กร</p></div></div>
+    </div>
+    <div class="r a d3" style="--c:var(--violet);--s:var(--violetSoft)">
+      <div class="card pe"><div class="ic"><svg class="ico"><use href="#i-flask"/></svg></div><div><b>PEO 2</b><span>นักวิจัยและนวัตกรประยุกต์</span><i>Applied Researcher</i></div></div>
+      <div class="ar">➜</div>
+      <div class="plos"><div class="po"><b>PLO 3</b><p>สร้างงานวิจัยหรือนวัตกรรมดิจิทัล เพื่อแก้ปัญหาจริงในอุตสาหกรรม</p></div></div>
+    </div>
+    <div class="r a d4" style="--c:var(--green);--s:var(--greenSoft)">
+      <div class="card pe"><div class="ic"><svg class="ico"><use href="#i-shield"/></svg></div><div><b>PEO 3</b><span>ธรรมาภิบาลและจริยธรรม AI</span><i>Ethical Governance</i></div></div>
+      <div class="ar">➜</div>
+      <div class="plos"><div class="po"><b>PLO 4</b><p>ปฏิบัติตามจริยธรรม AI และเทคโนโลยีดิจิทัล อย่างมีธรรมาภิบาล</p></div></div>
+    </div>
+    <div class="r a d5" style="--c:var(--amber);--s:var(--amberSoft)">
+      <div class="card pe"><div class="ic"><svg class="ico"><use href="#i-cycle"/></svg></div><div><b>PEO 4</b><span>ผู้นำการเปลี่ยนแปลงแบบ Agile</span><i>Agile Change Agent</i></div></div>
+      <div class="ar">➜</div>
+      <div class="plos"><div class="po"><b>PLO 5</b><p>นำการเปลี่ยนแปลงองค์กร ด้วยแนวคิด Agile ในสภาวะที่ผันผวน</p></div></div>
+    </div>
   </div>
   <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT ฉบับปรับปรุง พ.ศ. 2570</span><span class="pg"><b>3</b> / 12</span></div>
 </section>
