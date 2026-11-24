@@ -270,25 +270,26 @@ h1.t .ch{font-style:normal}
 #tee .cp b{display:block;font-family:var(--head);font-size:26px;font-weight:600;line-height:1.2}
 #tee .cp span{display:block;font-size:24px;line-height:1.35;color:var(--ink2);margin-top:2px}
 
-/* ---------- CAREERS ---------- */
-#car .jobs{position:absolute;left:100px;right:100px;top:250px;height:350px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-#car .jb{padding:20px 20px;display:flex;flex-direction:column;gap:10px;border-top:10px solid var(--c);position:relative}
-#car .jb .icon{width:70px;height:70px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
-#car .jb .icon .ico{width:40px;height:40px}
-#car .jb .no{position:absolute;right:18px;top:12px;font-family:var(--head);font-size:52px;font-weight:700;color:var(--c);opacity:.25}
-#car .jb h3{font-family:var(--head);font-size:26px;font-weight:600;line-height:1.25;color:var(--ink)}
-#car .jb p{margin-top:auto;font-size:24px;line-height:1.35;color:var(--c);font-weight:600;padding-top:10px;border-top:2px solid var(--line)}
-#car .bot{position:absolute;left:100px;right:100px;top:628px;bottom:100px;display:grid;grid-template-columns:1fr 640px;gap:24px}
-#car .who{padding:20px 26px;display:flex;flex-direction:column;gap:12px}
+/* ---------- WHO -> CAREERS -> EMPLOYMENT ---------- */
+#car .who{position:absolute;left:100px;right:100px;top:250px;height:200px;padding:18px 26px;display:flex;flex-direction:column;gap:12px}
 #car .who h4,#car .emp h4{font-family:var(--head);font-size:28px;font-weight:600}
 #car .who .g{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-#car .who .g div{border-radius:16px;background:var(--s);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
-#car .who .g .ico{width:40px;height:40px;color:var(--c)}
-#car .who .g b{font-family:var(--head);font-size:26px;font-weight:600;color:var(--c)}
-#car .who .g span{font-size:24px;line-height:1.32;color:var(--ink2)}
-#car .emp{padding:20px 26px;display:flex;flex-direction:column;gap:12px;border-color:var(--dttLine);background:linear-gradient(170deg,var(--dttSoft),#fff 75%)}
-#car .emp .st{flex:1;display:flex;gap:18px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:18px;padding:10px 20px}
-#car .emp .st .num{font-size:64px;color:var(--violet)}
+#car .who .g div{border-radius:16px;background:var(--s);padding:12px 18px;display:grid;grid-template-columns:52px 1fr;column-gap:14px;align-items:center}
+#car .who .g .ico{width:44px;height:44px;color:var(--c);grid-row:span 2}
+#car .who .g b{font-family:var(--head);font-size:27px;font-weight:600;color:var(--c);line-height:1.2}
+#car .who .g span{font-size:24px;line-height:1.3;color:var(--ink2)}
+#car .lead{position:absolute;left:100px;right:100px;top:462px;height:36px;display:flex;align-items:center;gap:16px;font-size:25px;font-weight:600;color:var(--ink2)}
+#car .lead .ln{flex:1;border-top:4px dashed #C4B5FD}
+#car .jobs{position:absolute;left:100px;right:100px;top:510px;height:296px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+#car .jb{padding:18px 20px;display:flex;flex-direction:column;gap:10px;border-top:10px solid var(--c);position:relative}
+#car .jb .icon{width:64px;height:64px;border-radius:18px;background:var(--s);color:var(--c);display:flex;align-items:center;justify-content:center}
+#car .jb .icon .ico{width:38px;height:38px}
+#car .jb .no{position:absolute;right:18px;top:10px;font-family:var(--head);font-size:50px;font-weight:700;color:var(--c);opacity:.25}
+#car .jb h3{font-family:var(--head);font-size:26px;font-weight:600;line-height:1.25;color:var(--ink)}
+#car .jb p{margin-top:auto;font-size:24px;line-height:1.35;color:var(--c);font-weight:600;padding-top:10px;border-top:2px solid var(--line)}
+#car .emp{position:absolute;left:100px;right:100px;top:826px;bottom:100px;padding:14px 26px;display:grid;grid-template-columns:400px 1fr 1fr;gap:20px;align-items:center;border-color:var(--dttLine);background:linear-gradient(170deg,var(--dttSoft),#fff 75%)}
+#car .emp .st{display:flex;gap:18px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:18px;padding:8px 20px;height:100%}
+#car .emp .st .num{font-size:60px;color:var(--violet)}
 #car .emp .st .num small{font-size:30px}
 #car .emp .st b{display:block;font-size:25px;font-weight:700;color:var(--ink)}
 #car .emp .st span{display:block;font-size:24px;color:var(--ink2);line-height:1.3}
@@ -550,21 +551,20 @@ h1.t .ch{font-style:normal}
     <div class="kicker a" style="color:var(--violet);background:var(--violetSoft)">บทที่ 3 · ดีกว่า</div>
     <h1 class="t a d1"><span class="ch ch-b">ดีกว่า #2</span> ใครมาเรียน และจบไปเป็นอะไร</h1>
   </div>
-  <div class="jobs"><div class="card jb a d2" style="--c:var(--blue);--s:var(--blueSoft)"><div class="no">01</div><div class="icon"><svg class="ico"><use href="#i-target"/></svg></div><h3>นักบริหาร/นักยุทธศาสตร์ การเปลี่ยนผ่านดิจิทัล</h3><p>CDO · DT Director · Strategy Consultant</p></div><div class="card jb a d3" style="--c:var(--teal);--s:var(--tealSoft)"><div class="no">02</div><div class="icon"><svg class="ico"><use href="#i-devices"/></svg></div><h3>ที่ปรึกษาเทคโนโลยีดิจิทัล และนวัตกรรม</h3><p>Solutions Architect · IT Consultant</p></div><div class="card jb a d4" style="--c:var(--violet);--s:var(--violetSoft)"><div class="no">03</div><div class="icon"><svg class="ico"><use href="#i-ai"/></svg></div><h3>ผู้จัดการโครงการนวัตกรรม และ AI ประยุกต์</h3><p>AI Specialist · Product Owner</p></div><div class="card jb a d5" style="--c:var(--green);--s:var(--greenSoft)"><div class="no">04</div><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div><h3>ผู้จัดการธรรมาภิบาลข้อมูล และความปลอดภัยไซเบอร์</h3><p>AI Ethics Lead · AI Auditor</p></div><div class="card jb a d6" style="--c:var(--amber);--s:var(--amberSoft)"><div class="no">05</div><div class="icon"><svg class="ico"><use href="#i-bulb"/></svg></div><h3>นักวิจัย นักพัฒนา และผู้ประกอบการนวัตกรรม</h3><p>Startup Founder · R&amp;D Specialist</p></div></div>
-  <div class="bot">
-    <div class="card who a d6">
-      <h4>เปิดรับผู้เรียนหลากหลาย</h4>
+  <div class="card who a d2">
+      <h4>ใครมาเรียน: เปิดรับผู้เรียนหลากหลาย</h4>
       <div class="g">
         <div style="--c:var(--blue);--s:var(--blueSoft)"><svg class="ico"><use href="#i-cap"/></svg><b>IT และ Non-IT</b><span>รวมถึง DTBI, CE, DCE ที่ต้องการจบเร็วขึ้น</span></div>
         <div style="--c:var(--amber);--s:var(--amberSoft)"><svg class="ico"><use href="#i-globe"/></svg><b>ไทยและต่างชาติ</b><span>รวมนักศึกษาต่างชาติ ที่เรียนตรีในไทย</span></div>
-        <div style="--c:var(--green);--s:var(--greenSoft)"><svg class="ico"><use href="#i-brief"/></svg><b>คนทำงาน</b><span>Reskill / Upskill และ Change Agent ขององค์กร</span></div>
+        <div style="--c:var(--green);--s:var(--greenSoft)"><svg class="ico"><use href="#i-brief"/></svg><b>คนทำงาน</b><span>Reskill / Upskill · Change Agent</span></div>
       </div>
-    </div>
-    <div class="card emp a d7">
+  </div>
+  <div class="lead a d3"><span class="ln"></span><span>จบไปเป็นอะไร: 5 เส้นทางอาชีพ ▼</span><span class="ln"></span></div>
+  <div class="jobs"><div class="card jb a d3" style="--c:var(--blue);--s:var(--blueSoft)"><div class="no">01</div><div class="icon"><svg class="ico"><use href="#i-target"/></svg></div><h3>นักบริหาร/นักยุทธศาสตร์ การเปลี่ยนผ่านดิจิทัล</h3><p>CDO · DT Director · Strategy Consultant</p></div><div class="card jb a d4" style="--c:var(--teal);--s:var(--tealSoft)"><div class="no">02</div><div class="icon"><svg class="ico"><use href="#i-devices"/></svg></div><h3>ที่ปรึกษาเทคโนโลยีดิจิทัล และนวัตกรรม</h3><p>Solutions Architect · IT Consultant</p></div><div class="card jb a d5" style="--c:var(--violet);--s:var(--violetSoft)"><div class="no">03</div><div class="icon"><svg class="ico"><use href="#i-ai"/></svg></div><h3>ผู้จัดการโครงการนวัตกรรม และ AI ประยุกต์</h3><p>AI Specialist · Product Owner</p></div><div class="card jb a d6" style="--c:var(--green);--s:var(--greenSoft)"><div class="no">04</div><div class="icon"><svg class="ico"><use href="#i-shield"/></svg></div><h3>ผู้จัดการธรรมาภิบาลข้อมูล และความปลอดภัยไซเบอร์</h3><p>AI Ethics Lead · AI Auditor</p></div><div class="card jb a d7" style="--c:var(--amber);--s:var(--amberSoft)"><div class="no">05</div><div class="icon"><svg class="ico"><use href="#i-bulb"/></svg></div><h3>นักวิจัย นักพัฒนา และผู้ประกอบการนวัตกรรม</h3><p>Startup Founder · R&amp;D Specialist</p></div></div>
+  <div class="card emp a d7">
       <h4>ภาวะการมีงานทำ ตามรุ่นรับเข้า</h4>
       <div class="st"><div class="num">91.7<small>%</small></div><div><b>รุ่นรับเข้า 2565</b><span>จบ 12 · ทำงาน 11 · ศึกษาต่อ 1</span></div></div>
       <div class="st"><div class="num">100<small>%</small></div><div><b>รุ่นรับเข้า 2566</b><span>จบ 3 · ทำงานทั้ง 3 คน</span></div></div>
-    </div>
   </div>
   <div class="foot"><span class="src">ที่มา: เอกสารหลักสูตร DTT 2570 · ภาวะการมีงานทำตามรุ่นรับเข้า (2565 = 2022, 2566 = 2023)</span><span class="pg"><b>11</b> / 12</span></div>
 </section>
