@@ -286,6 +286,24 @@ ul.dots li::before{content:"";width:10px;height:10px;border-radius:50%;backgroun
 #eq .lect{background:#FFF2D4;border-color:#E9C77E}
 #eq .lect .ico{color:#A87A2C}
 
+/* slide 10 v2: shares + what teams get */
+#eq .sh{position:absolute;left:100px;right:100px;top:262px;padding:22px 30px}
+#eq .sh .bar{height:86px;margin-top:14px}
+#eq .sh .bar div{font-size:28px}
+#eq .rl{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;align-items:center}
+#eq .rl span{display:inline-flex;align-items:center;gap:10px;font-size:23px;font-weight:600;color:var(--ink2);background:#FFF7E6;border:2px solid #EBDDBF;border-radius:999px;padding:6px 18px}
+#eq .rl .ico{width:26px;height:26px;color:#9E1B1F}
+#eq .note{font-size:22px;color:#7A5A00;margin-top:12px;display:flex;align-items:center;gap:10px}
+#eq .note .ico{width:28px;height:28px;color:#A87A2C}
+#eq .gh{position:absolute;left:100px;top:612px;font-family:var(--head);font-size:30px;font-weight:600;color:var(--ink)}
+#eq .gh span{font-size:22px;font-weight:600;color:#fff;background:#9E1B1F;padding:3px 14px;border-radius:999px;margin-left:12px;vertical-align:middle}
+#eq .gets{position:absolute;left:100px;right:100px;top:664px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+#eq .gt{padding:16px 20px;display:grid;grid-template-columns:62px 1fr;gap:2px 16px;align-items:center}
+#eq .gt .bub{width:62px;height:62px;border-radius:16px;background:var(--cs);color:var(--c);display:flex;align-items:center;justify-content:center;grid-row:span 2}
+#eq .gt .bub .ico{width:34px;height:34px}
+#eq .gt b{font-family:var(--head);font-size:30px;font-weight:700;color:var(--ink);line-height:1.1}
+#eq .gt p{font-size:22px;color:var(--ink2);line-height:1.3}
+
 /* 9 status quo */
 #sq .grid{position:absolute;left:100px;right:100px;top:262px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;grid-template-rows:repeat(2,276px)}
 #sq .b{padding:22px 26px 24px}
@@ -710,28 +728,25 @@ ul.dots li::before{content:"";width:10px;height:10px;border-radius:50%;backgroun
   <div class="part a"><span class="on">Dean's Briefing</span><span class="">ท้าทายสิ่งเดิม</span><span class="">Workshop</span></div>
   <div class="brand a"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNRlUtQVJJQyBsb2dvIG1hcmsiPgogIDx0aXRsZT5NRlUtQVJJQyDigJQgQUkgJmFtcDsgUm9ib3RpY3MgSW5ub3ZhdGlvbiBDZW50ZXI8L3RpdGxlPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJyYW5nZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNDODEwMkUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjN0EwQzFFIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KCiAgPCEtLSBzdW4gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAtMTkpIj4KICA8Y2lyY2xlIGN4PSI0MTgiIGN5PSIxODAiIHI9IjMwIiBmaWxsPSIjRTRCMDRBIi8+CgogIDwhLS0gbW91bnRhaW4gcmFuZ2U6IG9uZSBzaWxob3VldHRlLCB0d28gcGVha3MgLS0+CiAgPHBhdGggZD0iTTU2LjAgNDAwLjAgTDEyMi45IDMxMy4xIFExNDUuNCAyODMuNyAxNjUuOCAyNzYuNiBRMTg2LjIgMjY5LjUgMjA0LjUgMjg0LjYgTDIwNy41IDI4Ny4yIFEyMjUuOCAzMDIuMyAyNDIuOCAyOTkuNSBRMjU5LjggMjk2LjcgMjc1LjYgMjc2LjEgTDI4My41IDI2NS43IFEzMDEuOCAyNDEuOSAzMjMuNSAyNDYuOCBRMzQ1LjEgMjUxLjYgMzcwLjMgMjg1LjMgTDQ1Ni4wIDQwMC4wIEwzNTIuMCA0MDAuMCBMMjIwLjAgNDAwLjAgTDU2LjAgNDAwLjAgWiIgZmlsbD0idXJsKCNyYW5nZSkiLz4KICA8Zz4KICAgIDxwYXRoIGQ9Ik01Ni4wIDQwMC4wIEwxMjIuOSAzMTMuMSBRMTQ1LjQgMjgzLjcgMTY1LjggMjc2LjYgTDIzMi4wIDM2Ni40IEw1Ni4wIDQwMC4wIFoiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wOSIvPgogICAgPHBhdGggZD0iTTU2LjAgNDAwLjAgTDIzMi4wIDM2Ni40IEwyMjAuMCA0MDAuMCBMNTYuMCA0MDAuMCBaIiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMjI1Ii8+CiAgICA8cGF0aCBkPSJNMTY1LjggMjc2LjYgUTE4Ni4yIDI2OS41IDIwNC41IDI4NC42IEwyMDcuNSAyODcuMiBRMjI1LjggMzAyLjMgMjQyLjggMjk5LjUgTDIzMi4wIDM2Ni40IEwxNjUuOCAyNzYuNiBaIiBmaWxsPSIjRkZGRkZGIiBmaWxsLW9wYWNpdHk9IjAuMDkiLz4KICAgIDxwYXRoIGQ9Ik0yNDIuOCAyOTkuNSBMMzAwLjAgMjk3LjggTDIzMi4wIDM2Ni40IEwyNDIuOCAyOTkuNSBaIiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMTM1Ii8+CiAgICA8cGF0aCBkPSJNMjQyLjggMjk5LjUgUTI1OS44IDI5Ni43IDI3NS42IDI3Ni4xIEwyODMuNSAyNjUuNyBRMzAxLjggMjQxLjkgMzIzLjUgMjQ2LjggTDMwMC4wIDI5Ny44IEwyNDIuOCAyOTkuNSBaIiBmaWxsPSIjRkZGRkZGIiBmaWxsLW9wYWNpdHk9IjAuMTI1Ii8+CiAgICA8cGF0aCBkPSJNMzIzLjUgMjQ2LjggTDM1Mi4wIDM0Ni44IEwzMDAuMCAyOTcuOCBMMzIzLjUgMjQ2LjggWiIgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjE2NSIvPgogICAgPHBhdGggZD0iTTMyMy41IDI0Ni44IFEzNDUuMSAyNTEuNiAzNzAuMyAyODUuMyBMNDU2LjAgNDAwLjAgTDM1Mi4wIDM0Ni44IEwzMjMuNSAyNDYuOCBaIiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMjU1Ii8+CiAgICA8cGF0aCBkPSJNMzAwLjAgMjk3LjggTDM1Mi4wIDM0Ni44IEwyMzIuMCAzNjYuNCBMMzAwLjAgMjk3LjggWiIgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjEwNSIvPgogICAgPHBhdGggZD0iTTIzMi4wIDM2Ni40IEwzNTIuMCAzNDYuOCBMMzUyLjAgNDAwLjAgTDIzMi4wIDM2Ni40IFoiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4xOTUiLz4KICAgIDxwYXRoIGQ9Ik0yMzIuMCAzNjYuNCBMMzUyLjAgNDAwLjAgTDIyMC4wIDQwMC4wIEwyMzIuMCAzNjYuNCBaIiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMjg1Ii8+CiAgICA8cGF0aCBkPSJNMzUyLjAgMzQ2LjggTDQ1Ni4wIDQwMC4wIEwzNTIuMCA0MDAuMCBMMzUyLjAgMzQ2LjggWiIgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjMiLz4KICA8L2c+CiAgPGcgc3Ryb2tlPSIjRjNENDhBIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC44NSI+CiAgICA8cGF0aCBkPSJNNTYuMCA0MDAuMCBMMTIyLjkgMzEzLjEgUTE0NS40IDI4My43IDE2NS44IDI3Ni42Ii8+CiAgICA8cGF0aCBkPSJNMTY1LjggMjc2LjYgTDIzMi4wIDM2Ni40Ii8+CiAgICA8cGF0aCBkPSJNNTYuMCA0MDAuMCBMMjMyLjAgMzY2LjQiLz4KICAgIDxwYXRoIGQ9Ik0yMjAuMCA0MDAuMCBMMjMyLjAgMzY2LjQiLz4KICAgIDxwYXRoIGQ9Ik0xNjUuOCAyNzYuNiBRMTg2LjIgMjY5LjUgMjA0LjUgMjg0LjYgTDIwNy41IDI4Ny4yIFEyMjUuOCAzMDIuMyAyNDIuOCAyOTkuNSIvPgogICAgPHBhdGggZD0iTTIzMi4wIDM2Ni40IEwyNDIuOCAyOTkuNSIvPgogICAgPHBhdGggZD0iTTI0Mi44IDI5OS41IEwzMDAuMCAyOTcuOCIvPgogICAgPHBhdGggZD0iTTIzMi4wIDM2Ni40IEwzMDAuMCAyOTcuOCIvPgogICAgPHBhdGggZD0iTTI0Mi44IDI5OS41IFEyNTkuOCAyOTYuNyAyNzUuNiAyNzYuMSBMMjgzLjUgMjY1LjcgUTMwMS44IDI0MS45IDMyMy41IDI0Ni44Ii8+CiAgICA8cGF0aCBkPSJNMzAwLjAgMjk3LjggTDMyMy41IDI0Ni44Ii8+CiAgICA8cGF0aCBkPSJNMzIzLjUgMjQ2LjggTDM1Mi4wIDM0Ni44Ii8+CiAgICA8cGF0aCBkPSJNMzAwLjAgMjk3LjggTDM1Mi4wIDM0Ni44Ii8+CiAgICA8cGF0aCBkPSJNMzIzLjUgMjQ2LjggUTM0NS4xIDI1MS42IDM3MC4zIDI4NS4zIEw0NTYuMCA0MDAuMCIvPgogICAgPHBhdGggZD0iTTM1Mi4wIDM0Ni44IEw0NTYuMCA0MDAuMCIvPgogICAgPHBhdGggZD0iTTIzMi4wIDM2Ni40IEwzNTIuMCAzNDYuOCIvPgogICAgPHBhdGggZD0iTTM1Mi4wIDM0Ni44IEwzNTIuMCA0MDAuMCIvPgogICAgPHBhdGggZD0iTTIzMi4wIDM2Ni40IEwzNTIuMCA0MDAuMCIvPgogIDwvZz4KICA8ZyBmaWxsPSIjRTRCMDRBIj48Y2lyY2xlIGN4PSIzMDAuMCIgY3k9IjI5Ny44IiByPSI3LjIiLz48Y2lyY2xlIGN4PSIyMzIuMCIgY3k9IjM2Ni40IiByPSI3LjIiLz48Y2lyY2xlIGN4PSIzNTIuMCIgY3k9IjM0Ni44IiByPSI3LjIiLz48L2c+CiAgPGcgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTRCMDRBIiBzdHJva2Utd2lkdGg9IjUiPjxjaXJjbGUgY3g9IjE2NS44IiBjeT0iMjc2LjYiIHI9IjEyIi8+PGNpcmNsZSBjeD0iMjQyLjgiIGN5PSIyOTkuNSIgcj0iMTAiLz48Y2lyY2xlIGN4PSIzMjMuNSIgY3k9IjI0Ni44IiByPSIxMyIvPjwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="ARIC logo"><div><b>ARIC</b><span>AI &amp; Robotics Innovation Center</span></div></div>
   <div class="pad">
-    <span class="kicker a">การแบ่งคุณค่า</span>
-    <h1 class="t a d1">ใครได้อะไร: <em>หุ้น เงิน และกติกา</em></h1>
+    <span class="kicker a">ร่วมท้าทาย</span>
+    <h1 class="t a d1">ทีมได้อะไร <em>และใครเป็นเจ้าของบริษัท</em></h1>
   </div>
-  <div class="L">
-    <div class="box card a d2"><h4>หุ้นเมื่อตั้งบริษัท<span>ทุกบริษัทที่เกิดจาก ARIC</span></h4>
-      <div class="bar"><div class="w" style="width:65%;background:#B3262B">ผู้ก่อตั้ง 65%</div><div class="flex" style="width:10%">+10%</div><div style="width:10%;background:#D99A1E">10%</div><div class="w" style="width:15%;background:#2F6FA3">MFX 15%</div></div>
-      <div class="lg"><span><i style="background:#B3262B"></i>ผู้ก่อตั้ง 65–75%</span><span><i class="flex"></i>ยืดหยุ่น: ผู้ก่อตั้งหรือที่ปรึกษา</span><span><i style="background:#D99A1E"></i>ที่ปรึกษา 10–20%</span><span><i style="background:#2F6FA3"></i>MFX (บริษัทโฮลดิ้งของมหาวิทยาลัย) คงที่ 15%</span></div></div>
-    <div class="box card a d3"><h4>ทุนต่อทีม ต่อรอบ: ฿100,000</h4>
-      <div class="bar"><div style="width:50%;background:#D99A1E">ที่ปรึกษา ฿50k</div><div class="w" style="width:40%;background:#B3262B">นักพัฒนา ฿40k</div><div class="w" style="width:10%;background:#8A7F72">฿10k</div></div>
-      <div class="lg"><span><i style="background:#8A7F72"></i>วัสดุ ฿10k</span></div></div>
-    <div class="box card a d4"><h4>กติกาหลัก</h4><div class="rules">
-      <div><svg class="ico"><use href="#i-shield"/></svg><span>MFX ถือคงที่ 15% ไม่คุมบอร์ด</span></div><div><svg class="ico"><use href="#i-coins"/></svg><span>15% ชำระด้วยทรัพยากรของ ARIC (DGX, AI agent, พี่เลี้ยง, ทุน) ไม่ใช่เงินสด ประกาศก่อนแข่ง</span></div>
-      <div><svg class="ico"><use href="#i-clock"/></svg><span>หุ้นทุกส่วน vest 4 ปี cliff 1 ปี</span></div><div><svg class="ico"><use href="#i-handshake"/></svg><span>ทีมงาน ARIC ไม่ถือหุ้นส่วนตัว เลี่ยงผลประโยชน์ทับซ้อน</span></div></div></div>
+  <div class="sh card a d2"><h4>หุ้นเมื่อตั้งบริษัท<span>ทุกบริษัทที่เกิดจาก ARIC</span></h4>
+    <div class="bar"><div class="w" style="width:65%;background:#B3262B">ผู้ก่อตั้ง 65%</div><div class="flex" style="width:10%">+10%</div><div style="width:10%;background:#D99A1E">10%</div><div class="w" style="width:15%;background:#2F6FA3">MFX 15%</div></div>
+    <div class="lg"><span><i style="background:#B3262B"></i>ผู้ก่อตั้ง 65–75%</span><span><i class="flex"></i>ยืดหยุ่น: ผู้ก่อตั้งหรือที่ปรึกษา</span><span><i style="background:#D99A1E"></i>ที่ปรึกษา 10–20%</span><span><i style="background:#2F6FA3"></i>MFX (บริษัทโฮลดิ้งของมหาวิทยาลัย) คงที่ 15%</span></div>
+    <div class="rl a d3"><span><svg class="ico"><use href="#i-coins"/></svg>หุ้น 15% ของ MFX ชำระด้วยการสนับสนุน ไม่ใช่เงินสด</span><span><svg class="ico"><use href="#i-shield"/></svg>ไม่คุมบอร์ด ทีมเป็นเจ้าของบริษัท</span><span><svg class="ico"><use href="#i-clock"/></svg>vest 4 ปี cliff 1 ปี</span></div>
+    <div class="note a d3"><svg class="ico"><use href="#i-cap"/></svg>อาจารย์ที่เป็นที่ปรึกษาทีม มีส่วนในหุ้นที่ปรึกษาได้ (ข้อเสนอ)</div>
   </div>
-  <div class="R">
-    <div class="phc a d5"><b>ระยะที่ 1 · ปีที่ 1–2</b><p>อยู่ใต้สำนักวิชา ADT · งบ ฿6.19 ล้าน 2 ปี · อัตราใหม่ 2 อัตรา · 9 ทีม/ปี · คาดคืนกลับ ~85% ของต้นทุน (เงินสด 27% + มูลค่าหุ้น 58%)</p></div>
-    <div class="phc p2 a d5"><b>ระยะที่ 2 · ปีที่ 3 เป็นต้นไป</b><p>ย้ายไปอยู่ใต้ MFX · ทีม spin-off เป็นบริษัท · กองทุน pre-seed ฿5–10 ล้าน/ปี (รายละ ฿0.5–1 ล้าน)</p></div>
-    <div class="box card a d6"><h4>เป้าหมาย 5 ปี<span>ปีงบ 2570–2574</span></h4><div class="tg">
-      <div><div class="num">45</div><p>ทีมที่ได้รับการบ่มเพาะ</p></div><div><div class="num">19</div><p>โครงการนำร่องที่มีผู้จ่ายเงิน</p></div><div><div class="num">8</div><p>บริษัทใหม่</p></div></div></div>
-    <div class="lect a d7"><svg class="ico"><use href="#i-cap"/></svg><span><b>สำหรับอาจารย์:</b> เป็นที่ปรึกษาทีม ได้ค่าตอบแทนรายรอบ และมีส่วนในหุ้นที่ปรึกษา 10–20%<small>ข้อเสนอ: สิทธิ์ของอาจารย์ต้องเป็นไปตามกติกาผลประโยชน์ทับซ้อนของมหาวิทยาลัย</small></span></div>
+  <div class="gh a d4">ทุกทีมที่ผ่านการคัดเลือกได้รับ<span>ทุกรอบ 4 เดือน</span></div>
+  <div class="gets">
+    <div class="gt card a d4" style="--c:#9E1B1F;--cs:#FBE3DC"><div class="bub"><svg class="ico"><use href="#i-coins"/></svg></div><b>฿100,000</b><p>ทุนสร้าง MVP ต่อทีม</p></div>
+    <div class="gt card a d4" style="--c:#A87A2C;--cs:#FFF2D4"><div class="bub"><svg class="ico"><use href="#i-handshake"/></svg></div><b>ที่ปรึกษาอุตสาหกรรม</b><p>ประกบทีมจากไอเดียสู่ผู้ใช้ที่จ่ายเงิน</p></div>
+    <div class="gt card a d4" style="--c:#9E1B1F;--cs:#FBE3DC"><div class="bub"><svg class="ico"><use href="#i-ai"/></svg></div><b>DGX + AI coding agent</b><p>เครื่องมือและพลังประมวลผลจากส่วนกลาง</p></div>
+    <div class="gt card a d5" style="--c:#A87A2C;--cs:#FFF2D4"><div class="bub"><svg class="ico"><use href="#i-users"/></svg></div><b>Tech PM ประกบ</b><p>ดูแลทีมรายวันตลอดรอบ</p></div>
+    <div class="gt card a d5" style="--c:#9E1B1F;--cs:#FBE3DC"><div class="bub"><svg class="ico"><use href="#i-rocket"/></svg></div><b>เวทีระดับประเทศ</b><p>ออกบูธ SITE · Techsauce · DigiTech ASEAN พบลูกค้าและนักลงทุน</p></div>
+    <div class="gt card a d5" style="--c:#A87A2C;--cs:#FFF2D4"><div class="bub"><svg class="ico"><use href="#i-star"/></svg></div><b>ทุนต่อยอด</b><p>pre-seed ฿0.5–1 ล้าน ต่อบริษัทที่ spin-off</p></div>
   </div>
-  <div class="foot"><span class="src">แผนแนวคิด ARIC ศูนย์สร้างนวัตกรรม AI และหุ่นยนต์ (สำนักวิชา ADT มิ.ย. 2569) · เป็นเป้าหมายตามแผน รอสภามหาวิทยาลัยอนุมัติ · มูลค่าหุ้นยังไม่ใช่เงินสดจนกว่าจะขาย</span><span class="pg"><b>10</b> / 19</span></div>
+  <div class="foot"><span class="src">แผนแนวคิด ARIC ศูนย์สร้างนวัตกรรม AI และหุ่นยนต์ (สำนักวิชา ADT มิ.ย. 2569) · รอสภามหาวิทยาลัยอนุมัติ · หุ้นที่ปรึกษาของอาจารย์เป็นข้อเสนอ ต้องเป็นไปตามกติกาผลประโยชน์ทับซ้อนของมหาวิทยาลัย</span><span class="pg"><b>10</b> / 19</span></div>
 </section>
 
 <section class="slide" id="sq">
