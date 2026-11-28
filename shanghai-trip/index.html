@@ -188,7 +188,7 @@ footer{color:var(--muted);font-size:13px;margin-top:28px}
       <h3><svg class="i"><use href="#bed"/></svg>โรงแรม</h3>
       <ul>
         <li><b>Lucky Hotel</b> ติดสถานี People's Square และถนนคนเดินหนานจิง</li>
-        <li>ชื่อจีน <b>幸会臻选酒店(上海人民广场地铁站南京路步行街店)</b> · 黄河路150号 (ถนนเดียวกับร้าน Jia Jia Tang Bao และ Xiao Yang's)</li>
+        <li>ชื่อจีน <b>幸会臻选酒店(上海人民广场地铁站南京路步行街店)</b></li>
         <li>20–26 ธ.ค. · 6 คืน · ห้อง Family Quadruple 1 + Twin 1</li>
         <li><b>Da Zhong Airport Hotel 上海大众空港宾馆</b> คืน 26 ธ.ค. · ในเขตสนามบินปูตง · เช็คอินหลัง 14:00</li>
         <li><b>ไม่มีอาหารเช้า</b> ทุกวันมีร้านอาหารเช้าใกล้โรงแรมในตาราง</li>
@@ -356,7 +356,7 @@ const days=[
  ['bed','14:00–17:00','เช็คอินโรงแรมสนามบิน (เข้าได้หลัง 14:00) พักผ่อน เด็กเล็กงีบ','ถามแผนกต้อนรับเรื่องไปอาคาร T1 พรุ่งนี้เช้า: เดินได้ไหม หรือต้องเรียกรถระยะสั้น (ใบจองระบุว่าโรงแรมไม่มีบริการรับส่ง) · ขอปลุก 04:00'],
  ['food','17:30–18:30','มื้อเย็นส่งท้าย ร้านอาหารในโรงแรมหรือในอาคารผู้โดยสาร','ย่านโรงแรมสนามบินมีร้านไม่มาก ตรวจตัวเลือกใน Amap ก่อน · ไม่ต้องกลับเข้าเมือง','','浦东国际机场 餐厅'],
  ['moon','19:00–20:30','เตรียมพาสปอร์ต ใบจอง และกระเป๋าไว้หน้าประตู ตั้งนาฬิกาปลุก 04:00 เข้านอนก่อน 20:30','พรุ่งนี้ตื่นเช้ามาก ให้ผู้สูงอายุและเด็กนอนเร็ว']],
- alt:'ที่พักคืนนี้: Da Zhong Airport Hotel 上海大众空港宾馆 · 6001 Yingbin Avenue, Pudong Airport (ใน Trip.com กด Local-language address เพื่อแสดงที่อยู่ภาษาจีน) · เช็คอินหลัง 14:00 · ซินเทียนตี้ตัดออกจากวันนี้ เพราะจะออกไปสนามบินช้าและเจอรถติดบ่ายวันเสาร์ ถ้าอยากไปจริงๆ ไปช่วง 12:00–13:00 แล้วออกไปสนามบินช้าลงราว 1 ชั่วโมง'},
+ alt:'ที่พักคืนนี้: Da Zhong Airport Hotel 上海大众空港宾馆 · ในเขตสนามบินปูตง (ที่อยู่ดูในแอป Trip.com) · เช็คอินหลัง 14:00 · ซินเทียนตี้ตัดออกจากวันนี้ เพราะจะออกไปสนามบินช้าและเจอรถติดบ่ายวันเสาร์ ถ้าอยากไปจริงๆ ไปช่วง 12:00–13:00 แล้วออกไปสนามบินช้าลงราว 1 ชั่วโมง'},
 {id:'d27',n:27,dow:'อาทิตย์',t:'เดินทางกลับเชียงใหม่ ต่อเครื่องที่คุนหมิง',img:'pvg',acc:'#d7432f',it:[
  ['moon','04:00–04:45','ตื่น เช็คเอาต์ ไปอาคาร T1 (เที่ยวบิน MU5820 ออกจาก T1)','โรงแรมอยู่ในเขตสนามบิน ไม่ต้องตื่นตี 3 · ถ้าต้องเรียกรถระยะสั้น ≈ ¥30 · มื้อเช้า: ของที่ซื้อไว้เมื่อวาน หรือร้านในสนามบินหลังผ่านตรวจ','','上海浦东国际机场 T1航站楼'],
  ['ticket','~05:00','ถึงเคาน์เตอร์เช็คอิน ก่อนเวลาบินราว 2 ชั่วโมง','','','上海浦东国际机场'],
@@ -373,8 +373,8 @@ const T=[sum(rows,1),sum(rows,2),sum(rows,3)], TOTAL=T[0]+T[1]+T[2];
 const tag={book:'ต้องจอง',free:'ฟรี',opt:'ตัดได้',dis:'กลุ่มดิสนีย์',sen:'พ่อแม่',pu:'ปู่',bib:'มิชลิน Bib Gourmand'};
 
 /* ---- DiDi destinations: key 'dayId|time' -> list of [label, text to paste, amap city] ---- */
-const HOTEL_CN='幸会臻选酒店(上海人民广场地铁站南京路步行街店)', HOTEL_ADDR='上海市黄浦区黄河路150号';
-const H=[['กลับ Lucky Hotel',HOTEL_CN],['ที่อยู่',HOTEL_ADDR]];
+const HOTEL_CN='幸会臻选酒店(上海人民广场地铁站南京路步行街店)', HOTEL_ADDR='';
+const H=[['กลับ Lucky Hotel',HOTEL_CN]];
 const DD={
  'd20|21:30–22:45':H,
  'd21|09:30–10:15':[['ไปริมแม่น้ำผู่ตง','陆家嘴滨江大道']],
@@ -393,7 +393,7 @@ const DD={
  'd25|08:30–11:30':H,
  'd25|11:30–13:00':[['จากพิพิธภัณฑ์ไปร้านหม้อไฟ','海底捞火锅(南京东路)']],
  'd25|14:00–15:00':H,
- 'd26|12:45–14:00':[['ไปโรงแรมสนามบิน','上海大众空港宾馆'],['ที่อยู่','上海市浦东新区迎宾大道6001号']],
+ 'd26|12:45–14:00':[['ไปโรงแรมสนามบิน','上海大众空港宾馆']],
  'd27|04:00–04:45':[['ไปอาคาร T1','浦东国际机场T1航站楼']]
 };
 const ddHtml=(did,t)=>(DD[did+'|'+t]||[]).map(([l,txt,city])=>`<span class="dd"><span class="ddl">DiDi · ${l}</span><code>${txt}</code><button type="button" class="cp" data-t="${txt}">คัดลอก</button>${/^(上海市|ที่อยู่)/.test(txt)?'':mapLink(city?[txt,city]:txt,'Amap')}</span>`).join('');
@@ -430,7 +430,7 @@ document.getElementById('daily').innerHTML='<thead><tr><th>วัน (บาท)
 /* ---- cards: [name, note, when, img key or '', amap keyword, photo search, tags] ---- */
 const card=(x,icon)=>`<div class="pl"><div class="pic">${x[3]?`<img src="${IMG[x[3]]}" alt="${x[0]}" loading="lazy">`:`<svg class="i"><use href="#${icon}"/></svg>`}${x[2]?`<span class="when">${x[2]}</span>`:''}</div><div class="in"><b>${x[0]}</b><small>${yb(x[1])}</small>${x[6]?`<span>${x[6].split(' ').map(t=>`<span class="tag ${t}" style="margin-left:0">${tag[t]}</span>`).join(' ')}</span>`:''}<div class="links">${mapLink(x[4],'เปิดใน Amap')}${x[5]?`<a class="ph" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(x[5])}" target="_blank" rel="noopener"><svg class="i" style="width:14px;height:14px"><use href="#camera"/></svg>ดูรูปเพิ่ม</a>`:''}</div></div></div>`;
 const places=[
- ['Lucky Hotel 幸会臻选酒店','ที่พัก ติดสถานี People\'s Square เลขที่ 150 ถนน Huanghe 黄河路 ภาพนี้คือถนนหนานจิงใกล้โรงแรม','20–26 ธ.ค.','hotel','幸会臻选酒店 黄河路150号','Lucky Hotel Shanghai People\'s Square Nanjing Road'],
+ ['Lucky Hotel 幸会臻选酒店','ที่พัก ติดสถานี People\'s Square ภาพนี้คือถนนหนานจิงใกล้โรงแรม','20–26 ธ.ค.','hotel','幸会臻选酒店','Lucky Hotel Shanghai People\'s Square Nanjing Road'],
  ['ริมแม่น้ำผู่ตง','เดินราบ ชมตึกฝั่งเดอะบันด์และหอไข่มุก','21 ธ.ค.','pudong','滨江大道 陆家嘴','Lujiazui Binjiang Avenue riverside Shanghai'],
  ['เซี่ยงไฮ้ดิสนีย์แลนด์','ผู้ใหญ่ 2 เด็ก 2 ไม่รวมบัตรในงบ','22 ธ.ค.','disney','上海迪士尼乐园','Shanghai Disneyland'],
  ['ถนนคนเดินหนานจิงตะวันออก','พ่อแม่ช้อปปิ้ง ของฝาก ขนม ห้างเก่าแก่','22 ธ.ค.','shop','南京东路步行街','Nanjing Road pedestrian street shopping'],
